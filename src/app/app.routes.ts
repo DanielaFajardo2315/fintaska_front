@@ -5,6 +5,9 @@ import { Profile } from './pages/profile/profile';
 import { Finances } from './pages/finances/finances';
 import { Register } from './pages/register/register';
 import { Admin } from './pages/admin/admin';
+import { Board } from './pages/board/board';
+import { Planner } from './pages/planner/planner';
+import { Tree } from './pages/tree/tree';
 
 export const routes: Routes = [
     { path: '', component: Home, title: 'Inicio'},
@@ -12,5 +15,8 @@ export const routes: Routes = [
     {path: 'finances', component:Finances, title: 'Finanzas'},
     {path: 'register', component:Register, title: 'Registro'},
     {path: 'admin', component:Admin, title: 'Administrador'},
+    {path:'board', component: Board, title:'Tablero'},
+    {path: 'planner', component: Planner, title: 'Planeador'},
+    {path: 'tree', component: Tree, title: 'Arbol'},
     { path: '**', component: NotFound, title: '404'}
 ];
