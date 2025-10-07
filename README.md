@@ -46,6 +46,7 @@ Las dependencias y herramientas necesarias para el funcionamiento de este proyec
 
 ### Inicio de sesión
 <img src="./public/assets/Login.png"></img>
+<img src="./public/assets/Login_Ver_mas.png"></img>
 <img src="./public/assets/Register.png"></img>
 
 ### Inicio
