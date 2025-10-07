@@ -1,59 +1,98 @@
-# FintaskaFront
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
+# Fintaska
 
-## Development server
+Esta es una aplicación web para la organización personal y financiera en un mismo lugar. Obteniendo resultados visuales en organizador financiero a través de gráficos y gestión de tareas con un planner integrado, además de una sección creativa para guardar notas, imagenes o documentos importantes.
 
-To start a local development server, run:
+## Funciones principales
 
+- Planner
+- Control financiero personal
+- Notificaciones de fechas importantes
+- Tips y consejos motivacionales
+- Espacio creativo para notas y guardar imágenes y/o documentos
+- Espacio personalizado para cada usuario
+
+
+## Autores
+
+- Laura Paola Daza [@lapao-db](https://github.com/lapao-db)
+- Daniela Fajardo Ordoñez [@DanielaFajardo2315](https://github.com/DanielaFajardo2315)
+- Yesmy Carolina Jimenez [@yescarjim](https://github.com/yescarjim/)
+
+## Requisitos previos
+
+Este proyecto fue desarrollado a través de MEAN Stack usando las siguientes herramientas:
+
+- Node.js
+- Express
+- MongoDB
+- Angular
+
+Las dependencias y herramientas necesarias para el funcionamiento de este proyecto son:
+
+- Dependencias directas de Angular
+
+## Paleta de colores
+
+| Color             | Hex                                                                |
+| ----------------- | ------------------------------------------------------------------ |
+| Rosado pastel | #eac4d5 |
+| Verde claro pastel | #d6eadf |
+| Verde mental | #b8e0d2 |
+| Azul claro pastel | #95b8d1 |
+| Azul pastel | #809bce |
+
+## Mockups del proyecto
+
+### Inicio de sesión
+<img src="./public/assets/Login.png"></img>
+<img src="./public/assets/Register.png"></img>
+
+### Inicio
+<img src="./public/assets/Inicio.png"></img>
+
+### Notificaciones
+<img src="./public/assets/Inicio_Notificaciones.png"></img>
+
+### Finanzas
+<img src="./public/assets/Finanzas.png"></img>
+
+### Planeador
+<img src="./public/assets/Planeador.png"></img>
+
+### Tablero
+<img src="./public/assets/Tablero.png"></img>
+<img src="./public/assets/Tablero_nota_grande.png"></img>
+
+### Perfil
+<img src="./public/assets/Perfil.png"></img>
+<img src="./public/assets/Perfil_editar_perfil.png"></img>
+
+### Administrador
+<img src="./public/assets/Administrador.png"></img>
+
+### Not Found
+<img src="./public/assets/Not_Found.png"></img>
+
+## Instrucciones de instalación y ejecución
+
+Para instalar y ejecutar este proyecto exitosamente deberá:
+
+- Debe tener Node.js y Angular CLI instalado en su equipo.
+- Instale las dependencias necesarias:
 ```bash
-ng serve
+  npm i
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Ejecute la aplicación web
 
 ```bash
-ng generate component component-name
+  ng serve -o
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- La aplicación se ejecutará en el navegador para interacturar con ella.
 
-```bash
-ng generate --help
-```
+- Si desea finalizar la ejecución oprima los botones Ctrl + C
+## Estado del proyecto
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Este proyecto se encuentra en desarollo...
