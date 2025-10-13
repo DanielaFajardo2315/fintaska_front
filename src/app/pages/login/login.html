@@ -1,0 +1,91 @@
+<main>
+    <div class="container-fluid login-main">
+        <div class="row g-0 align-items-center justify-content-center min-vh-100">
+            <!-- Lado Izquierdo -->
+            <div class="col-lg-6 left-section">
+                <div class="left-content">
+                    <div class="text-center mb-5">
+                        <img src="assets/fintaska.png" alt="Fintaska Logo" class="logo-left">
+                    </div>
+                    <div class="info-box">
+                        <p class="info-text">
+                            <strong>Fintaska:</strong> El equilibrio es posible. Tu agenda, tus metas y tus finanzas,
+                            por fin en un solo lugar.
+                        </p>
+
+                        <div *ngIf="showMoreInfo()" class="more-info">
+                            <!-- Conoce Más -->
+                            <p>Sobre Nosotros</p>
+                            <p>En Fintaska creemos que la organización personal y el manejo consciente de las finanzas
+                                son la clave para una vida equilibrada. Por eso diseñamos una aplicación práctica,
+                                intuitiva y segura que reúne en un solo lugar todo lo que necesitas para planear tu día,
+                                tus metas y tus finanzas.
+                                Nuestro propósito es ayudarte a administrar tu tiempo y tu dinero con inteligencia, para
+                                que puedas enfocarte en lo que realmente importa: crecer, cumplir tus objetivos y
+                                disfrutar de la vida.
+                                Con Fintaska podrás:
+                                Planear tu agenda diaria, semanal y mensual gracias a la integración con tu calendario.
+                                Gestionar tus finanzas personales de forma clara y sencilla.
+                                Crear notas enriquecidas con imágenes y archivos, que guardan toda la información que
+                                necesitas al alcance de tu mano.
+                                Mantener un tablero personal que conecta organización, productividad y bienestar
+                                financiero.
+                                Somos un equipo apasionado por la tecnología y la innovación, convencido de que la
+                                simplicidad y la claridad son la mejor manera de ayudarte a tomar decisiones
+                                inteligentes cada día.
+                                Fintaska: tu tiempo y tu dinero, en orden.</p>
+                            
+                        </div>
+
+                        <button type="button" class="btn btn-info-more" (click)="toggleMoreInfo()">
+                            {{ showMoreInfo() ? 'Mostrar menos' : 'Conoce más' }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario Inicio Sesion-->
+            <div class="col-lg-6 right-section">
+                <div class="card login-card">
+                    <div class="card-body">
+
+                        <h3 class="card-title text-center mb-4">Iniciar Sesión</h3>
+
+                        <form>
+                            <div class="card p-3 mb-3 bg-light">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Correo electrónico</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Contraseña</label>
+                                    <div class="password-wrapper">
+                                        <input type="password" class="form-control" id="password" required>
+                                        <i class="bi bi-eye-slash toggle-password" id="togglePassword"
+                                            style="cursor: pointer;"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMe">
+                                <label class="form-check-label" for="rememberMe">Recuerdame</label>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">Ingresar</button>
+                            </div>
+                        </form>
+
+                        <div class="text-center mt-3">
+                            <a href="#" class="text-decoration-none forgot-link">¿Has olvidado tu Contraseña?</a>
+                        </div>
+                        <div class="text-center mt-2">
+                            <a href="#" class="text-decoration-none register-link">Registrarse como nuevo Usuario</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

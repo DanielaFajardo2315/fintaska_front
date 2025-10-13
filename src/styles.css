@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.cdnfonts.com/css/poppins');
+
+
+
+:root {
+    --primary-color: #809BCE;
+    --tablero-color: #B8E0D2;
+    --finanzas-color: #EAC4D5;
+}

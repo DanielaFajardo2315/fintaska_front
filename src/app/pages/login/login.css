@@ -1,0 +1,218 @@
+.login-main {
+    background: linear-gradient(135deg, #c8e6f5 0%, #f0f4f8 100%);
+    min-height: 100vh;
+}
+
+
+body {
+    background-image: url('assets/Fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+.left-section {
+    background: linear-gradient(135deg, #c8e6f5 0%, #f0e6f6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.left-section::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.left-section::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: -30px;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.left-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 400px;
+}
+
+.logo-left {
+    max-width: 100px;
+    height: auto;
+    margin-bottom: 30px;
+}
+
+.info-box {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.info-text {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.8;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.btn-info-more {
+    background-color: #7b9fbf;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-info-more:hover {
+    background-color: #6b8faf;
+    transform: translateY(-2px);
+}
+
+.right-section {
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 450px;
+    border: 2px solid #7b9fbf;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.login-card .card-body {
+    padding: 35px 30px;
+}
+
+.logo-card {
+    max-width: 80px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    color: #333;
+    font-weight: 600;
+    font-size: 22px;
+    margin-bottom: 25px;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    font-size: 18px;
+}
+
+.form-control {
+    padding: 10px 35px 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.form-control:focus {
+    border-color: #7b9fbf;
+    box-shadow: 0 0 0 0.2rem rgba(123, 159, 191, 0.25);
+}
+
+.btn-primary {
+    background-color: #7b9fbf;
+    border-color: #7b9fbf;
+    padding: 10px;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.btn-primary:hover {
+    background-color: #6b8faf;
+    border-color: #6b8faf;
+}
+
+.forgot-link {
+    color: #7b9fbf;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.forgot-link:hover {
+    color: #6b8faf;
+    text-decoration: underline !important;
+}
+
+.register-link {
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.register-link:hover {
+    color: #7b9fbf;
+    text-decoration: underline !important;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .left-section {
+        display: none;
+    }
+
+    .right-section {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #c8e6f5 0%, #f0f4f8 100%);
+    }
+
+    .login-card {
+        border-radius: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-card .card-body {
+        padding: 25px 20px;
+    }
+
+    .card-title {
+        font-size: 18px;
+    }
+
+    .left-content {
+        padding: 20px;
+    }
+}
