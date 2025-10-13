@@ -8,12 +8,14 @@ import { Admin } from './pages/admin/admin';
 import { Board } from './pages/board/board';
 import { Planner } from './pages/planner/planner';
 import { Tree } from './pages/tree/tree';
+import { Login } from './pages/login/login';
 
 export const routes: Routes = [
     { path: '', component: Home, title: 'Inicio'},
     { path: 'profile', component: Profile, title: 'Perfil de usuario'},
     {path: 'finances', component:Finances, title: 'Finanzas'},
     {path: 'register', component:Register, title: 'Registro'},
+    {path: 'login', component:Login, title: 'Login'},
     {path: 'admin', component:Admin, title: 'Administrador'},
     {path:'board', component: Board, title:'Tablero'},
     {path: 'planner', component: Planner, title: 'Planeador'},
