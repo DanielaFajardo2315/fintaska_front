@@ -24,7 +24,7 @@ return this._httpClient.get(this.apiUrl + "/board/mostrar");
 
 
 //Peticion Put
-putProduct(boardToUpdate : Board, id:string){
+putBoards(boardToUpdate : Board, id:string){
 return this._httpClient.put(`${this.apiUrl}/boards/actualizar/${id}`, boardToUpdate);
 
 };
