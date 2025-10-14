@@ -1,25 +1,24 @@
 export interface User {
 
-    profile: string | null;
-
+    profile?: string | null;
     fullName: string;
-
-    username: string;
-
-    email?: string;
-
-    rol: 'usuario' | 'admin';
-
-    registerDate: string; 
-
-    settings: {
+    username?: string;
+    email: string;
+    password: string;
+    rol: "usuario" | "admin";
+    registerDate?: Date;
+    settings?: {
         theme: string;
-        notifications: boolean;
-        planner?: string | null; 
-    };
-
-    tasks: string | null;
-    board: string | null;
-    finances: string | null;
+        notifications?: boolean;
+    }
+    planner?: {
+        notifications?: string[];
+        tasks?: string[];
+        board?: string[];
+        finances?: string[];
+    }
 }
+
+
+
 
