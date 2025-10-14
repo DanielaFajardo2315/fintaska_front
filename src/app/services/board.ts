@@ -29,7 +29,7 @@ getBoardsByTag(tag: string) {
 
  
 //Peticion Put
-putBoards(boardToUpdate : Board, id:string){
+putBoard(boardToUpdate : Board, id:string){
 return this._httpClient.put(`${this.apiUrl}/boards${id}`, boardToUpdate);
 
 };

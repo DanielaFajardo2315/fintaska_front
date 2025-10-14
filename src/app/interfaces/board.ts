@@ -1,11 +1,11 @@
 export interface Board {
 
- _id: string; // este campo lo añade MongoDB automáticamente
+ _id?: string; 
   title: string;
-  tag: string[];         // array de etiquetas
-  urlFile: string[];     // array de URLs de archivos
-  urlImage: string[];    // array de URLs de imágenes
-  description?: string;  // opcional si puede no estar
-  uploadDate: string;    
+  tag?: string[];        
+  urlFile?: string[];     
+  urlImage?: string[];    
+  description?: string; 
+  uploadDate?: string;    
 
 }
