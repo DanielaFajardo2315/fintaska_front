@@ -10,7 +10,7 @@ import { Login } from './pages/login/login';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, Footer, MoreButton, Button, Login, CommonModule],
+  imports: [RouterOutlet, Navbar, Footer, Login, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -1,16 +1,17 @@
 .login-main {
-    background: linear-gradient(135deg, #c8e6f5 0%, #f0f4f8 100%);
-    min-height: 100vh;
-}
+    background-color: rgba(255, 255, 255, 0.8);
+    }
 
 
-body {
-    background-image: url('assets/Fondo.jpg');
+
+main {
+    background-image: url("/assets/Fondo.jpg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
     min-height: 100vh;
+    font: poppins;
 }
 
 
@@ -19,7 +20,6 @@ body {
 }
 
 .left-section {
-    background: linear-gradient(135deg, #c8e6f5 0%, #f0e6f6 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,7 +35,7 @@ body {
     right: -50px;
     width: 200px;
     height: 200px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 50%;
 }
 
@@ -46,7 +46,7 @@ body {
     left: -30px;
     width: 150px;
     height: 150px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 50%;
 }
 
@@ -57,14 +57,14 @@ body {
     max-width: 400px;
 }
 
-.logo-left {
+.logo {
     max-width: 100px;
-    height: auto;
+    height: 10vh;
     margin-bottom: 30px;
 }
 
 .info-box {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.6);
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -95,7 +95,7 @@ body {
 }
 
 .right-section {
-    background: white;
+  
     display: flex;
     align-items: center;
     justify-content: center;
@@ -187,7 +187,7 @@ body {
     text-decoration: underline !important;
 }
 
-/* Responsive */
+/* Responsive pagina */
 @media (max-width: 991px) {
     .left-section {
         display: none;
