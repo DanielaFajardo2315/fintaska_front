@@ -5,14 +5,24 @@
 :root{
     --planner-color:#809BCE;
     --board-color:#B8E0D2;
+    --planner-color: #A8B8D8;
     --finance-color:#EAC4D5;
     --light-background:#FAFAFA;
-    --text-color:#1B004B;
+    --text-dark:#2B2B2B;
+    --font: 'Poppins', sans-serif;
     
     
 }
 
-body {
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    background-color: var(--light-background);
+    font-family: var(--font);
+    color: var(--text-dark);
+    overflow-x: hidden;
 }

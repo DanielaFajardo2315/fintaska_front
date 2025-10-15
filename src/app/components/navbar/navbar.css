@@ -13,19 +13,19 @@
 
 /* Temas de colores según la ruta */
 .theme-default {
-  --navbar-color: var(--planner-color);  /* Gris */
+  --navbar-color: var(--planner-color);  
 }
 
 .theme-finances {
-  --navbar-color:var(--finance-color);  /* Verde */
+  --navbar-color:var(--finance-color);  
 }
 
 .theme-board {
-  --navbar-color: var(--board-color);  /* Azul */
+  --navbar-color: var(--board-color);  
 }
 
 .theme-planner {
-  --navbar-color: var(--planner-color);  /* Amarillo/Naranja */
+  --navbar-color: var(--planner-color); 
 }
 
 .theme-tree {
@@ -51,7 +51,7 @@ body {
 
 /* Botones del menú */
 .navbar .nav-item .btn-link {
-  color: white;
+  color: var(--text-color);
   transition: background-color 0.2s ease, color 0.2s ease;
   border-radius: 10px;
 }
