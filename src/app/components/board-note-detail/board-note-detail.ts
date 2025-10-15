@@ -26,19 +26,18 @@ export class BoardNoteDetail {
     this.visible = !this.visible;
   }
 
+  getFileName(url: string): string {
+    const MAX_LENGTH = 28;
+
+    const lastSlashIndex = url.lastIndexOf('/');
+    let fileName = url;
+
+    if (lastSlashIndex > -1) {
+      fileName = url.substring(lastSlashIndex + 1);
+    }
+    return fileName;
+  }
   
-  // showNotes(){
-  //   this._boardService.getBoards().subscribe({
-  //     next: (response:any)=>{
-  //       this.allNotes = response.data;
-  //       console.log(this.allNotes);
-  //     },
-  //     error: (error:any)=>{
-  //       console.error(error);
-        
-  //     }
-  //   });
-  // }
   
   onCloseDetail() {
     this.closeDetail.emit();
@@ -63,7 +62,4 @@ export class BoardNoteDetail {
     });
   }
 
-  // ngOnInit(): void {
-  //   this.showNotes();
-  // }
 }

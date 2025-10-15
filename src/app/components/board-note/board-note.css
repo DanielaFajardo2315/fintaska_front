@@ -16,11 +16,27 @@
 h3 {
     background-color: #65B0FF;
     padding: 10px;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .contenido{
     padding: 0 10px;
+    font-size: 0.9rem;
+}
+
+.files_save {
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.list_url {
+    padding: 0 10px;
+    margin-bottom: 0;
+}
+
+.list_url li {
+    word-break: break-all;
+    font-size: 0.7rem;
 }
 
 .actions {

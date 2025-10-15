@@ -21,6 +21,39 @@ export class BoardNote implements OnInit {
   allNotes: Board[] = [];
   environment = environment;
   visibleNotes: Set<string> = new Set(); // Para rastrear qué notas tienen archivos visibles
+  baseURL: string = environment.appUrl;
+
+  titleNote(title: string):string{
+    const length_title = 20;
+    if (title.length > length_title){
+      return title.substring(0, length_title) + '...';
+    }
+    return title;
+  }
+
+  descriptionNote(description: string):string{
+    const length_descript = 80;
+    if (description.length > length_descript){
+      return description.substring(0, length_descript) + '...';
+    }
+    return description;
+  }
+
+  getFileName(url: string): string {
+    const MAX_LENGTH = 28;
+
+    const lastSlashIndex = url.lastIndexOf('/');
+    let fileName = url;
+
+    if (lastSlashIndex > -1) {
+      fileName = url.substring(lastSlashIndex + 1);
+    }
+
+    if (fileName.length > MAX_LENGTH) {
+      return fileName.substring(0, MAX_LENGTH) + '...';
+    }
+    return fileName;
+  }
 
   ngOnInit() {
     this.loadBoards();
@@ -65,7 +98,7 @@ export class BoardNote implements OnInit {
 
   onDeleteNote(id: string) {
     this.boardService.deleteBoard(id).subscribe({
-      next: (response:any) => {
+      next: (response: any) => {
         console.log(response);
         this.loadBoards(); // Recargar la lista después de eliminar
       },

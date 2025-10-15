@@ -1,0 +1,80 @@
+.note_detail {
+    width: 622px;
+    height: 580px;
+    margin: auto;
+    background-color: #A2CFFE;
+    position: relative;
+}
+
+h3 {
+    background-color: #65B0FF;
+    padding: 10px;
+    font-size: 1.1rem;
+}
+
+.btn_cerrar {
+    position: absolute;
+    right: 0;
+    background: none;
+    font-size: 1.5rem;
+    padding: 5px 8px 0 0;
+    border: none;
+}
+
+.contenido {
+    padding: 0 10px;
+    height: 80%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 4fr 1.5fr 2fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.description {
+    overflow-y: auto;
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.images {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    grid-area: 2 / 1 / 3 / 2;
+    overflow-y: auto;
+}
+
+.image {
+    width: 5rem;
+    height: 5rem;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.files {
+    grid-area: 3 / 1 / 4 / 2;
+    overflow-y: auto;
+    font-size: 0.8rem;
+}
+
+.actions {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: absolute;
+    bottom: 3px;
+}
+
+.actions i {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+#tagInput {
+    border-radius: 20px;
+    padding: 10px;
+    font-size: 0.8rem;
+    border: 1px solid black;
+    background-color: rgba(255, 255, 255, 0.5);
+}

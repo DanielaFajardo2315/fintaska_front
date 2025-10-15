@@ -5,28 +5,40 @@
         <p>Cargando tus notas...</p>
     </div>
     }
-    
+
     <!-- Lista de notas -->
     @for (item of allNotes; track item._id || $index) {
     <div class="nota_miniatura" (click)="onOpenDetail(item)">
-        <h3>{{item.title}}</h3>
+        <h3>{{titleNote(item.title)}}</h3>
         <div class="contenido">
-            <p>{{item.description || 'Tu nota no tiene descripción'}}</p>
-            
+            @if (!item.description) {
+            <p>Tu nota no tiene descripción</p>
+            } @else {
+            <p>{{descriptionNote(item.description)}}</p>
+            }
+
             <!-- Archivos -->
             <div (click)="toggleVisibilidad(item._id || $index.toString()); $event.stopPropagation()">
-                <p><i class="bi bi-folder-fill"></i>{{ (item.urlFile?.length || 0) + (item.urlImage?.length || 0) }} Archivos guardados</p>
+                <p class="files_save"><i class="bi bi-folder-fill"></i>{{ (item.urlFile?.length || 0) +
+                    (item.urlImage?.length || 0) }} Archivos guardados</p>
             </div>
             <div *ngIf="isVisible(item._id || $index.toString())" (click)="$event.stopPropagation()">
-                <ul *ngIf="item.urlFile && item.urlFile.length > 0">
-                    <li *ngFor="let file of item.urlFile">{{file}}</li>
+                <ul *ngIf="item.urlFile && item.urlFile.length > 0" class="list_url">
+                    <li *ngFor="let file of (item.urlFile | slice:0:2)"><a [href]="baseURL + file"
+                            target="_blank">{{getFileName(file)}}</a></li>
                 </ul>
-                <ul *ngIf="item.urlImage && item.urlImage.length > 0">
-                    <li *ngFor="let image of item.urlImage">{{image}}</li>
+                <ul *ngIf="item.urlImage && item.urlImage.length > 0" class="list_url">
+                    <li *ngFor="let image of (item.urlImage | slice:0:2)"><a [href]="baseURL + image"
+                            target="_blank">{{getFileName(image)}}</a></li>
                 </ul>
+                <!-- @if (((item.urlFile?.length||0) + (item.urlImage?.length||0)) > 4) {
+                <p *ngIf="item.urlFile && item.urlFile.length > 4" class="more-files">
+                    ... y {{ ((item.urlFile.length||0) + (item.urlImage?.length||0)) - 4 }} archivo(s) más.
+                </p>
+                } -->
                 <p *ngIf="!item.urlFile || item.urlFile.length === 0">No hay archivos adjuntos</p>
             </div>
-            
+
             <!-- Acciones -->
             <div (click)="$event.stopPropagation()" class="actions">
                 <i class="bi bi-trash-fill" (click)="onDeleteNote(item._id)" title="Eliminar"></i>
