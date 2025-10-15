@@ -1,10 +1,10 @@
+
+/*Columna izquierda*/
 .login-main {
     background-color: rgba(255, 255, 255, 0.8);
     }
 
-
-
-main {
+    main {
     background-image: url("/assets/Fondo.jpg");
     background-size: cover;
     background-position: center;
@@ -54,32 +54,38 @@ main {
     position: relative;
     z-index: 1;
     text-align: center;
-    max-width: 400px;
+    max-width: 4600px;
+    font-family: poppins;
+    margin-top: -50px;
 }
 
 .logo {
-    max-width: 100px;
-    height: 10vh;
-    margin-bottom: 30px;
+    width: 200px;
+    height: 100px;
+    margin-bottom: 100px;
+    padding: 0;
+    margin-bottom: 20px;
 }
 
 .info-box {
     background: rgba(255, 255, 255, 0.6);
-    padding: 30px;
-    border-radius: 12px;
+    padding: 60px;
+    border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
 }
 
 .info-text {
-    font-size: 14px;
+    font-size: 18px;
     color: #333;
     line-height: 1.8;
-    font-style: italic;
+    font-style: poppins, negrita;
     margin-bottom: 20px;
-}
-
+    
+} 
+/*boton conoce mas*/
 .btn-info-more {
-    background-color: #7b9fbf;
+    background-color: #809BCE;
     color: white;
     border: none;
     padding: 10px 30px;
@@ -90,7 +96,7 @@ main {
 }
 
 .btn-info-more:hover {
-    background-color: #6b8faf;
+    background-color: #809BCE;
     transform: translateY(-2px);
 }
 
@@ -102,67 +108,96 @@ main {
     padding: 40px 20px;
 }
 
+/*Columna derecha*/
+.card{
+border: solid#809BCE ;
+border-radius: 15px;
+margin-top: -20px;
+padding-top: 10px;
+}
+
+
 .login-card {
     width: 100%;
     max-width: 450px;
-    border: 2px solid #7b9fbf;
+    border: 5px solid #809BCE;
     border-radius: 15px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    margin-top: -20px;
 }
 
 .login-card .card-body {
     padding: 35px 30px;
-}
+  }
 
-.logo-card {
-    max-width: 80px;
-    height: auto;
-    margin-bottom: 20px;
-}
-
+/*Iniciar Sesion*/
 .card-title {
     color: #333;
     font-weight: 600;
     font-size: 22px;
     margin-bottom: 25px;
+    margin-top: -10px;
+    
 }
 
+.h3{
+    margin-top: 70px;
+}
+
+/*ojo*/
 .password-wrapper {
     position: relative;
+    
 }
+
+.password-wrapper .toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #333;
+  font-size: 1.2rem;
+}
+
 
 .toggle-password {
     position: absolute;
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
-    color: #666;
-    font-size: 18px;
+    color: #050303;
+    font-size: 20px;
+    
 }
 
 .form-control {
+    background-color: #809BCE;
     padding: 10px 35px 10px 12px;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 15px;
 }
 
 .form-control:focus {
-    border-color: #7b9fbf;
+    border-color: #809BCE;
     box-shadow: 0 0 0 0.2rem rgba(123, 159, 191, 0.25);
 }
 
+/*Boton Ingresar*/
+
 .btn-primary {
-    background-color: #7b9fbf;
-    border-color: #7b9fbf;
-    padding: 10px;
+    background-color: #809BCE;
+    border-color: #809BCE;
+    padding: 8px 45px;
     font-weight: 600;
-    border-radius: 8px;
+    border-radius: 15px;
 }
 
 .btn-primary:hover {
-    background-color: #6b8faf;
-    border-color: #6b8faf;
+    background-color: #5e739b;
+    border-color: #809BCE;
 }
+
+/*has olvidado la contraseña*/
 
 .forgot-link {
     color: #7b9fbf;
@@ -171,19 +206,27 @@ main {
 }
 
 .forgot-link:hover {
-    color: #6b8faf;
+    color: #000203;
     text-decoration: underline !important;
 }
 
+/*Registrarse*/
+.register-bar {
+  background-color: #809BCE;   
+  padding: 18px 0;
+  border-radius: 0 0 08px 08px; 
+  margin-top: 20px;
+}
+
 .register-link {
-    color: #333;
+    color: #ffffff;
     font-size: 14px;
     font-weight: 500;
     transition: all 0.3s;
 }
 
 .register-link:hover {
-    color: #7b9fbf;
+    color: #00050a;
     text-decoration: underline !important;
 }
 

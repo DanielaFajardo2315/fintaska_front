@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Board } from '../pages/board/board';
+import { Board } from '../interfaces/board';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,17 +9,17 @@ import { Board } from '../pages/board/board';
 export class BoardService {
   
   private _httpClient = inject(HttpClient);
-  private apiUrl = "http://localhost:3000";
+  private apiUrl = environment.appUrl;
 
 //Peticion POST
 postBoard(boardToCreate: Board ){
-return this._httpClient.post(this.apiUrl + "/board", boardToCreate)
+return this._httpClient.post(this.apiUrl + "/boards", boardToCreate)
 };
 
 
 //Peticion Get
 getBoards(){
-return this._httpClient.get(this.apiUrl + "/board");
+return this._httpClient.get(this.apiUrl + "/boards");
 };
 
 //Peticion Get Tag
@@ -30,7 +31,7 @@ getBoardsByTag(tag: string) {
  
 //Peticion Put
 putBoard(boardToUpdate : Board, id:string){
-return this._httpClient.put(`${this.apiUrl}/boards${id}`, boardToUpdate);
+return this._httpClient.put(`${this.apiUrl}/boards/${id}`, boardToUpdate);
 
 };
 
