@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
+import { NotesBoard } from '../../components/notes-board/notes-board';
 
 @Component({
   selector: 'app-board',
-  imports: [],
+  standalone: true,
+  imports: [NotesBoard],
   templateUrl: './board.html',
   styleUrl: './board.css'
 })

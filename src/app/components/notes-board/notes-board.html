@@ -1,0 +1,31 @@
+<div class="notes_container">
+  <!-- Vista de miniaturas -->
+  @if (!showDetail) {
+  <div class="notes_grid">
+    <div class="notes_header">
+      <h2>Mis Notas</h2>
+    </div>
+    
+    <!-- Lista de notas -->
+    <div class="notes_list">
+      <app-board-note 
+        (openDetail)="onOpenDetail($event)"
+        (editNote)="onEditNote($event)"
+        (deleteNote)="onDeleteNote($event)">
+      </app-board-note>
+    </div>
+  </div>
+  }
+  
+  <!-- Vista detallada -->
+  @if (showDetail) {
+  <div class="detail_view">
+    <app-board-note-detail 
+      [note]="selectedNote"
+      (closeDetail)="onCloseDetail()"
+      (editNote)="onEditNote($event)"
+      (deleteNote)="onDeleteNote($event)">
+    </app-board-note-detail>
+  </div>
+  }
+</div>

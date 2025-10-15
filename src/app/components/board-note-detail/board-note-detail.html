@@ -1,0 +1,30 @@
+<section class="note_detail">
+    <button class="btn_cerrar" (click)="onCloseDetail()">
+        <i class="bi bi-x-lg"></i>
+    </button>
+    <h3>{{note?.title}}</h3>
+    <p>{{note?.description}}</p>
+    @if (note?.urlImage) {
+    @for (imageURL of note?.urlImage; track $index) {
+    <img [src]="baseURL + imageURL" alt="Imagen {{ $index + 1 }}" style="width: 5rem; margin-right: 0.5rem;">
+    }
+    } @else {
+    <p>No hay imagenes guardadas</p>
+    }
+    @if (note?.urlFile) {
+    <ul>
+        <li *ngFor="let file of note?.urlFile">{{file}}</li>
+    </ul>
+    } @else {
+    <p>No hay archivos adjuntos</p>
+    }
+    <!-- Acciones -->
+    <div (click)="$event.stopPropagation()" class="actions">
+        <i class="bi bi-trash-fill" title="Eliminar"></i>
+        <i class="bi bi-pencil-fill" (click)="onEditNote()" title="Editar"></i>
+        <i class="bi bi-hash" title="Etiquetas"></i><input type="text" name="inputTag" placeholder="Ingrese su etiqueta"
+            id="tagInput">
+        <i class="bi bi-file-earmark-text-fill" title="Archivos"></i>
+        <i class="bi bi-file-image" title="Imágenes"></i>
+    </div>
+</section>
