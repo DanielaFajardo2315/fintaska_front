@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Aplicar padding al main para que no quede detrás del navbar */
+main {
+  padding-top: 90px;  /* Altura del navbar + margen */
+  min-height: calc(100vh - 90px);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  main {
+    padding-top: 100px;
+  }
+}

@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.cdnfonts.com/css/poppins');
+
+:root{
+    --planner-color:#809BCE;
+    --board-color:#B8E0D2;
+    --finance-color:#EAC4D5;
+    --light-background:#FAFAFA;
+    --text-color:#1B004B;
+    
+    
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}

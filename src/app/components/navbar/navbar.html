@@ -1,4 +1,4 @@
-<nav>
+<!-- <nav>
     <ul>
         <li><a routerLink="/profile">Perfil de usuario</a></li>
         <li><a routerLink="/">Inicio</a></li>
@@ -8,4 +8,92 @@
         <li><a routerLink="/planner">Planeador</a></li>
         <li><a routerLink="/board">Tablero</a></li>
     </ul>
+</nav> -->
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm barra-nav" [ngClass]="theme" >
+  <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
+
+    <!-- Ícono de perfil -->
+    <a class="btn btn-link text-white d-flex align-items-center p-0" routerLink="/profile" title="Perfil">
+      <i class="bi bi-person-circle fs-2"></i>
+    </a>
+
+    <!-- LOGO centrado -->
+    <a class="navbar-brand position-absolute top-50 start-50 translate-middle" routerLink="/">
+      <img 
+        src="assets/FINTASKA_logo_c.png" 
+        alt="Logo Fintaska" 
+        class="logo-barra-nav">
+    </a>
+
+    <!-- Botón toggle -->
+    <button 
+      class="navbar-toggler" 
+      type="button" 
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="!isMenuCollapsed"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Menú de navegación -->
+    <div class="collapse navbar-collapse justify-content-end" [class.show]="!isMenuCollapsed" id="navbarNav">
+      <ul class="navbar-nav align-items-lg-center gap-2 mt-3 mt-lg-0">
+
+        <!-- Notificaciones -->
+        <li class="nav-item">
+          <button 
+            class="btn btn-link text-white p-2 w-100 text-start text-lg-center"
+            (click)="onNotificationsClick()"
+            title="Notificaciones">
+            <i class="bi bi-bell-fill fs-4 me-2 me-lg-0"></i>
+            <span class="d-lg-none">Notificaciones</span>
+          </button>
+        </li>
+
+        <!-- Arbol -->
+        <li class="nav-item">
+          <a class="btn btn-link text-white p-2 w-100 text-start text-lg-center" routerLink="/tree" title="Arbol">
+            <i class="bi bi-tree-fill fs-4 me-2 me-lg-0"></i>
+            <span class="d-lg-none">Arbol</span>
+          </a>
+        </li>
+
+        <!-- Finanzas -->
+        <li class="nav-item">
+          <a class="btn btn-link text-white p-2 w-100 text-start text-lg-center" routerLink="/finances" title="Finanzas">
+            <i class="bi bi-pie-chart-fill fs-4 me-2 me-lg-0"></i>
+            <span class="d-lg-none">Finanzas</span>
+          </a>
+        </li>
+
+        <!-- Planner -->
+        <li class="nav-item">
+          <a class="btn btn-link text-white p-2 w-100 text-start text-lg-center" routerLink="/planner" title="Planeador">
+            <i class="bi bi-calendar-week-fill fs-4 me-2 me-lg-0"></i>
+            <span class="d-lg-none">Planeador</span>
+          </a>
+        </li>
+
+        <!-- Tablero -->
+        <li class="nav-item">
+          <a class="btn btn-link text-white p-2 w-100 text-start text-lg-center" routerLink="/board" title="Tablero de Notas">
+            <i class="bi bi-sticky-fill fs-4 me-2 me-lg-0"></i>
+            <span class="d-lg-none">Tablero de Notas</span>
+          </a>
+        </li>
+
+        <!-- Logout -->
+        <li class="nav-item">
+          <button 
+            class="btn btn-link text-white p-2 w-100 text-start text-lg-center"
+            (click)="logout()"
+            title="Cerrar sesión">
+            <i class="bi bi-box-arrow-right fs-3 me-2 me-lg-0"></i>
+            <span class="d-lg-none">Cerrar sesión</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>

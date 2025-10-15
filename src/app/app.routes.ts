@@ -4,6 +4,7 @@ import { NotFound } from './pages/not-found/not-found';
 import { Profile } from './pages/profile/profile';
 import { Finances } from './pages/finances/finances';
 import { Register } from './pages/register/register';
+import { Login } from './pages/login/login';
 import { Admin } from './pages/admin/admin';
 import { Board } from './pages/board/board';
 import { Planner } from './pages/planner/planner';
@@ -14,6 +15,7 @@ export const routes: Routes = [
     { path: 'profile', component: Profile, title: 'Perfil de usuario'},
     {path: 'finances', component:Finances, title: 'Finanzas'},
     {path: 'register', component:Register, title: 'Registro'},
+    { path: "login", component: Login, title: "Inicio Sesión" },
     {path: 'admin', component:Admin, title: 'Administrador'},
     {path:'board', component: Board, title:'Tablero'},
     {path: 'planner', component: Planner, title: 'Planeador'},
