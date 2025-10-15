@@ -23,6 +23,9 @@
     --light-background:#FAFAFA;
     --text-dark:#2B2B2B;
     --font: 'Poppins', sans-serif;
+    --primary-color: #809BCE;
+    --tablero-color: #B8E0D2;
+    --finanzas-color: #EAC4D5;
 }
 
 *{

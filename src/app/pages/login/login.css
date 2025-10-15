@@ -1,0 +1,261 @@
+
+/*Columna izquierda*/
+.login-main {
+    background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    main {
+    background-image: url("/assets/Fondo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    font: poppins;
+}
+
+
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+.left-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.left-section::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+}
+
+.left-section::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: -30px;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+}
+
+.left-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 4600px;
+    font-family: poppins;
+    margin-top: -50px;
+}
+
+.logo {
+    width: 200px;
+    height: 100px;
+    margin-bottom: 100px;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.info-box {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 60px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+}
+
+.info-text {
+    font-size: 18px;
+    color: #333;
+    line-height: 1.8;
+    font-style: poppins, negrita;
+    margin-bottom: 20px;
+    
+} 
+/*boton conoce mas*/
+.btn-info-more {
+    background-color: #809BCE;
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-info-more:hover {
+    background-color: #809BCE;
+    transform: translateY(-2px);
+}
+
+.right-section {
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/*Columna derecha*/
+.card{
+border: solid#809BCE ;
+border-radius: 15px;
+margin-top: -20px;
+padding-top: 10px;
+}
+
+
+.login-card {
+    width: 100%;
+    max-width: 450px;
+    border: 5px solid #809BCE;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    margin-top: -20px;
+}
+
+.login-card .card-body {
+    padding: 35px 30px;
+  }
+
+/*Iniciar Sesion*/
+.card-title {
+    color: #333;
+    font-weight: 600;
+    font-size: 22px;
+    margin-bottom: 25px;
+    margin-top: -10px;
+    
+}
+
+.h3{
+    margin-top: 70px;
+}
+
+/*ojo*/
+.password-wrapper {
+    position: relative;
+    
+}
+
+.password-wrapper .toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #333;
+  font-size: 1.2rem;
+}
+
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #050303;
+    font-size: 20px;
+    
+}
+
+.form-control {
+    background-color: #809BCE;
+    padding: 10px 35px 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+}
+
+.form-control:focus {
+    border-color: #809BCE;
+    box-shadow: 0 0 0 0.2rem rgba(123, 159, 191, 0.25);
+}
+
+/*Boton Ingresar*/
+
+.btn-primary {
+    background-color: #809BCE;
+    border-color: #809BCE;
+    padding: 8px 45px;
+    font-weight: 600;
+    border-radius: 15px;
+}
+
+.btn-primary:hover {
+    background-color: #5e739b;
+    border-color: #809BCE;
+}
+
+/*has olvidado la contraseña*/
+
+.forgot-link {
+    color: #7b9fbf;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.forgot-link:hover {
+    color: #000203;
+    text-decoration: underline !important;
+}
+
+/*Registrarse*/
+.register-bar {
+  background-color: #809BCE;   
+  padding: 18px 0;
+  border-radius: 0 0 08px 08px; 
+  margin-top: 20px;
+}
+
+.register-link {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.register-link:hover {
+    color: #00050a;
+    text-decoration: underline !important;
+}
+
+/* Responsive pagina */
+@media (max-width: 991px) {
+    .left-section {
+        display: none;
+    }
+
+    .right-section {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #c8e6f5 0%, #f0f4f8 100%);
+    }
+
+    .login-card {
+        border-radius: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .login-card .card-body {
+        padding: 25px 20px;
+    }
+
+    .card-title {
+        font-size: 18px;
+    }
+
+    .left-content {
+        padding: 20px;
+    }
+}

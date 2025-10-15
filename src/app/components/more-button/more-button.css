@@ -1,0 +1,18 @@
+.round-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: rgb(0, 0, 0);
+    font-size: 35px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    line-height: 50px;
+    align-items: center;
+    vertical-align: middle;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+}

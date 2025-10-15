@@ -10,10 +10,12 @@ import { Board } from './pages/board/board';
 import { Planner } from './pages/planner/planner';
 import { Tree } from './pages/tree/tree';
 
+
 export const routes: Routes = [
     { path: '', component: Home, title: 'Inicio'},
     { path: 'profile', component: Profile, title: 'Perfil de usuario'},
     {path: 'finances', component:Finances, title: 'Finanzas'},
+    { path: "login", component: Login, title: "Inicio Sesión" },
     {path: 'register', component:Register, title: 'Registro'},
     {path: 'login', component:Login, title: 'Login'},
     {path: 'admin', component:Admin, title: 'Administrador'},

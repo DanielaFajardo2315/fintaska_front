@@ -1,11 +1,18 @@
 import { Component, signal, inject } from '@angular/core';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
 import { Navbar } from './components/navbar/navbar';
+import { Footer } from './components/footer/footer';
+import { MoreButton } from './components/more-button/more-button';
+import { Button } from './components/button/button';
+import { Login } from './pages/login/login';
+import { Register } from './pages/register/register';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar],
+  imports: [RouterOutlet, Navbar, Footer, Login, CommonModule, Register],
   templateUrl: './app.html',
   styleUrl: './app.css'  
 })
