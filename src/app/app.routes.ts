@@ -4,11 +4,11 @@ import { NotFound } from './pages/not-found/not-found';
 import { Profile } from './pages/profile/profile';
 import { Finances } from './pages/finances/finances';
 import { Register } from './pages/register/register';
+import { Login } from './pages/login/login';
 import { Admin } from './pages/admin/admin';
 import { Board } from './pages/board/board';
 import { Planner } from './pages/planner/planner';
 import { Tree } from './pages/tree/tree';
-import { Login } from './pages/login/login';
 
 export const routes: Routes = [
     { path: '', component: Home, title: 'Inicio'},

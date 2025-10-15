@@ -1,0 +1,126 @@
+/* ========== CONTENEDOR PRINCIPAL ========== */
+.fintask-container {
+  min-height: calc(100vh - 180px);
+  background-color: var(--light-background, #FAFAFA);
+  padding-bottom: 80px;
+}
+
+/* ========== TARJETAS PRINCIPALES ========== */
+.fintask-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 650px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fintask-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.finanzas-card {
+  border: 3px solid var(--finance-color);
+}
+
+.planeador-card {
+  border: 3px solid var(--planner-color);
+}
+
+.tablero-card {
+  border: 3px solid var(--board-color);
+}
+
+/* ========== HEADERS DE TARJETAS ========== */
+.card-header-custom {
+  padding: 1.5rem;
+  text-align: center;
+  background: white;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.card-header-custom h3 {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+/* ========== BODY DE TARJETAS ========== */
+.card-body-custom {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ========== FOOTER DE TARJETAS ========== */
+.card-footer-custom {
+  padding: 1.5rem;
+  text-align: center;
+  background: white;
+  border-top: 2px solid #f0f0f0;
+}
+
+.btn-add-fintask {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.finanzas-btn {
+  background-color: var(--finance-color);
+}
+
+.planeador-btn {
+  background-color: var(--planner-color);
+}
+
+.tablero-btn {
+  background-color: var(--board-color);
+}
+
+.btn-add-fintask:hover {
+  transform: scale(1.15);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+}
+
+/* ========== SECCIÓN FINANZAS ========== */
+
+
+
+/* ========== SECCIÓN PLANEADOR ========== */
+
+
+
+/* ========== SECCIÓN TABLERO (NOTAS) ========== */
+
+
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1199.98px) {
+  .fintask-card {
+    min-height: 600px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .fintask-card {
+    min-height: 550px;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-body-custom {
+    padding: 1.2rem;
+  }
+}
