@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-login',
-  imports: [],
-=======
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -12,15 +5,10 @@ import { CommonModule } from '@angular/common';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule],
->>>>>>> origin/rama_yesmy
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
 export class Login {
-<<<<<<< HEAD
-
-}
-=======
   showMoreInfo = signal(false);
 
   toggleMoreInfo() {
@@ -44,4 +32,3 @@ export class Login {
     }
   }
 }
->>>>>>> origin/rama_yesmy
