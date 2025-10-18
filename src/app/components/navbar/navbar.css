@@ -4,7 +4,7 @@
 .barra-nav {
   background-color: var(--navbar-color, --planner-color);         /* color original */
   margin: 10px;                 /* margen superior y laterales */
-  border-radius: 15px;               /* bordes redondeados */
+  border-radius: var(--borde-radio);               /* bordes redondeados */
   padding: 0.5rem 1rem;              /* aire interno */
   width: calc(100% - 20px);                   /* para que no ocupe todo el ancho */
   transform: none;       /* centrar en la pantalla */
@@ -34,9 +34,9 @@
 
 
 /* Espaciado para que el contenido no quede detrás del navbar fijo */
-body {
+/* body {
   padding-top: 90px; 
-}
+} */
 
 /* Logo */
 .logo-barra-nav {
@@ -53,7 +53,7 @@ body {
 .navbar .nav-item .btn-link {
   color: var(--text-color);
   transition: background-color 0.2s ease, color 0.2s ease;
-  border-radius: 10px;
+  border-radius: var(--borde-radio);
 }
 
 .navbar .nav-item .btn-link:hover {
@@ -71,11 +71,8 @@ body {
 @media (max-width: 991px) {
   .barra-nav {
     margin: 5px 10px;
-    border-radius: 10px;
+    border-radius: var(--borde-radio);
     max-width: calc(100% - 20px);
   }
 
-  body {
-    padding-top: 100px;
-  }
 }

@@ -1,17 +1,21 @@
-body {
-  margin: 0;
-  padding: 0;
-}
-
 /* Aplicar padding al main para que no quede detrás del navbar */
 main {
-  padding-top: 90px;  /* Altura del navbar + margen */
-  min-height: calc(100vh - 90px);
+  padding-top: 90px; 
+  min-height: calc(100vh - 40px);
+  flex: 1;
+}
+
+/* En páginas sin navbar (como login), quitar el padding */
+main.no-navbar {
+  padding-top: 0;
 }
 
 /* Responsive */
 @media (max-width: 991px) {
   main {
     padding-top: 100px;
+  }
+  main.no-navbar {
+    padding-top: 0;
   }
 }

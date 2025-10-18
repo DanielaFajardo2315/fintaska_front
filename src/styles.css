@@ -26,6 +26,7 @@
     --primary-color: #809BCE;
     --tablero-color: #B8E0D2;
     --finanzas-color: #EAC4D5;
+    --borde-radio: 20px;
 }
 
 *{
@@ -39,4 +40,7 @@ body {
     font-family: var(--font);
     color: var(--text-dark);
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }

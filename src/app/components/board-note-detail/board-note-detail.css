@@ -48,7 +48,7 @@ h3 {
     width: 5rem;
     height: 5rem;
     object-fit: cover;
-    border-radius: 20px;
+    border-radius: var(--borde-radio);
 }
 
 .files {
@@ -72,7 +72,7 @@ h3 {
 }
 
 #tagInput {
-    border-radius: 20px;
+    border-radius: var(--borde-radio);
     padding: 10px;
     font-size: 0.8rem;
     border: 1px solid black;

@@ -1,8 +1,6 @@
 .btn-primary {
     background-color: var(--primary-color);
-    border-radius:20px;
+    border-radius:var(--borde-radio);
     font-size: 20px;
-    border: none;
-    font-family: 'Poppins-Regular';
-        
+    border: none;        
 }

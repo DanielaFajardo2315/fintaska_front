@@ -19,6 +19,16 @@ h3 {
     font-size: 1.1rem;
 }
 
+.note_description {
+    color: gray;
+}
+
+.no_adjunto {
+    color: blueviolet;
+    font-style: italic;
+    font-size: 0.7rem;
+}
+
 .contenido{
     padding: 0 10px;
     font-size: 0.9rem;
