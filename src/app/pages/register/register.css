@@ -13,6 +13,7 @@
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh;
+    font: poppins;
     display: flex;
     flex-direction: column;
     align-items: center;
