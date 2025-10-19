@@ -1,0 +1,78 @@
+/* Estilos Navbar */
+
+/* Color de fondo + borde + radios */
+.barra-nav {
+  background-color: var(--navbar-color, --planner-color);         /* color original */
+  margin: 10px;                 /* margen superior y laterales */
+  border-radius: var(--borde-radio);               /* bordes redondeados */
+  padding: 0.5rem 1rem;              /* aire interno */
+  width: calc(100% - 20px);                   /* para que no ocupe todo el ancho */
+  transform: none;       /* centrar en la pantalla */
+  transition: background-color 0.3s ease;  /* Transición suave */
+}
+
+/* Temas de colores según la ruta */
+.theme-default {
+  --navbar-color: var(--planner-color);  
+}
+
+.theme-finances {
+  --navbar-color:var(--finance-color);  
+}
+
+.theme-board {
+  --navbar-color: var(--board-color);  
+}
+
+.theme-planner {
+  --navbar-color: var(--planner-color); 
+}
+
+.theme-tree {
+  --navbar-color: #17a2b8;  /* Este no esta en el app.ts -> toma color defaulr */
+}
+
+
+/* Espaciado para que el contenido no quede detrás del navbar fijo */
+/* body {
+  padding-top: 90px; 
+} */
+
+/* Logo */
+.logo-barra-nav {
+  height: 45px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.logo-barra-nav:hover {
+  transform: scale(1.05);
+}
+
+/* Botones del menú */
+.navbar .nav-item .btn-link {
+  color: var(--text-color);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  border-radius: var(--borde-radio);
+}
+
+.navbar .nav-item .btn-link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* Íconos del menú */
+.navbar .nav-item i {
+  font-size: 1.5rem;
+  vertical-align: middle;
+}
+
+/* Responsive: ajustar márgenes en pantallas pequeñas */
+@media (max-width: 991px) {
+  .barra-nav {
+    margin: 5px 10px;
+    border-radius: var(--borde-radio);
+    max-width: calc(100% - 20px);
+  }
+
+}

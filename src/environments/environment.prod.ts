@@ -1,4 +1,4 @@
-export const environment ={
+export const environment = {
     production: true,
-    appUrl : 'http://localhost:3000'
+    appUrl: 'https://tu-futuro-dominio.dev'
 }

@@ -17,6 +17,7 @@ export const routes: Routes = [
     {path: 'finances', component:Finances, title: 'Finanzas'},
     { path: "login", component: Login, title: "Inicio Sesión" },
     {path: 'register', component:Register, title: 'Registro'},
+    {path: 'login', component:Login, title: 'Login'},
     {path: 'admin', component:Admin, title: 'Administrador'},
     {path:'board', component: Board, title:'Tablero'},
     {path: 'planner', component: Planner, title: 'Planeador'},

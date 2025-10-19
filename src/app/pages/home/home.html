@@ -1,2 +1,143 @@
 
+<!-- Contenedor principal estilo Fintask -->
+<div class="fintask-container">
+  <div class="container-fluid p-3 p-md-4">
+    <div class="row g-3 g-md-4">
+      
+      <!-- SECCIÓN 1: FINANZAS -->
+      <div class="col-lg-4 col-md-6">
+        <div class="fintask-card finanzas-card h-100">
+          <div class="card-header-custom">
+            <h3 class="fw-bold mb-0">FINANZAS</h3>
+          </div>
+          <div class="card-body-custom">
+            <!-- Gráfico de finanzas -->
+            <div class="chart-container">
+              <canvas id="financeChart"></canvas>
+            </div>
+            
+            <!-- Leyenda del gráfico -->
+            <div class="finance-legend mt-4">
+              <div class="legend-item">
+                <span class="legend-color" style="background-color: #B8E0D2;"></span>
+                <!-- <span class="legend-text">Ingresos {{ financeData.ingresos }}%</span> -->
+              </div>
+              <div class="legend-item">
+                <span class="legend-color" style="background-color: #EAC4D5;"></span>
+                <!-- <span class="legend-text">Gastos {{ financeData.gastos }}%</span> -->
+              </div>
+              <div class="legend-item">
+                <span class="legend-color" style="background-color: #A8B8D8;"></span>
+                <!-- <span class="legend-text">Deudas {{ financeData.deudas }}%</span> -->
+              </div>
+              <div class="legend-item">
+                <span class="legend-color" style="background-color: #809BCE;"></span>
+                <!-- <span class="legend-text">Ahorros {{ financeData.ahorros }}%</span> -->
+              </div>
+            </div>
+          </div>
+          <div class="card-footer-custom">
+            <button class="btn-add-fintask finanzas-btn" routerLink="/finances">
+              <i class="bi bi-plus-circle fs-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
 
+      <!-- SECCIÓN 2: PLANEADOR -->
+      <div class="col-lg-4 col-md-6">
+        <div class="fintask-card planeador-card h-100">
+          <div class="card-header-custom">
+            <h3 class="fw-bold mb-0">PLANEADOR</h3>
+          </div>
+          <div class="card-body-custom">
+            <!-- Mini calendario -->
+            <div class="mini-calendar">
+              <div class="calendar-header">
+                <button class="btn btn-sm btn-light">
+                  <i class="bi bi-chevron-left"></i>
+                </button>
+                <span class="fw-bold">Sep 28 - Oct 4, 2025</span>
+                <button class="btn btn-sm btn-light">
+                  <i class="bi bi-chevron-right"></i>
+                </button>
+              </div>
+              
+              <div class="calendar-view-toggle mt-3">
+                <button class="btn btn-sm btn-primary">month</button>
+                <button class="btn btn-sm btn-outline-primary">week</button>
+                <button class="btn btn-sm btn-outline-primary">day</button>
+                <button class="btn btn-sm btn-outline-primary">list</button>
+              </div>
+
+              <!-- Eventos del calendario -->
+              <div class="calendar-events mt-3">
+                <!-- @for (eventDay of calendarEvents; track eventDay.date) {
+                  <div class="event-day-group">
+                    <div class="event-day-header">
+                      <span class="event-day">{{ eventDay.day }}</span>
+                      <span class="event-date">{{ eventDay.date }}</span>
+                    </div>
+                    @for (event of eventDay.events; track event.name) {
+                      <div class="event-detail">
+                        <span class="event-time">{{ event.time }}</span>
+                        <span class="event-name">
+                          <span class="event-dot"></span>
+                          {{ event.name }}
+                        </span>
+                      </div>
+                    }
+                  </div>
+                } -->
+              </div>
+            </div>
+          </div>
+          <div class="card-footer-custom">
+            <button class="btn-add-fintask planeador-btn" routerLink="/planner">
+              <i class="bi bi-plus-circle fs-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 3: TABLERO -->
+      <div class="col-lg-4 col-md-12">
+        <div class="fintask-card tablero-card h-100">
+          <div class="card-header-custom">
+            <h3 class="fw-bold mb-0">TABLERO</h3>
+          </div>
+          <div class="card-body-custom">
+            <!-- Notas estilo sticky -->
+            <div class="notes-container">
+              <!-- @for (note of notes; track note.id) {
+                <div class="sticky-note" [ngClass]="'note-' + note.color">
+                  <h5 class="note-title">{{ note.title }}</h5>
+                  <p class="note-description">{{ note.description }}</p>
+                  <div class="note-footer">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                      <i class="bi bi-folder-fill"></i>
+                      <span>Archivos guardados</span>
+                    </div>
+                    <div class="note-icons">
+                      <i class="bi bi-folder"></i>
+                      <i class="bi bi-pencil"></i>
+                      <i class="bi bi-hash"></i>
+                      <i class="bi bi-file-text"></i>
+                      <i class="bi bi-image"></i>
+                    </div>
+                  </div>
+                </div>
+              } -->
+            </div>
+          </div>
+          <div class="card-footer-custom">
+            <button class="btn-add-fintask tablero-btn" routerLink="/board">
+              <i class="bi bi-plus-circle fs-1"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

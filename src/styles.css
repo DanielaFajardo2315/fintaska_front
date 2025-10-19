@@ -1,11 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import url('https://fonts.cdnfonts.com/css/poppins');
-
-
-
 :root {
+    --color-lila: #DCD0FF;
+    --color-lila-enca: #BBA4FF;
+    --color-azul: #A2CFFE;
+    --color-azul-enca: #65B0FF;
+    --color-verde: #AAF0D1;
+    --color-verde-enca: #51FFB2;
+    --color-rosa: #FFD1DC;
+    --color-rosa-enca: #FF95AE;
+    --color-lavanda: #E3E4FA;
+    --color-lavanda-enca: #B7BBFF;
+    --color-amarillo: #FFFACD;
+    --color-amarillo-enca: #FFF493;
+    --color-durazno: #FFDAB9;
+    --color-durazno-enca: #FFBB7E;
+    --color-celeste: #B0E0E6;
+    --color-celeste-enca: #7FD8E3;
+    --planner-color:#809BCE;
+    --board-color:#B8E0D2;
+    --planner-color: #A8B8D8;
+    --finance-color:#EAC4D5;
+    --light-background:#FAFAFA;
+    --text-dark:#2B2B2B;
+    --font: 'Poppins', sans-serif;
     --primary-color: #809BCE;
     --tablero-color: #B8E0D2;
     --finanzas-color: #EAC4D5;
+    --borde-radio: 20px;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--light-background);
+    font-family: var(--font);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }

@@ -1,20 +1,18 @@
 <!-- header: encabezado -->
 <header>
-  <!-- <app-navbar></app-navbar> -->
+  @if (!hideNavbar()) {
+  <app-navbar [theme]="currentNavbarTheme()"></app-navbar>
+  }
 </header>
+
 <!-- main: contenido principal -->
-<main>
-<!--<app-login></app-login>-->
-<app-register></app-register>
-
- <!-- <app-more-button></app-more-button>
-  <app-button></app-button>-->
+<main [class.no-navbar]="hideNavbar()">
+  <router-outlet />
 </main>
-
-<router-outlet />
 
 <!-- footer: pie de página -->
 <footer>
 <app-footer></app-footer>
 </footer>
+
 

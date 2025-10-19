@@ -1,11 +1,8 @@
 export interface Board {
-
- _id?: string; 
+  _id: string;
   title: string;
-  tag?: string[];        
-  urlFile?: string[];     
-  urlImage?: string[];    
-  description?: string; 
-  uploadDate?: string;    
-
+  tag?: string[];
+  urlFile?: string[];
+  urlImage?: string[];
+  description?: string;
 }
