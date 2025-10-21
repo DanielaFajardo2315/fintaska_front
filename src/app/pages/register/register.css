@@ -13,6 +13,7 @@
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh;
+    font: poppins;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,7 +50,14 @@
     font-weight: 600;
     font-size: 1.3rem;
     margin-bottom: 25px;
-    margin-top: -15px;    
+    margin-top: -15px;
+
+    
+}
+
+/* reduce espacios entre campos */
+.mb-3, .mb-2 {
+  margin-bottom: 0.3rem !important;
 }
 
 .form-label {

@@ -1,1 +1,8 @@
-<a class="btn btn-primary disabled" role="button" poppins="true">Ingresar</a>
+<a
+  [class]="classes"
+  role="button"
+  (click)="handleClick($event)"
+>
+  {{ text }}
+</a>
+

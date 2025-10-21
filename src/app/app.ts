@@ -10,6 +10,7 @@ import { Button } from './components/button/button';
 // import { Register } from './pages/register/register';
 
 
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, Navbar, Footer, CommonModule],
@@ -38,7 +39,7 @@ export class App {
 
   private handleRouteChange(url: string) {
     // Ocultar navbar en login, register y not-found 
-    const hiddenRoutes = ['/login', '/register'];
+    const hiddenRoutes = ['/login', '/register', '/not-found'];
     this.hideNavbar.set(hiddenRoutes.includes(url));
 
     // Cambiar tema según la ruta
