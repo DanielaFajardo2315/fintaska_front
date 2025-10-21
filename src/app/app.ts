@@ -6,13 +6,13 @@ import { Navbar } from './components/navbar/navbar';
 import { Footer } from './components/footer/footer';
 import { MoreButton } from './components/more-button/more-button';
 import { Button } from './components/button/button';
-import { Login } from './pages/login/login';
-import { Register } from './pages/register/register';
+// import { Login } from './pages/login/login';
+// import { Register } from './pages/register/register';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, Footer, Login, CommonModule, Register],
+  imports: [RouterOutlet, Navbar, Footer, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'  
 })

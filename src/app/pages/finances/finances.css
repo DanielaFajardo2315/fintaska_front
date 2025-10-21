@@ -1,0 +1,383 @@
+/* CONTENEDOR PRINCIPAL                         */
+/* ============================================ */
+.finances-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--light-background);
+  min-height: calc(100vh - 100px);
+}
+
+/* ============================================ */
+/* SECCIÓN DE TARJETAS DE RESUMEN (4 TARJETAS) */
+/* ============================================ */
+.summary-section {
+  margin-bottom: 2rem;
+}
+
+.summary-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.summary-card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+  margin: 0 0 0.5rem 0;
+}
+
+.card-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #2B2B2B;
+}
+
+/* Colores específicos por tipo */
+.card-ingresos .card-icon {
+  background: #AAF0D1;
+  color: #2B2B2B;
+}
+
+.card-ahorros .card-icon {
+  background: #A2CFFE;
+  color: #2B2B2B;
+}
+
+.card-gastos .card-icon {
+  background: #FFDAB9;
+  color: #2B2B2B;
+}
+
+.card-deudas .card-icon {
+  background: #DCD0FF;
+  color: #2B2B2B;
+}
+
+/* ============================================ */
+/* GRID PRINCIPAL: 2 COLUMNAS                   */
+/* ============================================ */
+.main-content-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* ============================================ */
+/* COLUMNA IZQUIERDA                            */
+/* ============================================ */
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2B2B2B;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+/* Sección de Gráficos */
+.charts-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.chart-card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.chart-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2B2B2B;
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
+.chart-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.donut-chart {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #AAF0D1 0%, #FFD1DC 50%, #A2CFFE 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.donut-chart::after {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: white;
+  border-radius: 50%;
+}
+
+.chart-visual {
+  font-size: 2rem;
+  z-index: 1;
+}
+
+.chart-legend {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-ingresos {
+  background: #AAF0D1;
+}
+
+.legend-gastos {
+  background: #FF95AE;
+}
+
+.legend-alimentacion {
+  background: #FFD1DC;
+}
+
+.legend-hogar {
+  background: #A2CFFE;
+}
+
+.legend-transporte {
+  background: #B0E0E6;
+}
+
+.legend-ocio {
+  background: #DCD0FF;
+}
+
+.legend-salud {
+  background: #FFFACD;
+}
+
+.legend-otros {
+  background: #E3E4FA;
+}
+
+/* ============================================ */
+/* COLUMNA DERECHA                              */
+/* ============================================ */
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Tarjeta de Acciones Rápidas */
+.quick-actions-card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2B2B2B;
+  margin: 0 0 1rem 0;
+}
+
+.actions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--finance-color);
+  color: #2B2B2B;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-button:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.action-button i {
+  font-size: 1.5rem;
+}
+
+.action-search {
+  background: #F8F9FA;
+}
+
+.action-add {
+  background: var(--finance-color);
+}
+
+.action-categories {
+  background: #F8F9FA;
+}
+
+/* Tarjeta de Últimos Movimientos */
+.recent-movements-card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  flex: 1;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.btn-see-more {
+  background: var(--finance-color);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-see-more:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+
+/* Tabla de Movimientos */
+.movements-table-wrapper {
+  overflow-x: auto;
+}
+
+.movements-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.movements-table thead {
+  background: #F8F9FA;
+  border-radius: 8px;
+}
+
+.movements-table th {
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #666;
+  border-bottom: 2px solid #E0E0E0;
+}
+
+.movements-table td {
+  padding: 1rem 0.75rem;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.movements-table tbody tr:hover {
+  background: #F8F9FA;
+}
+
+.description-cell {
+  font-weight: 600;
+  color: #2B2B2B;
+}
+
+.category-cell {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.amount-cell {
+  font-weight: 700;
+  text-align: right;
+}
+
+.amount-positive {
+  color: #51FFB2;
+}
+
+.amount-negative {
+  color: #FF95AE;
+}

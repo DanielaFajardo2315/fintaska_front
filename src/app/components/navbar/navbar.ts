@@ -12,10 +12,15 @@ import { LoginService } from '../../services/login';
 })
 export class Navbar {
     @Input() theme: string = 'theme-default';
+<<<<<<< HEAD
     private _loginService = inject(LoginService);
 
+=======
+    
+    private _loginService = inject(LoginService);
+    
+>>>>>>> origin/rama_laura
     isMenuCollapsed = true;
-
   toggleMenu() {
     this.isMenuCollapsed = !this.isMenuCollapsed;
   }
@@ -27,8 +32,7 @@ export class Navbar {
 
   logout() {
     console.log('Clic en salir');
-    // agregar servicio autenticacion
-    // this.authService.logout();
+    this._loginService.logout();
   }
 
   isVisible: boolean = this._loginService.isAdmin();
