@@ -1,1 +1,45 @@
-<p>admin works!</p>
+<div class="admin_container">
+    <div class="data_usuarios">
+        <div class="datos">
+            <p>Usuarios totales:</p>
+            <p>Usuarios activos:</p>
+        </div>
+        <img src="assets/grafico_ejemplo.png" alt="">
+    </div>
+    <h2 class="titulo">PANEL ADMINISTRADOR</h2>
+    <div class="tabla_usuarios">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Nombre de usuario</th>
+                    <th>Email</th>
+                    <th>Estado</th>
+                    <th>Último acceso</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (user of allUsers; track $index) {
+                <tr>
+                    <td>{{user.fullName}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.registerDate}}</td>
+                    <td>{{user.rol}}</td>
+                    <td><i class="bi bi-check-lg"></i>/<i class="bi bi-x"></i></td>
+                </tr>
+                <!-- <tr>
+                    <td>Nombre completo</td>
+                    <td>Username</td>
+                    <td>ejemplo@ejemplo.com</td>
+                    <td>10/10/2025</td>
+                    <td>usuario</td>
+                    <td><i class="bi bi-check-lg"></i>/<i class="bi bi-x"></i></td>
+                </tr> -->
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

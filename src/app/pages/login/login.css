@@ -9,13 +9,8 @@
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    min-height: 100vh;
+    height: 94.5vh;
  }
-
-
-.min-vh-100 {
-    min-height: 100vh;
-}
 
 .left-section {
     display: flex;
@@ -50,7 +45,7 @@
 
 .info-text {
     font-size: 18px;
-    color: #333;
+    color: var(--text-dark);
     line-height: 1.8;
     margin-bottom: 20px;
 
@@ -58,7 +53,7 @@
 
 /*boton conoce mas*/
 .btn-info-more {
-    background-color: #809BCE;
+    background-color: var(--home-color);
     color: white;
     border: none;
     padding: 10px 30px;
@@ -69,7 +64,7 @@
 }
 
 .btn-info-more:hover {
-    background-color: #809BCE;
+    background-color: var(--home-color);
     transform: translateY(-2px);
 }
 
@@ -83,7 +78,7 @@
 
 /*Columna derecha*/
 .card {
-    border: solid#809BCE;
+    border: solid var(--home-color);
     border-radius: var(--borde-radio);
     margin-top: -20px;
     padding-top: 10px;
@@ -93,7 +88,7 @@
 .login-card {
     width: 100%;
     max-width: 450px;
-    border: 5px solid #809BCE;
+    border: 5px solid var(--home-color);
     border-radius: var(--borde-radio);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
     margin-top: -20px;
@@ -105,7 +100,7 @@
 
 /*Iniciar Sesion*/
 .card-title {
-    color: #333;
+    color: var(--text-dark);
     font-weight: 600;
     font-size: 22px;
     margin-bottom: 25px;
@@ -128,7 +123,7 @@
     right: 15px;
     top: 50%;
     transform: translateY(-50%);
-    color: #333;
+    color: var(--text-dark);
     font-size: 1.2rem;
 }
 
@@ -138,28 +133,28 @@
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
-    color: #050303;
+    color: var(--text-dark);
     font-size: 20px;
 
 }
 
 .form-control {
-    background-color: #809BCE;
+    background-color: var(--home-color);
     padding: 10px 35px 10px 12px;
-    border: 1px solid #ddd;
+    border: 1px solid #e0e0e0;
     border-radius: var(--borde-radio);
 }
 
 .form-control:focus {
-    border-color: #809BCE;
+    border-color: var(--home-color);
     box-shadow: 0 0 0 0.2rem rgba(123, 159, 191, 0.25);
 }
 
 /*Boton Ingresar*/
 
 .btn-primary {
-    background-color: #809BCE;
-    border-color: #809BCE;
+    background-color: var(--home-color);
+    border-color: var(--home-color);
     padding: 8px 45px;
     font-weight: 600;
     border-radius: var(--borde-radio);
@@ -167,40 +162,38 @@
 
 .btn-primary:hover {
     background-color: #5e739b;
-    border-color: #809BCE;
+    border-color: var(--home-color);
 }
 
 /*has olvidado la contraseña*/
 
 .forgot-link {
-    color: #7b9fbf;
+    color: var(--home-color);
     font-size: 14px;
     transition: all 0.3s;
 }
 
 .forgot-link:hover {
-    color: #000203;
-    text-decoration: underline !important;
+    color: var(--text-dark);
 }
 
 /*Registrarse*/
 .register-bar {
-    background-color: #809BCE;
+    background-color: var(--home-color);
     padding: 18px 0;
     border-radius: 0 0 8px 8px;
     margin-top: 20px;
 }
 
 .register-link {
-    color: #ffffff;
+    color: var(--text-white);
     font-size: 14px;
     font-weight: 500;
     transition: all 0.3s;
 }
 
 .register-link:hover {
-    color: #00050a;
-    text-decoration: underline !important;
+    color: var(--text-dark);
 }
 
 /* Responsive pagina */

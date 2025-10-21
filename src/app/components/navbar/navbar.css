@@ -2,7 +2,7 @@
 
 /* Color de fondo + borde + radios */
 .barra-nav {
-  background-color: var(--navbar-color, --planner-color);         /* color original */
+  background-color: var(--navbar-color, --home-color);         /* color original */
   margin: 10px;                 /* margen superior y laterales */
   border-radius: var(--borde-radio);               /* bordes redondeados */
   padding: 0.5rem 1rem;              /* aire interno */
@@ -13,7 +13,7 @@
 
 /* Temas de colores según la ruta */
 .theme-default {
-  --navbar-color: var(--planner-color);  
+  --navbar-color: var(--home-color);  
 }
 
 .theme-finances {
@@ -21,7 +21,7 @@
 }
 
 .theme-board {
-  --navbar-color: var(--board-color);  
+  --navbar-color: var(--tablero-color);  
 }
 
 .theme-planner {

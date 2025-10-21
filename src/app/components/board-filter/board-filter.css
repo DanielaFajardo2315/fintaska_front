@@ -1,0 +1,56 @@
+.filter_container {
+    background-color: var(--tablero-color);
+    font-style: italic;
+    padding: 15px;
+    border-radius: var(--borde-radio);
+    min-height: 250px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+}
+
+.input_tag {
+    background-color: var(--enfasis-tablero);
+    height: 40px;
+    border-radius: var(--borde-radio);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.input {
+    background: none;
+    border: none;
+    font-style: italic;
+    height: 40px;
+    border-radius: var(--borde-radio);
+    padding: 0 8px;
+    text-align: center;
+    width: 80%;
+}
+
+.input:focus {
+    border: var(--home-color) 2px solid;
+    outline: none;
+}
+
+.input_tag i {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.input_tag i:hover {
+    transform: scale(1.3);
+}
+
+h6 {
+    font-weight: bold;
+}
+
+app-more-button {
+    --boton-color: var(--enfasis-tablero);
+    display: flex;
+    justify-content: flex-end;
+}

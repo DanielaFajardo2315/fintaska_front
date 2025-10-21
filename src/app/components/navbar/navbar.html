@@ -50,38 +50,39 @@
             <span class="d-lg-none">Notificaciones</span>
           </button>
         </li>
-
-        <!-- Arbol -->
-        <li class="nav-item">
-          <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/tree" title="Arbol">
-            <i class="bi bi-tree-fill fs-4 me-2 me-lg-0"></i>
-            <span class="d-lg-none">Arbol</span>
-          </a>
-        </li>
-
-        <!-- Finanzas -->
-        <li class="nav-item">
-          <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/finances" title="Finanzas">
-            <i class="bi bi-pie-chart-fill fs-4 me-2 me-lg-0"></i>
-            <span class="d-lg-none">Finanzas</span>
-          </a>
-        </li>
-
-        <!-- Planner -->
-        <li class="nav-item">
-          <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/planner" title="Planeador">
-            <i class="bi bi-calendar-week-fill fs-4 me-2 me-lg-0"></i>
-            <span class="d-lg-none">Planeador</span>
-          </a>
-        </li>
-
-        <!-- Tablero -->
-        <li class="nav-item">
-          <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/board" title="Tablero de Notas">
-            <i class="bi bi-sticky-fill fs-4 me-2 me-lg-0"></i>
-            <span class="d-lg-none">Tablero de Notas</span>
-          </a>
-        </li>
+        @if (isVisible) {
+          <!-- Arbol -->
+          <li class="nav-item">
+            <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/tree" title="Arbol">
+              <i class="bi bi-tree-fill fs-4 me-2 me-lg-0"></i>
+              <span class="d-lg-none">Arbol</span>
+            </a>
+          </li>
+  
+          <!-- Finanzas -->
+          <li class="nav-item">
+            <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/finances" title="Finanzas">
+              <i class="bi bi-pie-chart-fill fs-4 me-2 me-lg-0"></i>
+              <span class="d-lg-none">Finanzas</span>
+            </a>
+          </li>
+  
+          <!-- Planner -->
+          <li class="nav-item">
+            <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/planner" title="Planeador">
+              <i class="bi bi-calendar-week-fill fs-4 me-2 me-lg-0"></i>
+              <span class="d-lg-none">Planeador</span>
+            </a>
+          </li>
+  
+          <!-- Tablero -->
+          <li class="nav-item">
+            <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/board" title="Tablero de Notas">
+              <i class="bi bi-sticky-fill fs-4 me-2 me-lg-0"></i>
+              <span class="d-lg-none">Tablero de Notas</span>
+            </a>
+          </li>
+        }
 
         <!-- Logout -->
         <li class="nav-item">

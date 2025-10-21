@@ -1,5 +1,5 @@
 .btn-primary {
-    background-color: var(--primary-color);
+    background-color: var(--home-color);
     border-radius:var(--borde-radio);
     font-size: 20px;
     border: none;        

@@ -16,16 +16,15 @@
     --color-durazno-enca: #FFBB7E;
     --color-celeste: #B0E0E6;
     --color-celeste-enca: #7FD8E3;
-    --planner-color:#809BCE;
-    --board-color:#B8E0D2;
-    --planner-color: #A8B8D8;
+    --planner-color:#95B8D1;
+    --home-color:#809BCE;
     --finance-color:#EAC4D5;
     --light-background:#FAFAFA;
     --text-dark:#2B2B2B;
+    --text-white: white;
     --font: 'Poppins', sans-serif;
-    --primary-color: #809BCE;
-    --tablero-color: #B8E0D2;
-    --finanzas-color: #EAC4D5;
+    --tablero-color: #D6EADF;
+    --enfasis-tablero: #B8E0D2;
     --borde-radio: 20px;
 }
 

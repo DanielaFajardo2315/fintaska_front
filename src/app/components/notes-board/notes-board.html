@@ -1,10 +1,6 @@
 <div class="notes_container">
   <!-- Vista de miniaturas -->
-  @if (!showDetail) {
   <div class="notes_grid">
-    <div class="notes_header">
-      <h1>TABLERO</h1>
-    </div>
 
     <!-- Lista de notas -->
     <div class="notes_list">
@@ -13,7 +9,6 @@
       </app-board-note>
     </div>
   </div>
-  }
 
   <!-- Vista detallada -->
   @if (showDetail) {

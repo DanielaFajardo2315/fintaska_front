@@ -1,0 +1,60 @@
+.admin_container {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 20px;
+}
+
+.data_usuarios{
+  grid-area: 1 / 1 / 2 / 2;
+  width: 70%;
+  height: 80%;
+  border: 4px solid var(--home-color);
+  border-radius: var(--borde-radio);
+  margin: auto 5vw;
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.data_usuarios p {
+  font-weight: bold;
+}
+
+.datos {
+  margin: 10px;
+}
+
+.titulo {
+  grid-area: 1 / 2 / 2 / 3;
+  width: 70%;
+  font-weight: bold;
+  margin: auto 0;
+}
+
+.tabla_usuarios {
+  grid-area: 2 / 1 / 3 / 3;
+  margin: 0 auto;
+}
+
+/* ---- TABLA USUARIOS ------- */
+table {
+  width: 90vw;
+}
+
+table,
+td {
+  border: 1.5px solid var(--home-color);
+  border-collapse: collapse;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: var(--home-color);
+  border: 1.5px solid white;
+  padding: 8px;
+  border-collapse: collapse;
+  text-align: center;
+}

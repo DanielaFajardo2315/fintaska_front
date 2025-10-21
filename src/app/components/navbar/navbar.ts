@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { LoginService } from '../../services/login';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +12,7 @@ import { NgClass } from '@angular/common';
 })
 export class Navbar {
     @Input() theme: string = 'theme-default';
+    private _loginService = inject(LoginService);
 
     isMenuCollapsed = true;
 
@@ -29,4 +31,5 @@ export class Navbar {
     // this.authService.logout();
   }
 
+  isVisible: boolean = this._loginService.isAdmin();
 }

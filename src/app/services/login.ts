@@ -47,4 +47,8 @@ export class LoginService {
     alert('Cierre de sesión exitoso, vuleve pronto');
     this._router.navigate(['/login']);
   }
+
+  isLoggedIn(){
+    return this.getToken() ? true : false;
+  }
 }
