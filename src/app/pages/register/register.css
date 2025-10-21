@@ -13,7 +13,6 @@
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh;
-    font: poppins;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,14 +34,13 @@
     border: 5px solid #809BCE;
     border-radius: var(--borde-radio);
     margin: 0 auto;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  padding: 1.2rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 
 .login-card input,
 .login-card label {
-  font-size: 0.85rem;
+    font-size: 0.85rem;
 }
 
 .card-title {
@@ -51,13 +49,6 @@
     font-size: 1.3rem;
     margin-bottom: 25px;
     margin-top: -15px;
-
-    
-}
-
-/* reduce espacios entre campos */
-.mb-3, .mb-2 {
-  margin-bottom: 0.3rem !important;
 }
 
 .form-label {
@@ -91,8 +82,4 @@
 .btn-primary:hover {
     background-color: #5e739b;
     border-color: #809BCE;
-}
-
-.d-flex.justify-content-between {
-    margin-top: 0.5rem !important;
 }

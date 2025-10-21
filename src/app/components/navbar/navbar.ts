@@ -12,14 +12,8 @@ import { LoginService } from '../../services/login';
 })
 export class Navbar {
     @Input() theme: string = 'theme-default';
-<<<<<<< HEAD
     private _loginService = inject(LoginService);
 
-=======
-    
-    private _loginService = inject(LoginService);
-    
->>>>>>> origin/rama_laura
     isMenuCollapsed = true;
   toggleMenu() {
     this.isMenuCollapsed = !this.isMenuCollapsed;
