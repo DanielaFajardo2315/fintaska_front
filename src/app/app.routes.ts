@@ -9,7 +9,7 @@ import { Admin } from './pages/admin/admin';
 import { Board } from './pages/board/board';
 import { Planner } from './pages/planner/planner';
 import { Tree } from './pages/tree/tree';
-
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
     { path: '', component: Home, title: 'Inicio'},
@@ -18,7 +18,7 @@ export const routes: Routes = [
     { path: "login", component: Login, title: "Inicio Sesión" },
     {path: 'register', component:Register, title: 'Registro'},
     {path: 'login', component:Login, title: 'Login'},
-    {path: 'admin', component:Admin, title: 'Administrador'},
+    {path: 'admin', component:Admin, title: 'Administrador', canActivate :[authGuard]},
     {path:'board', component: Board, title:'Tablero'},
     {path: 'planner', component: Planner, title: 'Planeador'},
     {path: 'tree', component: Tree, title: 'Arbol'},

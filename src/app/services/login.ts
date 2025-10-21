@@ -4,7 +4,7 @@ import { Credentials } from '../interfaces/credentials';
 import { environment } from '../../environments/environment';
 import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
-import { Token } from '@angular/compiler';
+
 
 @Injectable({
   providedIn: 'root'
@@ -47,4 +47,9 @@ export class LoginService {
     alert('Cierre de sesión exitoso, vuleve pronto');
     this._router.navigate(['/login']);
   }
+
+  isLoggedIn(){
+    return this.getToken() ? true : false;
+  }
+
 }

@@ -1,1 +1,434 @@
-<p>finances works!</p>
+
+<div class="finances-container">
+  
+  <!-- ============================================ -->
+  <!-- MENSAJES DE ALERTA                           -->
+  <!-- ============================================ -->
+  @if (successMessage()) {
+    <div class="alert alert-success alert-dismissible fade show">
+      {{ successMessage() }}
+      <button type="button" class="btn-close" (click)="successMessage.set('')"></button>
+    </div>
+  }
+  
+  @if (errorMessage()) {
+    <div class="alert alert-danger alert-dismissible fade show">
+      {{ errorMessage() }}
+      <button type="button" class="btn-close" (click)="errorMessage.set('')"></button>
+    </div>
+  }
+
+  <!-- ============================================ -->
+  <!-- SECCIÓN SUPERIOR: Tarjetas de Resumen (4)   -->
+  <!-- ============================================ -->
+  <section class="summary-section">
+    <div class="summary-cards-grid">
+      
+      <!-- Tarjeta 1: Ingresos -->
+      <div class="summary-card card-ingresos">
+        <div class="card-icon">
+          <i class="bi bi-wallet2"></i>
+        </div>
+        <div class="card-content">
+          <p class="card-label">Ingresos</p>
+          <h3 class="card-amount">{{ formatCurrency(summary().ingresos) }}</h3>
+        </div>
+      </div>
+
+      <!-- Tarjeta 2: Ahorros -->
+      <div class="summary-card card-ahorros">
+        <div class="card-icon">
+          <i class="bi bi-piggy-bank-fill"></i>
+        </div>
+        <div class="card-content">
+          <p class="card-label">Ahorros</p>
+          <h3 class="card-amount">{{ formatCurrency(summary().ahorros) }}</h3>
+        </div>
+      </div>
+
+      <!-- Tarjeta 3: Gastos -->
+      <div class="summary-card card-gastos">
+        <div class="card-icon">
+          <i class="bi bi-cart-fill"></i>
+        </div>
+        <div class="card-content">
+          <p class="card-label">Gastos</p>
+          <h3 class="card-amount">{{ formatCurrency(summary().gastos) }}</h3>
+        </div>
+      </div>
+
+      <!-- Tarjeta 4: Deudas -->
+      <div class="summary-card card-deudas">
+        <div class="card-icon">
+          <i class="bi bi-credit-card-fill"></i>
+        </div>
+        <div class="card-content">
+          <p class="card-label">Deudas</p>
+          <h3 class="card-amount">{{ formatCurrency(summary().deudas) }}</h3>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- CONTENEDOR PRINCIPAL: 2 COLUMNAS            -->
+ 
+  <div class="main-content-grid">
+
+     <!-- COLUMNA IZQUIERDA: Título + Gráficos      -->
+    
+    <div class="left-column">
+      
+      <!-- Título Principal -->
+      <div class="page-header">
+        <h1 class="page-title">MIS FINANZAS</h1>
+      </div>
+
+      <!-- Sección de Gráficos -->
+      <div class="charts-section">
+        
+        <!-- Gráfico 1: Ingresos vs Gastos -->
+        <div class="chart-card">
+          <h3 class="chart-title">Ingresos vs Gastos</h3>
+          <div class="chart-placeholder">
+            <div class="donut-chart">
+              <div class="chart-visual">📊</div>
+            </div>
+            <div class="chart-legend">
+              <div class="legend-item">
+                <span class="legend-dot legend-ingresos"></span>
+                <span>Ingresos</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot legend-gastos"></span>
+                <span>Gastos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráfico 2: Distribución de Gastos -->
+        <div class="chart-card">
+          <h3 class="chart-title">Distribución de Gastos</h3>
+          <div class="chart-placeholder">
+            <div class="donut-chart">
+              <div class="chart-visual">📈</div>
+            </div>
+            <div class="chart-legend">
+              <div class="legend-item">
+                <span class="legend-dot legend-alimentacion"></span>
+                <span>Alimentación</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot legend-hogar"></span>
+                <span>Hogar</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot legend-transporte"></span>
+                <span>Transporte</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot legend-ocio"></span>
+                <span>Ocio</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot legend-salud"></span>
+                <span>Salud</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot legend-otros"></span>
+                <span>Otros</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- COLUMNA DERECHA: Acciones Rápidas + Tabla -->
+    
+    <div class="right-column">
+      
+      <!-- Tarjeta de Acciones Rápidas -->
+      <div class="quick-actions-card">
+        <h3 class="section-title">Acciones Rápidas</h3>
+        
+        <div class="actions-list">
+          <!-- Acción 1: Buscar -->
+          <button class="action-button action-search" (click)="toggleSearchModal()">
+            <i class="bi bi-search"></i>
+            <span>Buscar</span>
+          </button>
+
+          <!-- Acción 2: Añadir Movimiento -->
+          <button class="action-button action-add" (click)="toggleNewFinanceForm()">
+            <i class="bi bi-plus-circle-fill"></i>
+            <span>Añadir Movimiento</span>
+          </button>
+
+          <!-- Acción 3: Categorías -->
+          <button class="action-button action-categories" > <!--(click)="toggleCategoriesModal()"-->
+            <i class="bi bi-list-ul"></i>
+            <span>Categorías</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tabla de Últimos Movimientos -->
+      <div class="recent-movements-card">
+        <div class="card-header">
+          <h3 class="section-title">Últimos Movimientos</h3>
+          <button class="btn-see-more" > <!--(click)="toggleFullTable()"-->
+            <!-- {{ showFullTable() ? 'Ocultar' : 'Ver Más' }} -->
+          </button>
+        </div>
+
+        @if (isLoading()) {
+          <div class="loading-spinner">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Cargando...</span>
+            </div>
+          </div>
+        } @else {
+          <div class="movements-table-wrapper">
+            <table class="movements-table">
+              <thead>
+                <tr>
+                  <th>Descripción</th>
+                  <th>Categoría</th>
+                  <th>Monto</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (finance of getRecentMovements(); track finance._id) {
+                  <tr>
+                    <td class="description-cell">{{ finance.description }}</td>
+                    <td class="category-cell">{{ finance.category }}</td>
+                    <td class="amount-cell" [ngClass]="getAmountClass(finance.type)">
+                      {{ formatCurrency(finance.amount) }}
+                    </td>
+                  </tr>
+                } @empty {
+                  <tr>
+                    <td colspan="3" class="text-center py-4">
+                      <i class="bi bi-inbox fs-3 d-block mb-2 text-muted"></i>
+                      <p class="text-muted mb-0">No hay movimientos registrados</p>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ============================================ -->
+  <!-- TABLA COMPLETA EXPANDIBLE                    -->
+  <!-- ============================================ -->
+  @if (showFullTable()) {
+    <section class="full-table-section">
+      <div class="full-table-card">
+        <div class="table-header">
+          <h2 class="table-title">Todos los Movimientos</h2>
+          <button class="btn-close-table" (click)="showFullTable.set(false)">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+
+        <!-- Filtros -->
+        <div class="filters-row">
+          <div class="filter-group">
+            <label>Tipo</label>
+            <select class="form-select" [value]="filterType()" (change)="updateFilterType($any($event.target).value)">
+              <option value="todos">Todos</option>
+              <option value="ingreso">Ingresos</option>
+              <option value="gasto">Gastos</option>
+              <option value="deuda">Deudas</option>
+              <option value="ahorro">Ahorros</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Categoría</label>
+            <select class="form-select" [value]="filterCategory()" (change)="updateFilterCategory($any($event.target).value)">
+              <option value="todos">Todas</option>
+              <option value="hogar">Hogar</option>
+              <option value="alimentación">Alimentación</option>
+              <option value="emprendimiento">Emprendimiento</option>
+              <option value="transporte">Transporte</option>
+              <option value="salud">Salud</option>
+              <option value="educación">Educación</option>
+              <option value="ocio y entretenimiento">Ocio</option>
+              <option value="cuidado personal">Cuidado Personal</option>
+              <option value="compras">Compras</option>
+              <option value="otros">Otros</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Buscar</label>
+            <input type="text" class="form-control" 
+                   [value]="searchText()" 
+                   (input)="updateSearchText($any($event.target).value)" 
+                   placeholder="Descripción...">
+          </div>
+
+          <button class="btn btn-secondary" (click)="clearFilters()">
+            <i class="bi bi-x-circle"></i> Limpiar
+          </button>
+        </div>
+
+        <!-- Tabla expandida -->
+        <div class="expanded-table-wrapper">
+          <table class="expanded-table">
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Descripción</th>
+                <th>Categoría</th>
+                <th>Método de Pago</th>
+                <th>Fecha</th>
+                <th>Monto</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (finance of filteredFinances(); track finance._id) {
+                <tr [ngClass]="'row-' + finance.type">
+                  <td>
+                    <span class="type-badge" [ngClass]="'badge-' + finance.type">
+                      {{ finance.type }}
+                    </span>
+                  </td>
+                  <td class="fw-bold">{{ finance.description }}</td>
+                  <td>{{ finance.category }}</td>
+                  <td>{{ finance.paymentMethod }}</td>
+                  <td>{{ finance.date | date:'dd/MM/yyyy' }}</td>
+                  <td class="fw-bold" [ngClass]="getAmountClass(finance.type)">
+                    {{ formatCurrency(finance.amount) }}
+                  </td>
+                  <td>
+                    <span class="status-badge" [class.pending]="finance.status === 'pendiente'">
+                      {{ finance.status }}
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-danger" (click)="deleteFinance(finance._id!)">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              } @empty {
+                <tr>
+                  <td colspan="8" class="text-center py-5">
+                    <i class="bi bi-inbox fs-1 d-block mb-3 text-muted"></i>
+                    <p class="text-muted mb-0">No hay movimientos que coincidan con los filtros</p>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  }
+
+  <!-- ============================================ -->
+  <!-- MODAL: NUEVO MOVIMIENTO                     -->
+  <!-- ============================================ -->
+  @if (showNewFinanceForm()) {
+    <div class="modal-overlay" (click)="showNewFinanceForm.set(false)">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h3>Nuevo Movimiento</h3>
+          <button class="btn-close-modal" (click)="showNewFinanceForm.set(false)">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+
+        <form (ngSubmit)="createFinance()" class="finance-form">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Tipo</label>
+              <select class="form-select" [(ngModel)]="newFinance.type" name="type" required>
+                <option value="ingreso">Ingreso</option>
+                <option value="gasto">Gasto</option>
+                <option value="deuda">Deuda</option>
+                <option value="ahorro">Ahorro</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Monto</label>
+              <input type="number" class="form-control" [(ngModel)]="newFinance.amount" 
+                     name="amount" min="0.01" step="0.01" required>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Método de Pago</label>
+              <select class="form-select" [(ngModel)]="newFinance.paymentMethod" name="paymentMethod" required>
+                <option value="efectivo">Efectivo</option>
+                <option value="cuenta ahorros">Cuenta Ahorros</option>
+                <option value="cuenta nomina">Cuenta Nómina</option>
+                <option value="credito">Crédito</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Categoría</label>
+              <select class="form-select" [(ngModel)]="newFinance.category" name="category" required>
+                <option value="hogar">Hogar</option>
+                <option value="alimentación">Alimentación</option>
+                <option value="emprendimiento">Emprendimiento</option>
+                <option value="transporte">Transporte</option>
+                <option value="salud">Salud</option>
+                <option value="educación">Educación</option>
+                <option value="ocio y entretenimiento">Ocio y Entretenimiento</option>
+                <option value="cuidado personal">Cuidado Personal</option>
+                <option value="compras">Compras</option>
+                <option value="otros">Otros</option>
+              </select>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Descripción</label>
+              <textarea class="form-control" [(ngModel)]="newFinance.description" 
+                        name="description" rows="3" required></textarea>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Estado</label>
+              <select class="form-select" [(ngModel)]="newFinance.status" name="status">
+                <option value="completado">Completado</option>
+                <option value="pendiente">Pendiente</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Fecha Programada (Opcional)</label>
+              <input type="date" class="form-control" [(ngModel)]="newFinance.scheduleAt" name="scheduleAt">
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="resetForm()">
+              Limpiar
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="isLoading()">
+              {{ isLoading() ? 'Guardando...' : 'Guardar' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+</div>
