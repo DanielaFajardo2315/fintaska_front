@@ -83,6 +83,10 @@ h3 {
     cursor: pointer;
 }
 
+.label_files {
+    cursor: pointer;
+}
+
 #tagInput {
     border-radius: var(--borde-radio);
     padding: 10px;

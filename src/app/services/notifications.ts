@@ -22,7 +22,7 @@ export class NotificationsService {
     return this._httpClient.get(this.apiUrl + '/notifications/pending');
   }
   //petición PATCH
-  markAsRead( notificationToRead: Notifications, id: string){
-    return this._httpClient.patch(`${this.apiUrl}/notifications/${id}/read`, notificationToRead);
+  markAsRead( id: string | undefined ){
+    return this._httpClient.patch(`${this.apiUrl}/notifications/${id}/read`, null);
   }
 }

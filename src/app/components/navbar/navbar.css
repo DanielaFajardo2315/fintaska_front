@@ -67,6 +67,12 @@
   vertical-align: middle;
 }
 
+app-notifications {
+  position: absolute;
+  right: 20%;
+  top: 110%;
+}
+
 /* Responsive: ajustar márgenes en pantallas pequeñas */
 @media (max-width: 991px) {
   .barra-nav {
