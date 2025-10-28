@@ -1,0 +1,177 @@
+
+.container-profile {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 32px 16px;
+    min-height: calc(100vh -160px);
+
+}
+
+.profile-card {
+    padding: 32px;
+    max-width: 650px;
+    width: 80%;
+    height: 50%;
+    
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    background-color: var(--primary-color);
+    border-radius: 80px 20px 20px 80px;
+    gap: 16px;
+    margin-bottom: 24px;
+   height: 150px;
+}
+
+.avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 3px solid #2f62a5;
+    background-color: #fff;
+
+}
+
+
+.username {
+  font-size: 1.5rem;
+  font-weight: 700;
+ 
+}
+
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left !important;
+
+ 
+ 
+}
+
+.profile-info p {
+  margin: 0.4rem 0;
+}
+
+
+.boton {
+    margin-top: 30px; /* Espacio hacia arriba */
+    margin-bottom: 40px;    /* Espacio hacia abajo, para alejarlo del footer */
+    text-align: center;
+      
+}
+
+
+/*Formulario Editar Perfil*/
+
+.edit-profile-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+
+}
+
+.edit-container{
+    background-color: white;
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: 80%;
+}
+
+.img-profile{
+   display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 14px;
+}
+
+
+/*.photo-perfil img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 3px solid var(--primary-color);
+  background-color: white;
+}*/
+
+.edit-form{
+    background-color:  white;
+    border: solid var(--primary-color);
+    border-radius: 20px;
+    padding: 30px  40px;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
+
+.edit-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 2px solid var(--primary-color);
+  background-color: var(--primary-color);
+  font-size: 15px;
+}
+
+.edit-form select{
+width: 100%;
+  padding: 10px;
+   margin-bottom: 15px;
+  border-radius: 10px;
+  border: 2px solid var(--primary-color);
+  background-color:#8da8d5;
+  font-size: 15px;
+}
+
+.container-tema{
+   display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+.edit-form input:focus,
+.edit-form select:focus {
+  border-color: #4e73c2;
+  outline: none;
+}
+
+
+.upload-btn {
+  background-color: #8da8d5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: 500;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.upload-btn:hover {
+  background-color: var(--primary-color);
+}
+
+.guardar-btn {
+  background-color: var(--primary-color);
+  color: rgb(5, 5, 5);
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.guardar-btn:hover {
+  background-color: var(--color-verde);
+}

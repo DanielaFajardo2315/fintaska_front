@@ -42,6 +42,10 @@ export class LoginService {
     }
   }
 
+  isLoggedIn(){
+    return this.getToken() ? true: false;
+  }
+
   logout(){
     localStorage.removeItem('token');
     alert('Cierre de sesión exitoso, vuleve pronto');
