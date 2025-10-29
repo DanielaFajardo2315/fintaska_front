@@ -41,6 +41,9 @@
     border-radius: var(--borde-radio);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     max-width: 500px;
+    overflow-y: auto;
+    max-height: 60vh;
+    scrollbar-color: var(--home-color) rgba(255, 255, 255, 0.6);
 }
 
 .info-text {

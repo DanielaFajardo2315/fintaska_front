@@ -1,15 +1,3 @@
-<!-- <nav>
-    <ul>
-        <li><a routerLink="/profile">Perfil de usuario</a></li>
-        <li><a routerLink="/">Inicio</a></li>
-        <button>Notificaciones</button>
-        <li><a routerLink="/tree">Arbol de metas</a></li>
-        <li><a routerLink="/finances">Finanzas</a></li>
-        <li><a routerLink="/planner">Planeador</a></li>
-        <li><a routerLink="/board">Tablero</a></li>
-    </ul>
-</nav> -->
-
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm barra-nav" [ngClass]="theme" >
   <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
 
@@ -50,7 +38,7 @@
             <span class="d-lg-none">Notificaciones</span>
           </button>
         </li>
-        @if (isVisible) {
+        @if (!isVisible) {
           <!-- Arbol -->
           <li class="nav-item">
             <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/tree" title="Arbol">
