@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
 export class Navbar {
   @Input() theme: string = 'theme-default';
   private _loginService = inject(LoginService);
-  private _router = inject(Router);
+   private _router = inject(Router);
   showNotifications: boolean = false;
 
   isMenuCollapsed = true;
