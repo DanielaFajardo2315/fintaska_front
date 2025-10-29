@@ -14,15 +14,15 @@ export class LoginService {
   private _router = inject(Router);
   private apiUrl = environment.appUrl;
 
-  login(loginCredentials: Credentials){
+  login(loginCredentials: Credentials) {
     return this._httpClient.post(this.apiUrl + '/login', loginCredentials);
   }
 
-  getToken(){
+  getToken() {
     return localStorage.getItem('token');
   }
 
-  isAdmin(){
+  isAdmin() {
     const token = this.getToken();
 
     if (token) {
@@ -36,15 +36,26 @@ export class LoginService {
     }
   }
 
+  infoUser() {
+    const token = this.getToken();
+
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      const userId = decoded.id;
+      return userId;
+    }
+
+  }
+
   redirectTo() {
-    if(this.isAdmin()){
+    if (this.isAdmin()) {
       this._router.navigate(['/admin']);
-    }else{
+    } else {
       this._router.navigate(['/']);
     }
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('token');
     alert('Cierre de sesión exitoso, vuleve pronto');
     this._router.navigate(['/login']);

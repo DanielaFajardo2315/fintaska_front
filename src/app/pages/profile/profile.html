@@ -1,1 +1,60 @@
-<p>profile works!</p>
+<main class="container-profile">
+
+    <section class="profile-card">
+        <div class="header">
+            <img src="assets/avatar-perfil.png" alt="avatar" class="avatar">
+            <div>
+
+                <h2 class="username">{{infoUser.fullName}}</h2>
+                <p class="user-handle">@{{infoUser.username}}</p>
+
+            </div>
+        </div>
+
+
+        <div class="profile-info">
+
+            <p><strong> Correo</strong> {{infoUser.email}}</p>
+            <p><strong> Fecha de Registro</strong> {{ infoUser.registerDate ? (infoUser.registerDate | date:'dd/MM/yyyy':'') : 'Sin registro' }}</p>
+            <p><strong> Tema de la Aplicación </strong> Claro </p>
+            <p><strong> Contraseña:</strong> *********** <i class="fa fa-pencil edit-icon"></i></p>
+
+
+            <app-button class="boton" text="Editar Perfil" color="primary" [disabled]="false"
+                (buttonClick)="goToHome()">
+            </app-button>
+        </div>
+    </section>
+
+
+    <!--Formulario editar Perfil-->
+    <!-- <section class="edit-profile">
+        <div class="edit-container">
+         
+            <form class="edit-form">
+                <div class="img-profile">
+                    <label> Subir Imagen de Perfil </label>
+                    <button type="button" class="upload-btn"> Subir Imagen</button>
+                </div>
+
+                <input type="text" placeholder="Nombre de usuario">
+                <input type="text" placeholder="username">
+                <input type="email" placeholder="tucorreo@gmail.com">
+
+                <div class="container-tema">
+                    <label for="tema">Tema</label>
+                    <select id="tema">
+                        <option value="claro">Claro</option>
+                        <option value="oscuro">Oscuro</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="guardar-btn">Guardar Cambios</button>
+            </form>
+        </div>
+
+    </section> -->
+
+
+
+</main>

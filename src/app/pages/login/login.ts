@@ -19,6 +19,7 @@ import { User } from '../../interfaces/user';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
+
 export class Login {
   private _loginService = inject(LoginService);
   private _userService = inject(UserService);
