@@ -27,7 +27,9 @@ export class LoginService {
 
     if (token) {
       const decoded : any = jwtDecode(token);
+      const userId = decoded.id;
       return decoded.admin === true ? true : false;
+      return userId;
     } else{
       console.log("No se encontró el token");
       return false;

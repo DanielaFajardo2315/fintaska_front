@@ -54,3 +54,39 @@ app-more-button {
     display: flex;
     justify-content: flex-end;
 }
+
+@media (max-width: 991px) {
+    .filter_container {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        min-height: auto;
+    }
+
+    .input_tag {
+        width: 100%;
+        grid-area: 1 / 1 / 2 / 2;
+    }
+
+    h6,
+    .etiquetas {
+        display: none;
+    }
+
+    .count_notes {
+        grid-area: 2 / 1 / 3 / 2;
+        width: 100%;
+        align-content: center;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    app-more-button {
+        grid-area: 1 / 2 / 3 / 3;
+        align-self: center;
+        justify-content: center;
+    }
+}

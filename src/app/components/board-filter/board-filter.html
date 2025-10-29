@@ -8,11 +8,13 @@
     <p class="count_notes">Notas creadas ({{notes.length}})</p>
     <!-- Cantidad de notas por etiquetas -->
     <h6>Etiquetas</h6>
-    @for (tag of tagsWithCount; track tag.name) {
-    <span>{{ tag.name }}</span><span>({{tag.count}})</span>
-    } @empty {
-    <p>Aún no tienes etiquetas registradas</p>
-    }
+    <div class="etiquetas">
+        @for (tag of tagsWithCount; track tag.name) {
+        <span>{{ tag.name }}</span><span>({{tag.count}})</span>
+        } @empty {
+        <p>Aún no tienes etiquetas registradas</p>
+        }
+    </div>
     <!-- Botón -->
     <app-more-button></app-more-button>
 </div>

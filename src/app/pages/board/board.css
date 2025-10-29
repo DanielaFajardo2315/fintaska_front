@@ -35,3 +35,35 @@
 .board-content {
     grid-area: 1 / 1 / 2 / 2;
 }
+
+@media (max-width: 991px) {
+    .board-page {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .notes_header {
+        position: sticky;
+        width: 100%;
+        height: auto;
+        z-index: 10;
+    }
+    
+    .sect_derecha {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--light-background);
+        top: 65px;
+    }
+
+    .imagen_tablero {
+        display: none;
+    }
+
+    .board-content {
+        width: 100%;
+        margin-top: 120px;
+    }
+}

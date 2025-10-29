@@ -1,7 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { UserService } from '../../services/user';
 import { User } from '../../interfaces/user';
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-admin',
@@ -18,7 +17,7 @@ export class Admin {
   this._userService.getUser().subscribe({
     next: (response:any)=>{
       this.allUsers = response.data;
-      console.log('Estos son los usuarios:' + this.allUsers);
+      console.log('Estos son los usuarios:', this.allUsers);
     },
     error: (error: any)=>{
       console.error(error.error.mensaje);
