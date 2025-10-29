@@ -54,6 +54,7 @@ export class Login {
             timer: 1500,
           });
           this._loginService.redirectTo();
+          this.infoProfile();
         }
       },
       error: (err: any) => {
@@ -63,6 +64,18 @@ export class Login {
           text: err.error.mensaje,
           icon: 'error',
         });
+      }
+    });
+  }
+
+  infoProfile(){
+    this.userId = this._loginService.infoUser();
+    this._userService.getUserById(this.userId).subscribe({
+      next: (res: any) => {
+        localStorage.setItem('userProfile', JSON.stringify(res.data));
+      },
+      error: (err: any) => {
+        console.error(err);
       }
     });
   }

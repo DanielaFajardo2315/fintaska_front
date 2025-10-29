@@ -39,6 +39,7 @@ export class Navbar {
       showConfirmButton: false,
       timer: 1500,
     });
+    
     this._router.navigate(['/login']);
   }
 
