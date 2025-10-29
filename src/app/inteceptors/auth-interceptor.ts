@@ -7,7 +7,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const _loginService = inject(LoginService);
   const token = _loginService.getToken();
 
-  const request = token ? req.clone({setHeaders: {Authorization: "Beaner" + token }}): req;
+  const request = token ? req.clone({setHeaders: {Authorization: "Beaner " + token }}): req;
 
   return next(request);
 };

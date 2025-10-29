@@ -4,18 +4,21 @@
         <div class="header">
             <img src="assets/avatar-perfil.png" alt="avatar" class="avatar">
             <div>
-                <h2 class="username">Nombre de usuario</h2>
-                <p class="user-handle">@username</p>
+
+                <h2 class="username">{{infoUser.fullName}}</h2>
+                <p class="user-handle">@{{infoUser.username}}</p>
+
             </div>
         </div>
 
+
         <div class="profile-info">
-            <p><strong> Correo</strong> tucorreo@gmail.com</p>
-            <p><strong> Fecha de Registro</strong> 01/11/2025 </p>
+
+            <p><strong> Correo</strong> {{infoUser.email}}</p>
+            <p><strong> Fecha de Registro</strong> {{ infoUser.registerDate ? (infoUser.registerDate | date:'dd/MM/yyyy':'') : 'Sin registro' }}</p>
             <p><strong> Tema de la Aplicación </strong> Claro </p>
             <p><strong> Contraseña:</strong> *********** <i class="fa fa-pencil edit-icon"></i></p>
-            
-                        
+
 
             <app-button class="boton" text="Editar Perfil" color="primary" [disabled]="false"
                 (buttonClick)="goToHome()">
@@ -25,18 +28,13 @@
 
 
     <!--Formulario editar Perfil-->
-    <section class="edit-profile">
+    <!-- <section class="edit-profile">
         <div class="edit-container">
-            <!-- 
-            <div class="photo-perfil">
-                <img src="assets/avatar-perfil" alt="avatar">
-            </div>
-            -->
-
+         
             <form class="edit-form">
                 <div class="img-profile">
-                <label> Subir Imagen de Perfil </label>
-                <button type="button" class="upload-btn"> Subir Imagen</button>
+                    <label> Subir Imagen de Perfil </label>
+                    <button type="button" class="upload-btn"> Subir Imagen</button>
                 </div>
 
                 <input type="text" placeholder="Nombre de usuario">
@@ -55,7 +53,7 @@
             </form>
         </div>
 
-    </section>
+    </section> -->
 
 
 

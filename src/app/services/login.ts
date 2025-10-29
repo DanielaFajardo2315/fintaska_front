@@ -14,39 +14,50 @@ export class LoginService {
   private _router = inject(Router);
   private apiUrl = environment.appUrl;
 
-  login(loginCredentials: Credentials){
+  login(loginCredentials: Credentials) {
     return this._httpClient.post(this.apiUrl + '/login', loginCredentials);
   }
 
-  getToken(){
+  getToken() {
     return localStorage.getItem('token');
   }
 
-  isAdmin(){
+  isAdmin() {
     const token = this.getToken();
 
     if (token) {
-      const decoded : any = jwtDecode(token);
+      const decoded: any = jwtDecode(token);
       return decoded.admin === true ? true : false;
-    } else{
+    } else {
       console.log("No se encontró el token");
       return false;
     }
   }
 
+  infoUser() {
+    const token = this.getToken();
+
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      const userId = decoded.id;
+      return userId;
+    }
+
+  }
+
   redirectTo() {
-    if(this.isAdmin()){
+    if (this.isAdmin()) {
       this._router.navigate(['/admin']);
-    }else{
+    } else {
       this._router.navigate(['/']);
     }
   }
 
-  isLoggedIn(){
-    return this.getToken() ? true: false;
+  isLoggedIn() {
+    return this.getToken() ? true : false;
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('token');
     alert('Cierre de sesión exitoso, vuleve pronto');
     this._router.navigate(['/login']);

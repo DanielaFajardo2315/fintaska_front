@@ -23,16 +23,16 @@ export class UserService {
 
   //Peticion Get Id
   getUserById(id:string){
-    return this._httpClient.get(`${this.apiUrl}/users${id}`);
+    return this._httpClient.get(`${this.apiUrl}/users/${id}`);
   };
 
   //Peticion Put
   putUser(userToUpdate: User, id:string){
-      return this._httpClient.put(`${this.apiUrl}/users${id}`, userToUpdate)
+      return this._httpClient.put(`${this.apiUrl}/users/${id}`, userToUpdate)
     };
 
     //Peticion Delete
      deleteUser(id: string){
-      return this._httpClient.delete(`${this.apiUrl}/users${id}`)
+      return this._httpClient.delete(`${this.apiUrl}/users/${id}`)
      };
 }
