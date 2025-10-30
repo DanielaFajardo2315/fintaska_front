@@ -1,1 +1,20 @@
-<p>board-filter works!</p>
+<div class="filter_container">
+    <!-- Entrada de texto -->
+    <div class="input_tag">
+        <input type="text" placeholder="Filtre por etiqueta" class="input">
+        <i class="bi bi-search"></i>
+    </div>
+    <!-- Cantidad de notas -->
+    <p class="count_notes">Notas creadas ({{notes.length}})</p>
+    <!-- Cantidad de notas por etiquetas -->
+    <h6>Etiquetas</h6>
+    <div class="etiquetas">
+        @for (tag of tagsWithCount; track tag.name) {
+        <span>{{ tag.name }}</span><span>({{tag.count}})</span>
+        } @empty {
+        <p>Aún no tienes etiquetas registradas</p>
+        }
+    </div>
+    <!-- Botón -->
+    <app-more-button></app-more-button>
+</div>

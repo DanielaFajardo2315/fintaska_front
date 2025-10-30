@@ -12,7 +12,7 @@
         <h3>{{titleNote(item.title)}}</h3>
         <div class="contenido">
             @if (!item.description) {
-            <p>Tu nota no tiene descripción</p>
+            <p class="note_description">Tu nota no tiene descripción</p>
             } @else {
             <p>{{descriptionNote(item.description)}}</p>
             }
@@ -22,22 +22,37 @@
                 <p class="files_save"><i class="bi bi-folder-fill"></i>{{ (item.urlFile?.length || 0) +
                     (item.urlImage?.length || 0) }} Archivos guardados</p>
             </div>
-            <div *ngIf="isVisible(item._id || $index.toString())" (click)="$event.stopPropagation()">
-                <ul *ngIf="item.urlFile && item.urlFile.length > 0" class="list_url">
-                    <li *ngFor="let file of (item.urlFile | slice:0:2)"><a [href]="baseURL + file"
-                            target="_blank">{{getFileName(file)}}</a></li>
+            @if (isVisible(item._id)) {
+            <div (click)="$event.stopPropagation()">
+                <!-- mostar documentos -->
+                @if (item.urlFile && item.urlFile.length > 0) {
+                <ul class="list_url">
+                    @for (file of (item.urlFile | slice:0:2); track file) {
+                    <li><a [href]="baseURL + file" target="_blank">{{getFileName(file)}}</a></li>
+                    }
                 </ul>
-                <ul *ngIf="item.urlImage && item.urlImage.length > 0" class="list_url">
-                    <li *ngFor="let image of (item.urlImage | slice:0:2)"><a [href]="baseURL + image"
-                            target="_blank">{{getFileName(image)}}</a></li>
+                }
+                @if (!item.urlFile || item.urlFile.length === 0) {
+                <p class="no_adjunto">No hay archivos adjuntos</p>
+                }
+                <!-- mostrar imagenes -->
+                @if (item.urlImage && item.urlImage.length > 0) {
+                <ul class="list_url">
+                    @for (image of (item.urlImage | slice:0:2); track image) {
+                    <li><a [href]="baseURL + image" target="_blank">{{getFileName(image)}}</a></li>
+                    }
                 </ul>
+                }
+                @if (!item.urlImage || item.urlImage.length === 0) {
+                <p class="no_adjunto">No hay imagenes adjuntas</p>
+                }
                 <!-- @if (((item.urlFile?.length||0) + (item.urlImage?.length||0)) > 4) {
-                <p *ngIf="item.urlFile && item.urlFile.length > 4" class="more-files">
-                    ... y {{ ((item.urlFile.length||0) + (item.urlImage?.length||0)) - 4 }} archivo(s) más.
-                </p>
-                } -->
-                <p *ngIf="!item.urlFile || item.urlFile.length === 0">No hay archivos adjuntos</p>
+                    <p *ngIf="item.urlFile && item.urlFile.length > 4" class="more-files">
+                        ... y {{ ((item.urlFile.length||0) + (item.urlImage?.length||0)) - 4 }} archivo(s) más.
+                    </p>
+                    } -->
             </div>
+            }
 
             <!-- Acciones -->
             <div (click)="$event.stopPropagation()" class="actions">

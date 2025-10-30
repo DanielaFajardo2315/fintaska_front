@@ -1,4 +1,4 @@
-<main>
+<div class="register_container">
     <div class="container-fluid login-main fondo px-3 pb-4 pt-2">
         <!-- Logo centrado arriba -->
         <div class="text-center mt- -1">
@@ -14,25 +14,25 @@
 
                         <form>
                             <!-- Nombres y Apellidos -->
-                            <div class="mb-3">
+                            <div class="mb-1">
                                 <label for="fullName" class="form-label">Nombres y Apellidos</label>
                                 <input type="text" class="form-control" id="fullName" required>
                             </div>
 
                             <!-- Nombre de Usuario -->
-                            <div class="mb-3">
+                            <div class="mb-1">
                                 <label for="userName" class="form-label">Nombre de Usuario</label>
                                 <input type="text" class="form-control" id="userName" required>
                             </div>
 
                             <!-- Correo Electrónico -->
-                            <div class="mb-3">
+                            <div class="mb-1">
                                 <label for="email" class="form-label">Correo Electrónico</label>
                                 <input type="email" class="form-control" id="email" required>
                             </div>
 
                             <!-- Crear Contraseña -->
-                            <div class="mb-3">
+                            <div class="mb-1">
                                 <label for="password" class="form-label">Crear Contraseña</label>
                                 <div class="password-wrapper position-relative">
                                     <input [type]="passwordVisible ? 'text' : 'password'" class="form-control"
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
 
-                            <!-- Botón y Recordar Contraseña en la misma línea -->
+                            <!-- Botón y Recordar Contraseña -->
                             <div class="d-flex justify-content-between align-items-center mt-4">
                                 <a href="#" class="btn btn-primary">Registrarse</a>
                                 <div class="form-check">
@@ -72,4 +72,4 @@
             </div>
         </div>
     </div>
-</main>
+</div>

@@ -7,13 +7,12 @@
     height: 100%;
 }
 
-main {
+.register_container {
     background-image: url("/assets/Fondo.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: 100vh;
-    font: poppins;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,20 +28,19 @@ main {
 /* Formulario*/
 
 .login-card {
-    border-radius: 15px;
+    border-radius: var(--borde-radio);
     max-width: 420px;
     max-height: 550px;
     border: 5px solid #809BCE;
-    border-radius: 15px;
+    border-radius: var(--borde-radio);
     margin: 0 auto;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  padding: 1.2rem !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 
 .login-card input,
 .login-card label {
-  font-size: 0.85rem;
+    font-size: 0.85rem;
 }
 
 .card-title {
@@ -51,13 +49,6 @@ main {
     font-size: 1.3rem;
     margin-bottom: 25px;
     margin-top: -15px;
-    font-family: poppins;
-    
-}
-
-/* reduce espacios entre campos */
-.mb-3, .mb-2 {
-  margin-bottom: 0.3rem !important;
 }
 
 .form-label {
@@ -68,7 +59,7 @@ main {
     background-color: #809BCE;
     padding: 6px 35px 6px 10px;
     border: 2px solid #faf7f7;
-    border-radius: 12px;
+    border-radius: var(--borde-radio);
     font-size: 9rem;
 }
 
@@ -84,16 +75,11 @@ main {
     border-color: #809BCE;
     padding: 6px 35px;
     font-weight: 600;
-    border-radius: 12px;
+    border-radius: var(--borde-radio);
     font-size: 0.8rem;
-    font-family: poppins;
 }
 
 .btn-primary:hover {
     background-color: #5e739b;
     border-color: #809BCE;
-}
-
-.d-flex.justify-content-between {
-    margin-top: 0.5rem !important;
 }

@@ -1,39 +1,72 @@
 <section class="note_detail">
-    <button class="btn_cerrar" (click)="onCloseDetail()">
-        <i class="bi bi-x-lg"></i>
-    </button>
-    <h3>{{note?.title}}</h3>
-    <div class="contenido">
-        <p class="description">{{note?.description}}</p>
-        <div class="images">
-            @if (note?.urlImage) {
-            @for (imageURL of note?.urlImage; track $index) {
-            <a [href]="baseURL + imageURL" target="_blank" rel="noopener noreferrer">
-                <img [src]="baseURL + imageURL" alt="Imagen {{ $index + 1 }}" class="image">
-            </a>
-            }
-            } @else {
-            <p>No hay imagenes guardadas</p>
-            }
-        </div>
-        <div class="files">
-            @if (note?.urlFile) {
-            <ul>
-                <li *ngFor="let file of note?.urlFile"><a [href]="baseURL + file"
-                        target="_blank">{{getFileName(file)}}</a></li>
-            </ul>
-            } @else {
-            <p>No hay archivos guardados</p>
-            }
-        </div>
+    <div>
+        <button class="btn_cerrar" (click)="onCloseDetail()">
+            <i class="bi bi-x-lg"></i>
+        </button>
+        <h3>{{note?.title}}</h3>
     </div>
-    <!-- Acciones -->
-    <div (click)="$event.stopPropagation()" class="actions">
-        <i class="bi bi-trash-fill" title="Eliminar"></i>
-        <i class="bi bi-pencil-fill" (click)="onEditNote()" title="Editar"></i>
-        <i class="bi bi-hash" title="Etiquetas"><input type="text" name="inputTag" placeholder="Ingresa tu etiqueta"
-            id="tagInput"></i>
-        <i class="bi bi-file-earmark-text-fill" title="Archivos"></i>
-        <i class="bi bi-file-image" title="Imágenes"></i>
-    </div>
+    <!-- Contenido de la nota -->
+        <div class="contenido">
+            <p class="description">{{note?.description}}</p>
+            <!-- Imagenes -->
+            <div class="images">
+                @if (note?.urlImage) {
+                @for (imageURL of note?.urlImage; track $index) {
+                <a [href]="baseURL + imageURL" target="_blank" rel="noopener noreferrer">
+                    <img [src]="baseURL + imageURL" alt="Imagen {{ $index + 1 }}" class="image">
+                </a>
+                }
+                } @else {
+                <p>No hay imagenes guardadas</p>
+                }
+            </div>
+            <!-- Documentos -->
+            <div class="files">
+                @if (note?.urlFile) {
+                <ul>
+                    @for (file of note?.urlFile; track $index) {
+                    <li><a [href]="baseURL + file" target="_blank">{{getFileName(file)}}</a></li>
+                    }
+                </ul>
+                } @else {
+                <p>No hay archivos guardados</p>
+                }
+            </div>
+            <div class="etiquetas">
+                @for (tag of note?.tag; track $index) {
+                <span>#{{tag}} </span>
+                }
+            </div>
+        </div>
+        <!-- Acciones -->
+        <div (click)="$event.stopPropagation()" class="actions">
+            <i class="bi bi-trash-fill" title="Eliminar"></i>
+            <i class="bi bi-pencil-fill" (click)="onEditNote()" title="Editar"></i>
+            <i class="bi bi-hash" title="Etiquetas"><input type="text" name="inputTag" placeholder="Ingresa tu etiqueta"
+                    id="tagInput"></i>
+            <div>
+                <label for="imagen" class="label_files">
+                    <i class="bi bi-file-image" title="Imágenes"></i>
+                </label>
+                <input
+                type="file"
+                id="imagen"
+                class="d-none"
+                accept="image/*"
+                (change)="onImageSelected($event)"
+                >
+            </div>
+            <div>
+                <label for="archivo" class="label_files">
+                    <i class="bi bi-file-earmark-text-fill" title="Archivos"></i>
+                </label>
+                <input
+                type="file"
+                id="archivo"
+                class="d-none"
+                multiple
+                (change)="onFileSelected($event)"
+                >
+            </div>
+        </div>
 </section>

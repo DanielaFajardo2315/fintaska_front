@@ -4,35 +4,34 @@ import { User } from '../interfaces/user';
 import { environment } from '../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-  
   private _httpClient = inject(HttpClient);
- private apiUrl = environment.appUrl;
+  private apiUrl = environment.appUrl;
 
   //Petición Post
-  postUser(userToCreate: User){
+  postUser(userToCreate: User) {
     return this._httpClient.post(`${this.apiUrl}/users`, userToCreate);
-  };
+  }
 
   //Petición Get
-  getUser(){
+  getUser() {
     return this._httpClient.get(`${this.apiUrl}/users`);
-  };
+  }
 
   //Peticion Get Id
-  getUserById(id:string){
-    return this._httpClient.get(`${this.apiUrl}/users${id}`);
-  };
+  getUserById(id: string) {
+    return this._httpClient.get(`${this.apiUrl}/users/${id}`);
+  }
 
   //Peticion Put
-  putUser(userToUpdate: User, id:string){
-      return this._httpClient.put(`${this.apiUrl}/users${id}`, userToUpdate)
-    };
+  putUser(userToUpdate: User, id: string) {
+    return this._httpClient.put(`${this.apiUrl}/users/${id}`, userToUpdate);
+  }
 
-    //Peticion Delete
-     deleteUser(id: string){
-      return this._httpClient.delete(`${this.apiUrl}/users${id}`)
-     };
+  //Peticion Delete
+  deleteUser(id: string) {
+    return this._httpClient.delete(`${this.apiUrl}/users/${id}`);
+  }
 }

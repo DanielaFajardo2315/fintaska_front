@@ -8,7 +8,7 @@
 /* ========== TARJETAS PRINCIPALES ========== */
 .fintask-card {
   background: white;
-  border-radius: 20px;
+  border-radius: var(--borde-radio);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   display: flex;
@@ -31,7 +31,7 @@
 }
 
 .tablero-card {
-  border: 3px solid var(--board-color);
+  border: 3px solid var(--tablero-color);
 }
 
 /* ========== HEADERS DE TARJETAS ========== */
@@ -87,7 +87,7 @@
 }
 
 .tablero-btn {
-  background-color: var(--board-color);
+  background-color: var(--tablero-color);
 }
 
 .btn-add-fintask:hover {

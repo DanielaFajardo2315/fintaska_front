@@ -1,34 +1,34 @@
 @import url('https://fonts.cdnfonts.com/css/poppins');
 :root {
-  --color-lila: #dcd0ff;
-  --color-lila-enca: #bba4ff;
-  --color-azul: #a2cffe;
-  --color-azul-enca: #65b0ff;
-  --color-verde: #aaf0d1;
-  --color-verde-enca: #51ffb2;
-  --color-rosa: #ffd1dc;
-  --color-rosa-enca: #ff95ae;
-  --color-lavanda: #e3e4fa;
-  --color-lavanda-enca: #b7bbff;
-  --color-amarillo: #fffacd;
-  --color-amarillo-enca: #fff493;
-  --color-durazno: #ffdab9;
-  --color-durazno-enca: #ffbb7e;
-  --color-celeste: #b0e0e6;
-  --color-celeste-enca: #7fd8e3;
-  --planner-color: #95b8d1;
-  --home-color: #809bce;
-  --finance-color: #eac4d5;
-  --light-background: #fafafa;
-  --text-dark: #2b2b2b;
-  --text-white: white;
-  --font: 'Poppins', sans-serif;
-  --tablero-color: #d6eadf;
-  --enfasis-tablero: #b8e0d2;
-  --borde-radio: 20px;
-  --card-background: white;
-  --text-secondary: #666666;
-  --text-muted: #999999;
+    --color-lila: #DCD0FF;
+    --color-lila-enca: #BBA4FF;
+    --color-azul: #A2CFFE;
+    --color-azul-enca: #65B0FF;
+    --color-verde: #AAF0D1;
+    --color-verde-enca: #51FFB2;
+    --color-rosa: #FFD1DC;
+    --color-rosa-enca: #FF95AE;
+    --color-lavanda: #E3E4FA;
+    --color-lavanda-enca: #B7BBFF;
+    --color-amarillo: #FFFACD;
+    --color-amarillo-enca: #FFF493;
+    --color-durazno: #FFDAB9;
+    --color-durazno-enca: #FFBB7E;
+    --color-celeste: #B0E0E6;
+    --color-celeste-enca: #7FD8E3;
+    --planner-color:#95B8D1;
+    --home-color:#809BCE;
+    --finance-color:#EAC4D5;
+    --light-background:#FAFAFA;
+    --text-dark:#2B2B2B;
+    --text-white: white;
+    --font: 'Poppins', sans-serif;
+    --tablero-color: #D6EADF;
+    --enfasis-tablero: #B8E0D2;
+    --borde-radio: 20px;
+    --card-background: white;
+    --text-secondary: #666666;
+    --text-muted: #999999;
 }
 * {
   margin: 0;
@@ -37,8 +37,11 @@
 }
 
 body {
-  background-color: var(--light-background);
-  font-family: var(--font);
-  color: var(--text-dark);
-  overflow-x: hidden;
+    background-color: var(--light-background);
+    font-family: var(--font);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }

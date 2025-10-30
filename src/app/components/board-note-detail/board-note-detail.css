@@ -1,8 +1,10 @@
 .note_detail {
-    width: 622px;
-    height: 580px;
+    /* width: 622px; */
+    width: 45vw;
+    /* height: 580px; */
+    height: 80vh;
     margin: auto;
-    background-color: #A2CFFE;
+    background-color: var(--color-azul);
     position: relative;
 }
 
@@ -48,13 +50,25 @@ h3 {
     width: 5rem;
     height: 5rem;
     object-fit: cover;
-    border-radius: 20px;
+    border-radius: var(--color-azul-enca);
 }
 
 .files {
     grid-area: 3 / 1 / 4 / 2;
     overflow-y: auto;
     font-size: 0.8rem;
+}
+
+.etiquetas{
+    display: flex;
+    gap: 5px;
+}
+
+.etiquetas span{
+    background-color: var(--color-azul-enca);
+    border-radius: var(--borde-radio);
+    font-size: small;
+    padding: 0 8px;
 }
 
 .actions {
@@ -71,10 +85,21 @@ h3 {
     cursor: pointer;
 }
 
+.label_files {
+    cursor: pointer;
+}
+
 #tagInput {
-    border-radius: 20px;
+    border-radius: var(--borde-radio);
     padding: 10px;
     font-size: 0.8rem;
     border: 1px solid black;
     background-color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 991px) {
+    .note_detail {
+        width: 90vw;
+        height: 80vh;
+    }
 }

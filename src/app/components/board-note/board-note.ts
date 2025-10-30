@@ -61,19 +61,33 @@ export class BoardNote implements OnInit {
 
   loadBoards() {
     console.log('Cargando notas...');
+    try {
+      const stored = localStorage.getItem('userProfile');
+      const userProfile = stored ? JSON.parse(stored) : null;
 
-    this.boardService.getBoards().subscribe({
-      next: (response: any) => {
-        console.log('Respuesta de la API:', response);
-        this.allNotes = response.data || response || [];
-        console.log('Notas cargadas:', this.allNotes);
-      },
-      error: (error) => {
-        console.error('Error al cargar las notas:', error);
-        console.error('Detalles del error:', error.message);
+      if (userProfile && userProfile.planner && Array.isArray(userProfile.planner.board)) {
+        this.allNotes = userProfile.planner.board;
+      } else {
         this.allNotes = [];
-      },
-    });
+      }
+    } catch (err) {
+      console.error('Error parsing userProfile from localStorage', err);
+      this.allNotes = [];
+    }
+
+    console.log('Notas cargadas desde localStorage:', this.allNotes);
+    // this.boardService.getBoards().subscribe({
+    //   next: (response: any) => {
+    //     console.log('Respuesta de la API:', response);
+    //     this.allNotes = response.data || response || [];
+    //     console.log('Notas cargadas:', this.allNotes);
+    //   },
+    //   error: (error) => {
+    //     console.error('Error al cargar las notas:', error);
+    //     console.error('Detalles del error:', error.message);
+    //     this.allNotes = [];
+    //   },
+    // });
   }
 
   toggleVisibilidad(noteId: string) {
