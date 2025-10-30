@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Finance } from '../interfaces/finance.interface';
 import { environment } from '../../environments/environment';
-
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -36,7 +36,9 @@ export class FinanceService {
   deleteFinance(idFinanceDelete:string){
     return this._httpClient.delete(`${this.apiUrl}/finances/${idFinanceDelete}`)
   }
-
-
+  //Obtener Resumen financiero - GET
+  getFinancialSummary(): Observable<any> {
+    return this._httpClient.get(`${this.apiUrl}/finances/summary`);
+  }
   
 }

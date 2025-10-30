@@ -82,11 +82,10 @@ export class Finances implements OnInit {
 
   hasFinances = computed(() => this.finances().length > 0);
 
-  // ==========================================
   // CICLO DE VIDA
-  // ==========================================
+ 
   ngOnInit(): void {
-    // this.getUserIdFromToken();
+    this.getUserIdFromToken();
     this.loadFinances();
     this.loadSummary();
   }
@@ -94,29 +93,22 @@ export class Finances implements OnInit {
   // ==========================================
   // AUTENTICACIÓN
   
-  // getUserIdFromToken(): void {
-  //   const token = this._loginService.getToken();
+  getUserIdFromToken(): void {
+   const userId = this._loginService.infoUser();
     
-  //   if (token) {
-  //     try {
-  //       const decoded: DecodedToken = jwtDecode(token);
-  //       this.userId.set(decoded.id);
-  //       this.newFinance.user = decoded.id;
-  //       console.log('✅ Usuario autenticado:', decoded.id);
-  //     } catch (error) {
-  //       console.error('❌ Error al decodificar token:', error);
-  //       this.errorMessage.set('Sesión inválida. Por favor inicia sesión nuevamente.');
-  //       setTimeout(() => this._loginService.logout(), 2000);
-  //     }
-  //   } else {
-  //     console.warn('⚠️ No hay token, redirigiendo a login...');
-  //     this._loginService.logout();
-  //   }
-  // }
+    if (userId) {
+      this.userId.set(userId);
+      this.newFinance.user = userId;
+      console.log('✅ Usuario autenticado:', userId);
+    } else {
+      console.warn('⚠️ No hay usuario autenticado');
+      this.errorMessage.set('Sesión inválida. Por favor inicia sesión nuevamente.');
+      setTimeout(() => this._loginService.logout(), 2000);
+    }
+  }
 
-  // ==========================================
+ 
   // CARGAR DATOS DEL BACKEND
-  // ==========================================
   
   loadFinances(): void {
     this.isLoading.set(true);
@@ -128,8 +120,8 @@ export class Finances implements OnInit {
         this.finances.set(movements);
         this.filteredFinances.set([...movements]);
         this.isLoading.set(false);
-      },
-      error: (error) => {
+    }, 
+      error: (error:any) => {
         console.error('❌ Error al cargar movimientos:', error);
         this.errorMessage.set('Error al cargar tus movimientos financieros');
         this.isLoading.set(false);
@@ -140,7 +132,7 @@ export class Finances implements OnInit {
 
   loadSummary(): void {
     // Intentar obtener resumen del backend
-    this._financeService.getFinances().subscribe({
+    this._financeService.getFinancialSummary().subscribe({
       next: (response: any) => {
         this.calculateSummaryFromLocal();
       },

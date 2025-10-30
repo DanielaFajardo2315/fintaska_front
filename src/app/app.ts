@@ -7,12 +7,13 @@ import { Footer } from './components/footer/footer';
 import { MoreButton } from './components/more-button/more-button';
 import { Button } from './components/button/button';
 // import { Login } from './pages/login/login';
-// import { Register } from './pages/register/register';
+// import { Register } from './pages/register/register';}
+import { Notifications } from './components/notifications/notifications';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, Footer, CommonModule],
+  imports: [RouterOutlet, Navbar, Footer, CommonModule, Notifications],
   templateUrl: './app.html',
   styleUrl: './app.css'  
 })
@@ -22,6 +23,9 @@ export class App {
   hideNavbar = signal(false);
   currentNavbarTheme = signal('theme-default');
 
+  // Signal para controlar la visibilidad de notificaciones
+  showNotifications = signal(false);
+  
   private router = inject(Router);
 
   constructor() {
@@ -51,6 +55,19 @@ export class App {
     } else {
       this.currentNavbarTheme.set('theme-default');
     }
+  //-------------------------------------------------------
+    // Cerrar notificaciones al cambiar de ruta
+    this.showNotifications.set(false);
   }
 
+  // Método que recibe el evento del navbar
+  toggleNotifications(): void {
+    this.showNotifications.update(value => !value);
+    console.log('Notificaciones visibles:', this.showNotifications());
+  }
+
+  // Método para cerrar notificaciones
+  closeNotifications(): void {
+    this.showNotifications.set(false);
+  }
 }

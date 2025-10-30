@@ -40,7 +40,7 @@
             <span class="d-lg-none">Notificaciones</span>
           </button>
         </li>
-
+      @if (isLoggedIn && !isAdmin) { 
         <!-- Arbol -->
         <li class="nav-item">
           <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/tree" title="Arbol">
@@ -72,13 +72,13 @@
             <span class="d-lg-none">Tablero de Notas</span>
           </a>
         </li>
-
+      }  
         <!-- Logout -->
         <li class="nav-item">
           <button 
             class="btn btn-link p-2 w-100 text-start text-lg-center"
-           
-            title="Cerrar sesión"> <!-- (click)="logout()"-->
+            (click)="logout()"
+            title="Cerrar sesión"> 
             <i class="bi bi-box-arrow-right fs-3 me-2 me-lg-0"></i>
             <span class="d-lg-none">Cerrar sesión</span>
           </button>
