@@ -5,6 +5,7 @@ import { FinanceService } from '../../services/finance.service';
 import { LoginService } from '../../services/login';
 import { Finance } from '../../interfaces/finance.interface';
 import { jwtDecode } from 'jwt-decode';
+import Swal from 'sweetalert2';
 
 interface FinanceSummary {
   ingresos: number;
@@ -61,7 +62,7 @@ export class Finances implements OnInit {
   filterCategory = signal<string>('todos');
   searchText = signal<string>('');
 
-  // FORMULARIO (No es signal porque usa ngModel)
+  // FORMULARIO
  
   newFinance: Finance = {
     type: 'ingreso',
@@ -99,9 +100,9 @@ export class Finances implements OnInit {
     if (userId) {
       this.userId.set(userId);
       this.newFinance.user = userId;
-      console.log('✅ Usuario autenticado:', userId);
+      console.log('Usuario autenticado:', userId);
     } else {
-      console.warn('⚠️ No hay usuario autenticado');
+      console.warn('No hay usuario autenticado');
       this.errorMessage.set('Sesión inválida. Por favor inicia sesión nuevamente.');
       setTimeout(() => this._loginService.logout(), 2000);
     }
@@ -115,14 +116,14 @@ export class Finances implements OnInit {
     
     this._financeService.getFinances().subscribe({
       next: (response: any) => {
-        console.log('📊 Movimientos recibidos:', response);
+        console.log('Movimientos recibidos:', response);
         const movements = response.financialMove || [];
         this.finances.set(movements);
         this.filteredFinances.set([...movements]);
         this.isLoading.set(false);
     }, 
       error: (error:any) => {
-        console.error('❌ Error al cargar movimientos:', error);
+        console.error('Error al cargar movimientos:', error);
         this.errorMessage.set('Error al cargar tus movimientos financieros');
         this.isLoading.set(false);
         setTimeout(() => this.errorMessage.set(''), 3000);
@@ -131,13 +132,12 @@ export class Finances implements OnInit {
   }
 
   loadSummary(): void {
-    // Intentar obtener resumen del backend
-    this._financeService.getFinancialSummary().subscribe({
+    this._financeService.getFinances().subscribe({
       next: (response: any) => {
         this.calculateSummaryFromLocal();
       },
       error: (error) => {
-        console.error('⚠️ Error al cargar resumen, calculando localmente:', error);
+        console.error('Error al cargar resumen, calculando localmente:', error);
         this.calculateSummaryFromLocal();
       }
     });
@@ -165,7 +165,7 @@ export class Finances implements OnInit {
     };
 
     this.summary.set(summary);
-    console.log('💰 Resumen calculado:', summary);
+    console.log('Resumen calculado:', summary);
   }
 
   // ==========================================
@@ -177,12 +177,13 @@ export class Finances implements OnInit {
     }
 
     this.isLoading.set(true);
-    console.log('📤 Creando movimiento:', this.newFinance);
+    console.log('Creando movimiento:', this.newFinance);
 
     this._financeService.postFinance(this.newFinance).subscribe({
       next: (response: any) => {
-        console.log('✅ Movimiento creado:', response);
+        console.log('Movimiento creado:', response);
         this.successMessage.set(response.message || '¡Movimiento guardado exitosamente!');
+        
         
         // Recargar datos
         this.loadFinances();
@@ -196,7 +197,7 @@ export class Finances implements OnInit {
         setTimeout(() => this.successMessage.set(''), 3000);
       },
       error: (error) => {
-        console.error('❌ Error al crear movimiento:', error);
+        console.error('Error al crear movimiento:', error);
         this.errorMessage.set(
           error.error?.mensaje || 'Error al guardar el movimiento. Intenta nuevamente.'
         );
@@ -213,11 +214,11 @@ export class Finances implements OnInit {
       return;
     }
 
-    console.log('🗑️ Eliminando movimiento:', id);
+    console.log('Eliminando movimiento:', id);
 
     this._financeService.deleteFinance(id).subscribe({
       next: (response: any) => {
-        console.log('✅ Movimiento eliminado:', response);
+        console.log(response.message);
         this.successMessage.set('Movimiento eliminado exitosamente');
         
         // Recargar datos
@@ -227,7 +228,7 @@ export class Finances implements OnInit {
         setTimeout(() => this.successMessage.set(''), 3000);
       },
       error: (error) => {
-        console.error('❌ Error al eliminar:', error);
+        console.error(error.error.message);
         this.errorMessage.set(
           error.error?.mensaje || 'Error al eliminar el movimiento'
         );
@@ -252,7 +253,7 @@ export class Finances implements OnInit {
     });
 
     this.filteredFinances.set(filtered);
-    console.log('🔍 Filtros aplicados. Resultados:', filtered.length);
+    console.log('Filtros aplicados. Resultados:', filtered.length);
   }
 
   clearFilters(): void {
@@ -260,7 +261,7 @@ export class Finances implements OnInit {
     this.filterCategory.set('todos');
     this.searchText.set('');
     this.filteredFinances.set([...this.finances()]);
-    console.log('🔄 Filtros limpiados');
+    console.log('Filtros limpiados');
   }
 
   updateFilterType(value: string): void {
@@ -317,7 +318,7 @@ export class Finances implements OnInit {
       status: 'completado'
     };
     this.errorMessage.set('');
-    console.log('🔄 Formulario reseteado');
+    console.log('Formulario reseteado');
   }
 
   // ==========================================
