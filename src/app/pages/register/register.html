@@ -1,8 +1,8 @@
 <div class="register_container">
     <div class="container-fluid login-main fondo px-3 pb-4 pt-2">
         <!-- Logo centrado arriba -->
-        <div class="text-center mt- -1">
-            <img src="/assets/fintaska.png" alt="Fintaska Logo" class="logo">
+        <div class="text-center mt- -1" >
+            <img src="/assets/fintaska.png" alt="Fintaska Logo" class="logo" >
         </div>
 
         <!-- Contenedor del formulario -->
@@ -12,23 +12,33 @@
                     <div class="card-body">
                         <h3 class="card-title text-center mb-4">Regístrese</h3>
 
-                        <form>
+                        <form [formGroup]="registerForm" (ngSubmit)="handleSubmit()">
                             <!-- Nombres y Apellidos -->
                             <div class="mb-1">
                                 <label for="fullName" class="form-label">Nombres y Apellidos</label>
-                                <input type="text" class="form-control" id="fullName" required>
+                                <input type="text" class="form-control" id="fullName" 
+                                formControlName="fullName" autocomplete="fullName"
+                                    placeholder="Ingresa tu nombre completo"
+                                     [class.is-invalid]="registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid">
+                                    
                             </div>
 
                             <!-- Nombre de Usuario -->
                             <div class="mb-1">
                                 <label for="userName" class="form-label">Nombre de Usuario</label>
-                                <input type="text" class="form-control" id="userName" required>
+                                <input type="text" class="form-control" id="userName" 
+                                formControlName="username" autocomplete="username"
+                                    placeholder="Ingresa un nombre de usuario"
+                                    [class.is-invalid]="registerForm.get('username')?.touched && registerForm.get('username')?.invalid">
                             </div>
 
                             <!-- Correo Electrónico -->
                             <div class="mb-1">
                                 <label for="email" class="form-label">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="email" required>
+                                <input type="email" class="form-control" id="email" 
+                                 formControlName="emailRegister" autocomplete="email"
+                                    placeholder="Ingresa tu correo electrónico"
+                                    [class.is-invalid]="registerForm.get('emailRegister')?.touched && registerForm.get('emailRegister')?.invalid">
                             </div>
 
                             <!-- Crear Contraseña -->
@@ -36,7 +46,9 @@
                                 <label for="password" class="form-label">Crear Contraseña</label>
                                 <div class="password-wrapper position-relative">
                                     <input [type]="passwordVisible ? 'text' : 'password'" class="form-control"
-                                        id="password" required>
+                                        id="password" 
+                                        formControlName="passwordRegister"  autocomplete="new-password" placeholder="Crea una contraseña"
+                                        [class.is-invalid]="registerForm.get('passwordRegister')?.touched && registerForm.get('passwordRegister')?.invalid">
                                     <i class="bi" [ngClass]="passwordVisible ? 'bi-eye' : 'bi-eye-slash'"
                                         (click)="togglePasswordVisible()"
                                         style="cursor: pointer; position: absolute; right: 15px; top: 50%; transform: translateY(-50%);">
@@ -49,7 +61,10 @@
                                 <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
                                 <div class="password-wrapper position-relative">
                                     <input [type]="confirmPasswordVisible ? 'text' : 'password'" class="form-control"
-                                        id="confirmPassword" required>
+                                        id="confirmPassword" 
+                                        formControlName="confirmPassword"  autocomplete="new-password"
+                                        placeholder="Confirmar contraseña"
+                                        [class.is-invalid]="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid">
                                     <i class="bi" [ngClass]="confirmPasswordVisible ? 'bi-eye' : 'bi-eye-slash'"
                                         (click)="toggleConfirmPasswordVisible()"
                                         style="cursor: pointer; position: absolute; right: 15px; top: 50%; transform: translateY(-50%);">
@@ -59,7 +74,7 @@
 
                             <!-- Botón y Recordar Contraseña -->
                             <div class="d-flex justify-content-between align-items-center mt-4">
-                                <a href="#" class="btn btn-primary">Registrarse</a>
+                                <button type="submit" class="btn btn-primary">Registrarse</button>
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="rememberMe">
                                     <label class="form-check-label" for="rememberMe">Recordar Contraseña</label>
