@@ -1,10 +1,9 @@
 <div class="contenedor">
-    <h2>{{message}}</h2>
+    <h2 class="mensaje">{{message}}</h2>
     @for (notification of notifications; track $index) {
     <ul>
-        <li 
-        >
-        {{notification.mesage}}
+        <li class="notification">
+        → {{notification.mesage}}
         <input type="checkbox" id="horns" name="Read" (click)="readNotification(notification._id, notification)" />
         </li>
     </ul>

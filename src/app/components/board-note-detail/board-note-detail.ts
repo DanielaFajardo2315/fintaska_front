@@ -1,13 +1,16 @@
 import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Board } from '../../interfaces/board';
 import { BoardService } from '../../services/board';
 import { environment } from '../../../environments/environment';
+import { EditNoteDialog } from '../edit-note-dialog/edit-note-dialog';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-board-note-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, EditNoteDialog],
   templateUrl: './board-note-detail.html',
   styleUrl: './board-note-detail.css',
 })
@@ -23,6 +26,8 @@ export class BoardNoteDetail {
   baseURL: string = environment.appUrl;
   selectedFile: File | null = null;
   selectedImage: File | null = null;
+  selectedNoteForEdit?: Board;
+  showEditDialog = false;
 
   toggleVisibilidad() {
     this.visible = !this.visible;
@@ -40,6 +45,7 @@ export class BoardNoteDetail {
     return fileName;
   }
 
+  // Subir archivos
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
@@ -62,6 +68,22 @@ export class BoardNoteDetail {
     this.closeDetail.emit();
   }
 
+  // Actualizar la nota
+  updateNote(note: Board) {
+    this.selectedNoteForEdit = note;
+    this.showEditDialog = true;
+  }
+
+  closeEditDialog() {
+    this.showEditDialog = false;
+    this.selectedNoteForEdit = undefined;
+  }
+
+  handleNoteEdited(editedNote: Board) {
+    this.showEditDialog = false;
+    this.selectedNoteForEdit = undefined;
+  }
+
   onEditNote() {
     const boardToUpdate = new FormData();
     if (this.selectedImage) {
@@ -78,18 +100,28 @@ export class BoardNoteDetail {
       },
       error: (error: any) => {
         console.error(error);
-      }
-    })
+      },
+    });
   }
 
   onDeleteNote(id: string) {
     this._boardService.deleteBoard(id).subscribe({
       next: (response: any) => {
-        this.allNotes = response.data;
         console.log(this.allNotes);
+        this.allNotes = response.data;
+        Swal.fire({
+          title: '¿Deseas eliminar esta nota?',
+          showCancelButton: true,
+          confirmButtonText: 'Eliminar',
+          cancelButtonAriaLabel: 'Cancelar',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire('Nota eliminada', '', 'success');
+          }
+        });
       },
       error: (error: any) => {
-        console.error(error);
+        console.error(error.error.mensaje);
       },
     });
   }

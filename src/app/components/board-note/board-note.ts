@@ -1,44 +1,56 @@
 import { Component, Input, Output, EventEmitter, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Board } from '../../interfaces/board';
 import { BoardService } from '../../services/board';
 import { environment } from '../../../environments/environment';
+import { EditNoteDialog } from '../edit-note-dialog/edit-note-dialog';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-board-note',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule, EditNoteDialog],
   templateUrl: './board-note.html',
   styleUrl: './board-note.css',
 })
 export class BoardNote implements OnInit {
   @Input() note?: Board;
+  @Input() limit?: number;
   @Output() openDetail = new EventEmitter<Board>();
   @Output() editNote = new EventEmitter<Board>();
   @Output() deleteNote = new EventEmitter<Board>();
 
   private boardService = inject(BoardService);
+  _boardService = inject(BoardService);
   allNotes: Board[] = [];
   environment = environment;
-  visibleNotes: Set<string> = new Set(); // Para rastrear qué notas tienen archivos visibles
+  visibleNotes: Set<string> = new Set();
   baseURL: string = environment.appUrl;
+  selectedFile: File | null = null;
+  selectedImage: File | null = null;
+  showEditDialog = false;
+  selectedNoteForEdit?: Board;
 
-  titleNote(title: string):string{
+  // Limitar el largo del titulo
+  titleNote(title: string): string {
     const length_title = 20;
-    if (title.length > length_title){
+    if (title.length > length_title) {
       return title.substring(0, length_title) + '...';
     }
     return title;
   }
 
-  descriptionNote(description: string):string{
+  // Limitar el largo de la descripción
+  descriptionNote(description: string): string {
     const length_descript = 80;
-    if (description.length > length_descript){
+    if (description.length > length_descript) {
       return description.substring(0, length_descript) + '...';
     }
     return description;
   }
 
+  // Obtener solo el nombre del archivo
   getFileName(url: string): string {
     const MAX_LENGTH = 28;
 
@@ -59,6 +71,7 @@ export class BoardNote implements OnInit {
     this.loadBoards();
   }
 
+  // Cargar las notas
   loadBoards() {
     console.log('Cargando notas...');
     try {
@@ -102,22 +115,87 @@ export class BoardNote implements OnInit {
     return this.visibleNotes.has(noteId);
   }
 
+  // Abrir el detalle de la nota
   onOpenDetail(note: Board) {
     this.openDetail.emit(note);
   }
 
-  onEditNote(id: string) {
-    console.log(id);
+  // Subir archivos
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+      console.log(this.selectedFile);
+      this.onEditNote();
+    }
   }
 
+  onImageSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.selectedImage = file;
+      console.log(this.selectedImage);
+      this.onEditNote();
+    }
+  }
+
+  onEditNote() {
+    const boardToUpdate = new FormData();
+    if (this.selectedImage) {
+      boardToUpdate.append('urlImage', this.selectedImage);
+    }
+    if (this.selectedFile) {
+      boardToUpdate.append('urlFile', this.selectedFile);
+    }
+    console.log('BoardToUpdate', boardToUpdate);
+    console.log('id: ', this.note?._id);
+    this._boardService.putBoard(boardToUpdate, this.note?._id || '').subscribe({
+      next: (response: any) => {
+        console.log(response.mensaje);
+        this.loadBoards();
+      },
+      error: (error: any) => {
+        console.error(error);
+      },
+    });
+  }
+
+  // Actualizar la nota
+  updateNote(note: Board) {
+    this.selectedNoteForEdit = note;
+    this.showEditDialog = true;
+  }
+
+  closeEditDialog() {
+    this.showEditDialog = false;
+    this.selectedNoteForEdit = undefined;
+  }
+
+  handleNoteEdited(editedNote: Board) {
+    this.showEditDialog = false;
+    this.selectedNoteForEdit = undefined;
+    this.loadBoards();
+  }
+
+  // Eliminar la nota
   onDeleteNote(id: string) {
     this.boardService.deleteBoard(id).subscribe({
       next: (response: any) => {
         console.log(response);
-        this.loadBoards(); // Recargar la lista después de eliminar
+        this.loadBoards();
+        Swal.fire({
+          title: '¿Deseas eliminar esta nota?',
+          showCancelButton: true,
+          confirmButtonText: 'Eliminar',
+          cancelButtonAriaLabel: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire('Nota eliminada', '', 'success');
+          }
+        });
       },
       error: (error) => {
-        console.error('Error al eliminar la nota:', error);
+        console.error(error.error.mensaje);
       },
     });
   }

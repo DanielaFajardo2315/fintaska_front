@@ -1,17 +1,44 @@
+.dialog-overlay {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
 .note_detail {
-    /* width: 622px; */
     width: 45vw;
-    /* height: 580px; */
     height: 80vh;
     margin: auto;
     background-color: var(--color-azul);
     position: relative;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    animation: dialog-appear 0.3s ease;
+}
+
+@keyframes dialog-appear {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 h3 {
     background-color: #65B0FF;
-    padding: 10px;
+    padding: 15px 20px;
     font-size: 1.1rem;
+    margin: 0;
+    border-radius: 12px 12px 0 0;
 }
 
 .btn_cerrar {
@@ -21,6 +48,7 @@ h3 {
     font-size: 1.5rem;
     padding: 5px 8px 0 0;
     border: none;
+    cursor: pointer;
 }
 
 .contenido {
@@ -33,9 +61,24 @@ h3 {
     grid-row-gap: 0px;
 }
 
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 4px;
+    background-color: #65B0FF;
+}
+
 .description {
     overflow-y: auto;
     grid-area: 1 / 1 / 2 / 2;
+    resize: none;
+    height: 100%;
+    background-color: var(--color-azul);
 }
 
 .images {
@@ -50,7 +93,7 @@ h3 {
     width: 5rem;
     height: 5rem;
     object-fit: cover;
-    border-radius: var(--borde-radio);
+    border-radius: var(--color-azul-enca);
 }
 
 .files {
@@ -59,12 +102,13 @@ h3 {
     font-size: 0.8rem;
 }
 
-.etiquetas{
+.etiquetas {
     display: flex;
     gap: 5px;
+    flex-wrap: wrap;
 }
 
-.etiquetas span{
+.etiquetas span {
     background-color: var(--color-azul-enca);
     border-radius: var(--borde-radio);
     font-size: small;
@@ -85,16 +129,23 @@ h3 {
     cursor: pointer;
 }
 
-.label_files {
+.actions button {
+    background: none;
+    border: none;
     cursor: pointer;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
-#tagInput {
-    border-radius: var(--borde-radio);
-    padding: 10px;
-    font-size: 0.8rem;
-    border: 1px solid black;
-    background-color: rgba(255, 255, 255, 0.5);
+.actions button:hover {
+    transform: scale(1.05);
+}
+
+.actions button.save {
+    background-color: var(--color-azul-enca);
+    color: white;
+    border-radius: 4px;
 }
 
 @media (max-width: 991px) {

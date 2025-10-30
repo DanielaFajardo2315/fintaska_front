@@ -1,0 +1,61 @@
+<div class="dialog-overlay">
+    <section class="note_detail">
+        <div>
+            <button class="btn_cerrar" (click)="onClose()">
+                <i class="bi bi-x-lg"></i>
+            </button>
+            <div class="form-group">
+                <input type="text" class="form-control" [(ngModel)]="editedNote.title" placeholder="Título de la nota">
+            </div>
+        </div>
+        <!-- Contenido de la nota -->
+        <div class="contenido">
+            <div class="form-group description">
+                <textarea class="form-control description" [(ngModel)]="editedNote.description" 
+                          placeholder="Descripción de la nota"></textarea>
+            </div>
+            
+            <!-- Imagenes -->
+            <div class="images">
+                @if (editedNote.urlImage && editedNote.urlImage.length > 0) {
+                @for (imageURL of editedNote.urlImage; track $index) {
+                <a [href]="baseURL + imageURL" target="_blank" rel="noopener noreferrer">
+                    <img [src]="baseURL + imageURL" alt="Imagen {{ $index + 1 }}" class="image">
+                </a>
+                }
+                } @else {
+                <p>No hay imagenes guardadas</p>
+                }
+            </div>
+
+            <!-- Documentos -->
+            <div class="files">
+                @if (editedNote.urlFile && editedNote.urlFile.length > 0) {
+                <ul>
+                    @for (file of editedNote.urlFile; track $index) {
+                    <li><a [href]="baseURL + file" target="_blank">{{getFileName(file)}}</a></li>
+                    }
+                </ul>
+                } @else {
+                <p>No hay archivos guardados</p>
+                }
+            </div>
+
+            <div class="etiquetas">
+                @for (tag of editedNote.tag || []; track $index) {
+                <span>#{{tag}} </span>
+                }
+            </div>
+        </div>
+
+        <!-- Acciones -->
+        <div class="actions">
+            <button class="save" (click)="onSave()">
+                <i class="bi bi-check-lg"></i> Guardar
+            </button>
+            <button class="cancel" (click)="onClose()">
+                <i class="bi bi-x"></i> Cancelar
+            </button>
+        </div>
+    </section>
+</div>

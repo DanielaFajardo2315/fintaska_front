@@ -1,8 +1,8 @@
 /* ========== CONTENEDOR PRINCIPAL ========== */
 .fintask-container {
-  min-height: calc(100vh - 180px);
+  min-height: calc(100vh - 170px);
   background-color: var(--light-background, #FAFAFA);
-  padding-bottom: 80px;
+  padding-bottom: 20px;
 }
 
 /* ========== TARJETAS PRINCIPALES ========== */
@@ -13,7 +13,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  min-height: 650px;
+  max-height: 650px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -34,6 +34,11 @@
   border: 3px solid var(--tablero-color);
 }
 
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* ========== HEADERS DE TARJETAS ========== */
 .card-header-custom {
   padding: 1.5rem;
@@ -51,9 +56,10 @@
 /* ========== BODY DE TARJETAS ========== */
 .card-body-custom {
   flex: 1;
-  padding: 1.5rem;
+  padding: 1rem;
   overflow-y: auto;
   overflow-x: hidden;
+  scrollbar-color: var(--home-color) rgba(255, 255, 255, 0.6);
 }
 
 /* ========== FOOTER DE TARJETAS ========== */
@@ -104,7 +110,16 @@
 
 
 /* ========== SECCIÓN TABLERO (NOTAS) ========== */
+.notes-container {
+  max-height: 420px;
+  padding: 0.5rem;
+}
 
+.notes-container app-board-note {
+  display: block;
+  transform: scale(0.7);
+  transform-origin: top center;
+}
 
 
 /* ========== RESPONSIVE ========== */

@@ -27,9 +27,11 @@ export class NotificationsComponent implements OnInit {
         }
         this.message = resp.message;
         this.isLoading = false;
+        console.log(this.message);
       },
       error: (err: any) => {
         console.error(err);
+        this.message = err.error.message;
         this.isLoading = false;
       },
     });

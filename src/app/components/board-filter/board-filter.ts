@@ -1,8 +1,16 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { Board } from '../../interfaces/board';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { BoardService } from '../../services/board';
 import { BoardNote } from '../board-note/board-note';
 import { MoreButton } from '../more-button/more-button';
+import { EditNoteDialog } from '../edit-note-dialog/edit-note-dialog';
 
 interface TagCount {
   name: string;
@@ -11,7 +19,7 @@ interface TagCount {
 
 @Component({
   selector: 'app-board-filter',
-  imports: [MoreButton],
+  imports: [MoreButton, EditNoteDialog, ReactiveFormsModule],
   templateUrl: './board-filter.html',
   styleUrl: './board-filter.css',
 })
@@ -21,6 +29,25 @@ export class BoardFilter {
   private _boardService = inject(BoardService);
   tagsWithCount: TagCount[] = [];
   notes: Board[] = [];
+  showEditDialog = false;
+
+  tagInput = new FormGroup({
+    tagForm: new FormControl('', [Validators.required])
+  })
+  
+  // Métodos para el diálogo de creación de nota
+  onCreateNote() {
+    this.showEditDialog = true;
+  }
+
+  closeEditDialog() {
+    this.showEditDialog = false;
+  }
+
+  handleNoteCreated(newNote: Board) {
+    this.closeEditDialog();
+    this.loadAllBoards(); // Recargar la lista después de crear
+  }
 
   showNotes() {
     this._boardService.getBoards().subscribe({
@@ -76,9 +103,18 @@ export class BoardFilter {
       .sort((a, b) => b.count - a.count);
   }
 
+  showNotesByTag(tag?: string): void {
+    const tagValue = (tag && tag.length > 0)
+      ? tag
+      : (this.tagInput?.value?.tagForm || '').toString().trim();
 
-  showNotesByTag(tag: string): void {
-    this._boardService.getBoardsByTag(tag).subscribe({
+    if (!tagValue) {
+      console.warn('No se proporcionó una etiqueta para filtrar');
+      return;
+    }
+
+    console.log('Tag para filtrar:', tagValue);
+    this._boardService.getBoardsByTag(tagValue).subscribe({
       next: (response: any) => {
         this.notes = response.data;
         console.log(this.notes);

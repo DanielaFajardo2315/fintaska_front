@@ -1,13 +1,16 @@
 <section class="section_board">
     <!-- Estado de carga -->
     @if (allNotes.length === 0) {
-    <div class="loading-state">
+    <!-- <div class="loading-state">
         <p>Cargando tus notas...</p>
+    </div> -->
+    <div class="empty-state">
+        <p>No tienes notas creadas, crea una ahora y guarda todo lo que necesitas</p>
     </div>
     }
 
     <!-- Lista de notas -->
-    @for (item of allNotes; track item._id || $index) {
+    @for (item of (limit ? allNotes.slice(0, limit) : allNotes); track item._id || $index) {
     <div class="nota_miniatura" (click)="onOpenDetail(item)">
         <h3>{{titleNote(item.title)}}</h3>
         <div class="contenido">
@@ -57,12 +60,30 @@
             <!-- Acciones -->
             <div (click)="$event.stopPropagation()" class="actions">
                 <i class="bi bi-trash-fill" (click)="onDeleteNote(item._id)" title="Eliminar"></i>
-                <i class="bi bi-pencil-fill" (click)="onEditNote(item._id)" title="Editar"></i>
+                <i class="bi bi-pencil-fill" (click)="updateNote(item)" title="Editar"></i>
                 <i class="bi bi-hash" title="Etiquetas"></i>
-                <i class="bi bi-file-earmark-text-fill" title="Archivos"></i>
-                <i class="bi bi-file-image" title="Imágenes"></i>
+                <div>
+                    <label for="archivo" class="label_files">
+                        <i class="bi bi-file-earmark-text-fill" title="Archivos"></i>
+                    </label>
+                    <input type="file" id="archivo" class="d-none" multiple (change)="onFileSelected($event)">
+                </div>
+                <div>
+                    <label for="imagen" class="label_files">
+                        <i class="bi bi-file-image" title="Imágenes"></i>
+                    </label>
+                    <input type="file" id="imagen" class="d-none" accept="image/*" (change)="onImageSelected($event)">
+                </div>
             </div>
         </div>
     </div>
     }
 </section>
+
+<!-- Edit Dialog -->
+<app-edit-note-dialog 
+    *ngIf="showEditDialog"
+    [note]="selectedNoteForEdit"
+    (noteUpdated)="handleNoteEdited($event)"
+    (closeDialog)="closeEditDialog()"
+></app-edit-note-dialog>
