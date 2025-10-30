@@ -19,6 +19,13 @@ export class Profile implements OnInit {
   private _loginService = inject(LoginService)
 
 
+  mostrarFormulario = false;
+
+   toggleFormulario() {
+    this.mostrarFormulario = !this.mostrarFormulario;
+  }
+
+
   infoUser : User= {
     settings: {
       theme: "light",
@@ -57,9 +64,12 @@ showInfo(idUser: string) {
   })
 }
 
+
 ngOnInit(): void { this.showInfo(this.idUser) }
 
 goToHome() {
   this._router.navigate(['/']);
 }
+
 }
+

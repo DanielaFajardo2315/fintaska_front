@@ -15,22 +15,23 @@
         <div class="profile-info">
 
             <p><strong> Correo</strong> {{infoUser.email}}</p>
-            <p><strong> Fecha de Registro</strong> {{ infoUser.registerDate ? (infoUser.registerDate | date:'dd/MM/yyyy':'') : 'Sin registro' }}</p>
+            <p><strong> Fecha de Registro</strong> {{ infoUser.registerDate ? (infoUser.registerDate |
+                date:'dd/MM/yyyy':'') : 'Sin registro' }}</p>
             <p><strong> Tema de la Aplicación </strong> Claro </p>
             <p><strong> Contraseña:</strong> *********** <i class="fa fa-pencil edit-icon"></i></p>
 
 
-            <app-button class="boton" text="Editar Perfil" color="primary" [disabled]="false"
-                (buttonClick)="goToHome()">
+            <app-button class="boton" text="{{ mostrarFormulario ? 'Cerrar' : 'Editar Perfil' }}" color="primary"
+                [disabled]="false" (buttonClick)="toggleFormulario()">
             </app-button>
         </div>
     </section>
 
-
     <!--Formulario editar Perfil-->
-    <!-- <section class="edit-profile">
+    @if (mostrarFormulario) {
+    <section class="edit-profile">
         <div class="edit-container">
-         
+
             <form class="edit-form">
                 <div class="img-profile">
                     <label> Subir Imagen de Perfil </label>
@@ -53,7 +54,8 @@
             </form>
         </div>
 
-    </section> -->
+    </section>
+    }
 
 
 
