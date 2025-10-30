@@ -35,4 +35,9 @@ export class UserService {
   deleteUser(id: string) {
     return this._httpClient.delete(`${this.apiUrl}/users/${id}`);
   }
+
+  
+updateUser(userId: string, userData: any) {
+  return this._httpClient.put(`${this.apiUrl}/users/${userId}`, userData);
+}
 }
