@@ -20,8 +20,8 @@ export class Register {
   registerForm = new FormGroup({
     fullName: new FormControl('', [Validators.required, Validators.minLength(3)]),
     username: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    emailRegister: new FormControl('', [Validators.required, Validators.email]),
-    passwordRegister: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     confirmPassword: new FormControl('', [Validators.required]),
   });
 
@@ -44,7 +44,7 @@ export class Register {
       return;
     }
 
-    if (this.registerForm.value.passwordRegister !== this.registerForm.value.confirmPassword) {
+    if (this.registerForm.value.password !== this.registerForm.value.confirmPassword) {
       Swal.fire({
         icon: 'warning',
         title: 'Las contraseñas no coinciden',
@@ -56,8 +56,8 @@ export class Register {
     const userToRegister: RegisterData = {
       fullName: this.registerForm.value.fullName!,
       userName: this.registerForm.value.username!,
-      email: this.registerForm.value.emailRegister!,
-      password: this.registerForm.value.passwordRegister!,
+      email: this.registerForm.value.email!,
+      password: this.registerForm.value.password!,
       confirmPassword: this.registerForm.value.confirmPassword!,
     };
 

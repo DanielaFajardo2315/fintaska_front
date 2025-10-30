@@ -36,9 +36,9 @@
                             <div class="mb-1">
                                 <label for="email" class="form-label">Correo Electrónico</label>
                                 <input type="email" class="form-control" id="email" 
-                                 formControlName="emailRegister" autocomplete="email"
+                                 formControlName="email" autocomplete="email"
                                     placeholder="Ingresa tu correo electrónico"
-                                    [class.is-invalid]="registerForm.get('emailRegister')?.touched && registerForm.get('emailRegister')?.invalid">
+                                    [class.is-invalid]="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
                             </div>
 
                             <!-- Crear Contraseña -->
@@ -47,8 +47,8 @@
                                 <div class="password-wrapper position-relative">
                                     <input [type]="passwordVisible ? 'text' : 'password'" class="form-control"
                                         id="password" 
-                                        formControlName="passwordRegister"  autocomplete="new-password" placeholder="Crea una contraseña"
-                                        [class.is-invalid]="registerForm.get('passwordRegister')?.touched && registerForm.get('passwordRegister')?.invalid">
+                                        formControlName="password"  autocomplete="new-password" placeholder="Crea una contraseña"
+                                        [class.is-invalid]="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
                                     <i class="bi" [ngClass]="passwordVisible ? 'bi-eye' : 'bi-eye-slash'"
                                         (click)="togglePasswordVisible()"
                                         style="cursor: pointer; position: absolute; right: 15px; top: 50%; transform: translateY(-50%);">
