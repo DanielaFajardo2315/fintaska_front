@@ -37,8 +37,6 @@ export class Register {
   }
 
   handleSubmit() {
-    
-
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
       return;
@@ -54,11 +52,11 @@ export class Register {
     }
 
     const userToRegister: RegisterData = {
-      fullName: this.registerForm.value.fullName!,
-      userName: this.registerForm.value.username!,
-      email: this.registerForm.value.emailRegister!,
-      password: this.registerForm.value.passwordRegister!,
-      confirmPassword: this.registerForm.value.confirmPassword!,
+      fullName: this.registerForm.value.fullName  || '',
+      userName: this.registerForm.value.username || '',
+      email: this.registerForm.value.emailRegister || '',
+      password: this.registerForm.value.passwordRegister || '',
+      confirmPassword: this.registerForm.value.confirmPassword || '',
     };
 
     this._userService.postUser(userToRegister).subscribe({
@@ -66,7 +64,7 @@ export class Register {
         Swal.fire({
           icon: 'success',
           title: 'Registro Exitoso',
-          text: res.message || 'Usuario registrado correctamente',
+          text: res.mensaje,
         });
 
         if (res.token) {
@@ -80,7 +78,7 @@ export class Register {
         Swal.fire({
           icon: 'error',
           title: 'Ocurrió un error al registrarse',
-          text: err.error?.message || 'Intenta nuevamente más tarde',
+          text: err.error.mensaje,
         });
       }
     });

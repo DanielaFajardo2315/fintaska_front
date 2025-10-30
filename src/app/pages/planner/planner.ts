@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { PlannerComponent } from '../../components/planner/planner';
 
 @Component({
   selector: 'app-planner',
-  imports: [],
+  imports: [PlannerComponent],
   templateUrl: './planner.html',
   styleUrl: './planner.css'
 })

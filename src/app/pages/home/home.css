@@ -101,7 +101,382 @@
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
 }
 
-/* ========== SECCIÓN FINANZAS ========== */
+
+/* ========== SECCIÓN FINANZAS - TARJETAS DE RESUMEN ========== */
+.finance-summary-cards {
+  margin-bottom: 1rem;
+}
+
+.summary-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.875rem;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.summary-ingresos {
+  background: linear-gradient(135deg, #B8E0D2 0%, #95D5B2 100%);
+  border-left: 4px solid #52B788;
+}
+
+.summary-gastos {
+  background: linear-gradient(135deg, #EAC4D5 0%, #FFB3C1 100%);
+  border-left: 4px solid #FB6F92;
+}
+
+.summary-ahorros {
+  background: linear-gradient(135deg, #809BCE 0%, #6A7FBD 100%);
+  border-left: 4px solid #5465AB;
+}
+
+.summary-deudas {
+  background: linear-gradient(135deg, #A8B8D8 0%, #8EA7E9 100%);
+  border-left: 4px solid #7286D3;
+}
+
+.summary-icon {
+  font-size: 1.75rem;
+  color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.summary-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.summary-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.summary-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+/* ========== SECCIÓN FINANZAS - GRÁFICO ========== */
+.finance-chart-wrapper {
+  position: relative;
+  max-width: 240px;
+  margin: 0 auto 1rem;
+}
+
+.finance-chart {
+  max-height: 240px;
+}
+
+/* Balance en el centro del gráfico */
+.chart-center-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.balance-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.balance-text {
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Leyenda personalizada */
+.finance-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.legend-item:hover {
+  background-color: #f8f9fa;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.legend-text {
+  flex: 1;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+.legend-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #212529;
+}
+
+/* ========== SECCIÓN PLANEADOR - CALENDARIO ========== */
+.mini-calendar {
+  width: 100%;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.calendar-view-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.calendar-events {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.event-day-group {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.event-day-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.event-day {
+  font-weight: 600;
+  color: #495057;
+}
+
+.event-date {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.event-detail {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+
+.event-time {
+  font-size: 0.875rem;
+  color: #6c757d;
+  min-width: 120px;
+}
+
+.event-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.event-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #007bff;
+}
+
+/* ========== SECCIÓN TABLERO - NOTAS ========== */
+.notes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.sticky-note {
+  padding: 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sticky-note:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.note-purple {
+  background-color: #E8D6F3;
+  border-left: 4px solid #9B59B6;
+}
+
+.note-yellow {
+  background-color: #FFF9C4;
+  border-left: 4px solid #F9A825;
+}
+
+.note-pink {
+  background-color: #FFE0EC;
+  border-left: 4px solid #EC407A;
+}
+
+.note-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #212529;
+}
+
+.note-description {
+  font-size: 0.875rem;
+  color: #495057;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.note-footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding-top: 0.75rem;
+}
+
+.note-icons {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-start;
+}
+
+.note-icons i {
+  font-size: 1.125rem;
+  color: #6c757d;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.note-icons i:hover {
+  color: #495057;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1199.98px) {
+  .fintask-card {
+    min-height: 600px;
+  }
+
+  .finance-chart-wrapper {
+    max-width: 250px;
+  }
+
+  .balance-amount {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .fintask-card {
+    min-height: 550px;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-body-custom {
+    padding: 1.2rem;
+  }
+
+  .finance-chart-wrapper {
+    max-width: 280px;
+  }
+
+  .calendar-events {
+    max-height: 350px;
+  }
+
+  .notes-container {
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .finance-legend {
+    font-size: 0.8rem;
+  }
+
+  .legend-text,
+  .legend-value {
+    font-size: 0.8rem;
+  }
+
+  .balance-amount {
+    font-size: 1.125rem;
+  }
+
+  .card-header-custom h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* ========== SCROLLBAR PERSONALIZADO ========== */
+.card-body-custom::-webkit-scrollbar,
+.calendar-events::-webkit-scrollbar,
+.notes-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.card-body-custom::-webkit-scrollbar-track,
+.calendar-events::-webkit-scrollbar-track,
+.notes-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.card-body-custom::-webkit-scrollbar-thumb,
+.calendar-events::-webkit-scrollbar-thumb,
+.notes-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.card-body-custom::-webkit-scrollbar-thumb:hover,
+.calendar-events::-webkit-scrollbar-thumb:hover,
+.notes-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 
 
 

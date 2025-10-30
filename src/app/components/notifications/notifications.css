@@ -20,3 +20,9 @@ div {
 .read {
     background-color: red;
 }
+
+@media (max-width: 991px) {
+    div {
+        width: 80vw;
+    }
+}
