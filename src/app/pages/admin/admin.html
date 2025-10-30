@@ -1,8 +1,8 @@
 <div class="admin_container">
     <div class="data_usuarios">
         <div class="datos">
-            <p>Usuarios totales:</p>
-            <p>Usuarios activos:</p>
+            <p>Usuarios totales: {{allUsers.length}}</p>
+            <!-- <p>Usuarios activos:</p> -->
         </div>
         <img src="assets/grafico_ejemplo.png" alt="">
     </div>
@@ -14,8 +14,8 @@
                     <th>Nombre</th>
                     <th>Nombre de usuario</th>
                     <th>Email</th>
-                    <th>Estado</th>
-                    <th>Último acceso</th>
+                    <th>Fecha de registro</th>
+                    <th>Rol</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -24,7 +24,7 @@
                 @for (user of allUsers; track $index) {
                 <tr>
                     <td>{{user.fullName}}</td>
-                    <td>{{user.username}}</td>
+                    <td>@{{user.username}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.registerDate}}</td>
                     <td>{{user.rol}}</td>

@@ -29,6 +29,20 @@ h3 {
     font-size: 0.7rem;
 }
 
+.empty-state{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem 0;
+}
+
+.empty-state p{
+    color: #6b7280; /* gris suave */
+    font-style: italic;
+    margin: 0;
+}
+
 .contenido{
     padding: 0 10px;
     font-size: 0.9rem;
@@ -62,4 +76,18 @@ h3 {
 .actions i {
     font-size: 1.5rem;
     cursor: pointer;
+}
+
+/* Estilos para el diálogo */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }

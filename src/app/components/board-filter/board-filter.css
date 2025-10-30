@@ -41,6 +41,11 @@
     transition: transform 0.3s ease;
 }
 
+button {
+    background: none;
+    border: none;
+}
+
 .input_tag i:hover {
     transform: scale(1.3);
 }

@@ -15,7 +15,8 @@
   margin: auto 5vw;
   display: flex;
   padding: 10px;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .data_usuarios p {
