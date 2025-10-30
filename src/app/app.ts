@@ -8,13 +8,12 @@ import { MoreButton } from './components/more-button/more-button';
 import { Button } from './components/button/button';
 // import { Login } from './pages/login/login';
 // import { Register } from './pages/register/register';}
-import { Notifications } from './components/notifications/notifications';
-
+// import { NotificationsComponent } from './components/notifications/notifications';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, Footer, CommonModule, Notifications],
+  imports: [RouterOutlet, Navbar, Footer, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'  
 })
