@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../interfaces/user';
 import { environment } from '../../environments/environment';
-import { RegisterData } from '../interfaces/credentials';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +11,7 @@ export class UserService {
   private apiUrl = environment.appUrl;
 
   //Petición Post
-  postUser(userToCreate: RegisterData) {
+  postUser(userToCreate: User) {
     return this._httpClient.post(`${this.apiUrl}/users`, userToCreate);
   }
 

@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../../services/user';
-import { RegisterData } from '../../interfaces/credentials';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { User } from '../../interfaces/user';
@@ -23,6 +22,7 @@ export class Register {
     emailRegister: new FormControl('', [Validators.required, Validators.email]),
     passwordRegister: new FormControl('', [Validators.required, Validators.minLength(8)]),
     confirmPassword: new FormControl('', [Validators.required]),
+    rol: new FormControl<'usuario' | 'admin'>('usuario'),
   });
 
   passwordVisible = false;
@@ -51,12 +51,13 @@ export class Register {
       return;
     }
 
-    const userToRegister: RegisterData = {
+    const userToRegister: User = {
+      _id: '',
       fullName: this.registerForm.value.fullName  || '',
-      userName: this.registerForm.value.username || '',
+      username: this.registerForm.value.username || '',
       email: this.registerForm.value.emailRegister || '',
       password: this.registerForm.value.passwordRegister || '',
-      confirmPassword: this.registerForm.value.confirmPassword || '',
+      rol: 'usuario',
     };
 
     this._userService.postUser(userToRegister).subscribe({
