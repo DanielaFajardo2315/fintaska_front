@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { User } from '../../interfaces/user';
 import { UserService } from '../../services/user';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-register',
@@ -52,7 +52,6 @@ export class Register {
     }
 
     const userToRegister: User = {
-      _id: '',
       fullName: this.registerForm.value.fullName  || '',
       username: this.registerForm.value.username || '',
       email: this.registerForm.value.emailRegister || '',
@@ -66,13 +65,10 @@ export class Register {
           icon: 'success',
           title: 'Registro Exitoso',
           text: res.mensaje,
+        }).then(()=>{
+          this._router.navigate(['/login']);
         });
 
-        if (res.token) {
-          localStorage.setItem('token', res.token);
-        }
-
-        this._router.navigate(['/login']);
       },
       error: (err: any) => {
         console.error(err);

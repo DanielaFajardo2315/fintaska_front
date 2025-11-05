@@ -1,6 +1,6 @@
 export interface User {
-    _id: string;
-    profile?: string | null;
+    _id?: string;
+    profile?: string | undefined;
     fullName: string;
     username?: string;
     email: string;
