@@ -1,10 +1,12 @@
+import { Task } from "./task.interface";
+
 export interface User {
     _id?: string;
     profile?: string | undefined;
     fullName: string;
     username?: string;
     email: string;
-    password: string;
+    password?: string;
     rol: "usuario" | "admin";
     registerDate?: Date;
     settings?: {
@@ -13,7 +15,7 @@ export interface User {
     }
     planner?: {
         notifications?: string[];
-        tasks?: string[];
+        tasks?: Array<Task | string>;
         board?: string[];
         finances?: string[];
     }

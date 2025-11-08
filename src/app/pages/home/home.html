@@ -116,42 +116,11 @@
           <div class="card-body-custom">
             <!-- Mini calendario -->
             <div class="mini-calendar">
-              <!-- <div class="calendar-header">
-                <button class="btn btn-sm btn-light">
-                  <i class="bi bi-chevron-left"></i>
-                </button>
-                <span class="fw-bold">Sep 28 - Oct 4, 2025</span>
-                <button class="btn btn-sm btn-light">
-                  <i class="bi bi-chevron-right"></i>
-                </button>
-              </div>
-
-              <div class="calendar-view-toggle mt-3">
-                <button class="btn btn-sm btn-primary">month</button>
-                <button class="btn btn-sm btn-outline-primary">week</button>
-                <button class="btn btn-sm btn-outline-primary">day</button>
-                <button class="btn btn-sm btn-outline-primary">list</button>
-              </div> -->
+              
               <app-planner-component></app-planner-component>
               <!-- Eventos del calendario -->
               <div class="calendar-events mt-3">
-                <!-- @for (eventDay of calendarEvents; track eventDay.date) {
-                  <div class="event-day-group">
-                    <div class="event-day-header">
-                      <span class="event-day">{{ eventDay.day }}</span>
-                      <span class="event-date">{{ eventDay.date }}</span>
-                    </div>
-                    @for (event of eventDay.events; track event.name) {
-                      <div class="event-detail">
-                        <span class="event-time">{{ event.time }}</span>
-                        <span class="event-name">
-                          <span class="event-dot"></span>
-                          {{ event.name }}
-                        </span>
-                      </div>
-                    }
-                  </div>
-                } -->
+                
               </div>
             </div>
           </div>

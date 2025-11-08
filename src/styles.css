@@ -29,6 +29,7 @@
     --card-background: white;
     --text-secondary: #666666;
     --text-muted: #999999;
+    --dangerColor: #d53b3b;
 }
 * {
   margin: 0;

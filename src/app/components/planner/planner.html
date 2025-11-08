@@ -1,3 +1,72 @@
 <div>
   <full-calendar #calendar [options]="calendarOptions"></full-calendar>
 </div>
+<!-- Modal para creación, edición y eliminación de eventos -->
+@if (showNewTask) {
+<div class="modal">
+  <div id="event-modal" class="modal-container">
+    <!-- Cabecera del modal -->
+    <div class="modal_head">
+      <h2>Gestiona tu evento</h2>
+      <div class="icon_close" (click)="closeModal()">
+        <i class="bi bi-x"></i>
+      </div>
+    </div>
+    <!-- Formulario para la creación del evento -->
+    <form [formGroup]="taskForm" (ngSubmit)="createEvent()">
+      <input type="text" placeholder="Nombre del evento" name="title" formControlName="title" [class.is-invalid]="taskForm.get('title')?.touched && taskForm.get('title')?.invalid">
+      <textarea name="description" id="" cols="30" rows="8" placeholder="Descripción del evento" formControlName="description"></textarea>
+      <!-- Estado del evento -->
+      <div class="estatus">
+        <p>Estado del evento:</p>
+        <form class="form_estatus">
+          <label for="pendiente">Pendiente</label>
+          <input type="radio" name="estatus" id="pendiente" value="pendiente" formControlName="estatus"> <br>
+          <label for="progreso">En progreso</label>
+          <input type="radio" name="estatus" id="progreso" value="en progreso" formControlName="estatus"> <br>
+          <label for="realizada">Realizada</label>
+          <input type="radio" name="estatus" id="realizada" value="realizada" formControlName="estatus"> <br>
+        </form>
+      </div>
+      <!-- Categoría -->
+      <div class="form_list">
+        <form>
+          <label for="opciones">Categoría</label><br>
+          <select name="opciones" id="opciones" class="form-select" aria-label="Default select example" formControlName="category">
+            <option selected disabled>Selecciona una categoría</option>
+            <option value="hogar">Hogar</option>
+            <option value="personal">Personal</option>
+            <option value="trabajo">Trabajo</option>
+            <option value="finanzas">Finanzas</option>
+            <option value="social">Social</option>
+            <option value="otros">Otros</option>
+          </select>
+        </form>
+      </div>
+      <!-- Prioridad -->
+      <div class="form_list">
+        <form>
+          <label for="opciones">Prioridad del evento</label><br>
+          <select name="opciones" id="opciones" class="form-select" aria-label="Default select example" formControlName="priority">
+            <option selected disabled>Selecciona una prioridad</option>
+            <option value="alta">Alta</option>
+            <option value="media">Media</option>
+            <option value="baja">Baja</option>
+          </select>
+        </form>
+      </div>
+      <!-- Fecha de notificación -->
+      <div class="scheduleAt">
+        <label for="scheduleAt">Selecciona una fecha para notificar esta tarea:</label>
+        <input type="date" name="scheduleAt" id="scheduleAt" formControlName="scheduleAt">
+      </div>
+      <div class="btns-container">
+        <button type="submit">Guardar</button>
+        <button type="button" class="delete-event-btn d-none">
+          Eliminar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+}
