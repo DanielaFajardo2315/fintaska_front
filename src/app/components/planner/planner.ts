@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions, DateSelectArg, EventInput } from '@fullcalendar/core';
@@ -23,11 +23,12 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { Router, NavigationEnd } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-planner-component',
   standalone: true,
-  imports: [CommonModule, FullCalendarModule, RouterOutlet, ReactiveFormsModule],
+  imports: [CommonModule, FullCalendarModule, RouterOutlet, ReactiveFormsModule, DatePipe],
   templateUrl: './planner.html',
   styleUrl: './planner.css',
 })
@@ -41,6 +42,7 @@ export class PlannerComponent implements OnInit {
   idUser = this._loginService.infoUser();
   public calendarEvents: EventInput[] = []; //Almacenar los eventos creados en la BD
   selectedDate: DateSelectArg | null = null;
+  selectedTaskForEdit?: Task;
 
   // Información diligenciada en el formulario de evento
   taskForm = new FormGroup({
@@ -85,14 +87,14 @@ export class PlannerComponent implements OnInit {
     },
     selectable: true,
     // Evento al dar click
-    eventClick: (eventInfo) => {
-      console.log('Click on Event');
-    },
+    eventClick: this.handleEventClick.bind(this),
     select: this.newTask.bind(this),
     // Configura el manejo de clics (opcional, para interacción)
     navLinks: true,
     // Mostrar eventos
     events: this.calendarEvents,
+    droppable: true,
+    editable: true,
   };
   ngOnInit(): void {
     this.refreshUserDataAndEvents();
@@ -132,7 +134,6 @@ export class PlannerComponent implements OnInit {
       ...this.calendarOptions,
       events: this.calendarEvents,
     };
-    console.log('Eventos en el calendario del usuario: ', this.calendarEvents);
   }
   refreshUserDataAndEvents(): void {
     if (!this.idUser) {
@@ -141,10 +142,8 @@ export class PlannerComponent implements OnInit {
     }
     this._userService.getUserById(this.idUser).subscribe({
       next: (res: any) => {
-        console.log('Datos de usuario por ID cargados: ', res);
         const { password, ...rest } = res.data;
         this.infoUser = { ...rest };
-        console.log('User antes de modificar: ', this.infoUser);
 
         if (this.infoUser.planner && this.infoUser.planner.tasks) {
           const populatedTasks = Array.isArray(this.infoUser.planner.tasks)
@@ -161,9 +160,12 @@ export class PlannerComponent implements OnInit {
 
   // Abrir el modal
   newTask(selectInfo: DateSelectArg): any {
-    if (this._router.url === '/'){
+    if (this._router.url === '/') {
       this.showNewTask = false;
     } else {
+      this.taskForm.reset();
+      this.selectedTaskForEdit = undefined;
+
       this.showNewTask = true;
       this.selectedDate = selectInfo;
     }
@@ -172,6 +174,10 @@ export class PlannerComponent implements OnInit {
   // Cerrar el modal
   closeModal() {
     this.showNewTask = false;
+
+    this.selectedTaskForEdit = undefined;
+    this.selectedDate = null;
+    this.taskForm.reset();
   }
 
   // Crear evento
@@ -181,6 +187,7 @@ export class PlannerComponent implements OnInit {
       return;
     }
 
+    // Datos recibidos en el formulario
     const taskData: Task = {
       _id: '',
       title: this.taskForm.value.title || '',
@@ -191,12 +198,9 @@ export class PlannerComponent implements OnInit {
       scheduleAt: this.taskForm.value.scheduleAt || undefined,
       creationDate: this.selectedDate?.start || new Date(),
     };
-    console.log('Datos del evento: ', taskData);
 
     this._taskService.postTask(taskData).subscribe({
       next: (res: any) => {
-        console.log('Respuesta completa del servidor:', JSON.stringify(res, null, 2));
-
         // Asegurarse de que existe el objeto planner y el array de tasks
         if (!this.infoUser.planner) {
           this.infoUser.planner = {
@@ -223,12 +227,9 @@ export class PlannerComponent implements OnInit {
         // Añadir el ID de la tarea al array de tasks del usuario
         this.infoUser.planner.tasks = [...(this.infoUser.planner.tasks || []), taskId];
 
-        console.log('ID a actualizar:', this.idUser);
-        console.log('Datos del usuario a enviar:', this.infoUser);
         // Actualizar el usuario con la nueva tarea
         this._userService.putUser(this.infoUser, this.idUser).subscribe({
           next: (updateRes: any) => {
-            console.log('Usuario actualizado con nueva tarea:', updateRes);
             this.closeModal();
 
             // Limpiar el formulario después de crear
@@ -241,11 +242,143 @@ export class PlannerComponent implements OnInit {
             console.error('Error al actualizar usuario:', updateErr);
           },
         });
+        console.log('Tarea creada: ', res);
+        Swal.fire({
+          title: res.mensaje,
+          icon: 'success',
+          draggable: true,
+        });
         return res;
       },
       error: (err: any) => {
         console.error(err.error.mensaje);
       },
+    });
+  }
+
+  // Cargar la información a editar en el formulario
+  loadTaskToEdit(taskEdit: Task) {
+    this.selectedTaskForEdit = taskEdit;
+
+    const datePipe = new DatePipe('en-US');
+    const formattedDate = datePipe.transform(taskEdit.scheduleAt, 'yyyy-MM-dd');
+
+    this.taskForm.patchValue({
+      title: taskEdit.title,
+      description: taskEdit.description,
+      estatus: taskEdit.estatus,
+      category: taskEdit.category,
+      priority: taskEdit.priority,
+      scheduleAt: formattedDate as any,
+    });
+  }
+
+  // Manejar click en el formulario para editar o crear
+  handleEventClick(clickInfo: any) {
+    const taskId = clickInfo.event.id;
+    const taskToEdit = this.infoUser.planner?.tasks?.find((task: any) => task._id === taskId);
+
+    if (taskToEdit) {
+      this.loadTaskToEdit(taskToEdit as Task);
+      this.showNewTask = true;
+    } else {
+      console.error('Tarea no encontrada para ID ', taskId);
+    }
+  }
+
+  // Editar evento
+  updateEvent() {
+    if (this.taskForm.invalid || !this.selectedTaskForEdit) {
+      this.taskForm.markAllAsTouched();
+      return;
+    }
+
+    const idToUpdate = this.selectedTaskForEdit._id;
+
+    if (!idToUpdate) {
+      console.error('No se pudo obtener el ID del empleado seleccionado para la actualización.');
+      return;
+    }
+
+    // Contrucción de los datos de la tarea a editar
+    const taskData: Task = {
+      _id: idToUpdate,
+      title: this.taskForm.value.title || '',
+      description: this.taskForm.value.description || '',
+      estatus: this.taskForm.value.estatus || undefined,
+      category: this.taskForm.value.category || undefined,
+      priority: this.taskForm.value.priority || undefined,
+      scheduleAt: this.taskForm.value.scheduleAt
+        ? new Date(this.taskForm.value.scheduleAt)
+        : new Date(),
+      creationDate: this.selectedTaskForEdit?.creationDate,
+    };
+    Swal.fire({
+      title: '¿Deseas guardar los cambios esta tarea?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      denyButtonText: `No guardar`,
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: 'var(--planner-color)',
+      cancelButtonColor: 'var(--dangerColor)',
+      denyButtonColor: 'var(--text-secondary)',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._taskService.putTask(taskData, idToUpdate).subscribe({
+          next: (res: any) => {
+            console.log('Se actualiza esta tarea: ', res);
+            this.refreshUserDataAndEvents();
+            this.showNewTask = false;
+            Swal.fire(res.mensaje, '', 'success');
+          },
+          error: (err: any) => {
+            console.error(err.error.mensaje);
+          },
+        });
+      } else if (result.isDenied) {
+        Swal.fire('No se guardaron los cambios', '', 'info');
+        this.showNewTask = false;
+      }
+    });
+  }
+
+  // Eliminar un evento
+  deleteEvent(taskDelete: Task) {
+    const idForDelete = taskDelete._id;
+    if (!idForDelete) {
+      console.error('No se obtiene ID  del evento a eliminar');
+      return;
+    }
+
+    Swal.fire({
+      title: '¿Está seguro de eliminar este empleado?',
+      text: 'No podrá restaurarlo luego',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: 'var(--dangerColor)',
+      cancelButtonColor: 'var(--planner-color)',
+      confirmButtonText: 'Si, eliminar',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._taskService.deleteTask(idForDelete).subscribe({
+          next: (res: any) => {
+            console.log('Tarea eliminada: ', res);
+            Swal.fire({
+              title: 'Eliminado',
+              text: res.mensaje,
+              icon: 'success',
+            }).then(() => {
+              this.showNewTask = false;
+              this.refreshUserDataAndEvents();
+            });
+          },
+          error: (err: any) => {
+            console.error(err.error.mensaje);
+          },
+        });
+      }
     });
   }
 }

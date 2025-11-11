@@ -13,9 +13,11 @@
       </div>
     </div>
     <!-- Formulario para la creación del evento -->
-    <form [formGroup]="taskForm" (ngSubmit)="createEvent()">
-      <input type="text" placeholder="Nombre del evento" name="title" formControlName="title" [class.is-invalid]="taskForm.get('title')?.touched && taskForm.get('title')?.invalid">
-      <textarea name="description" id="" cols="30" rows="8" placeholder="Descripción del evento" formControlName="description"></textarea>
+    <form [formGroup]="taskForm" (ngSubmit)="selectedTaskForEdit ? updateEvent() : createEvent()">
+      <input type="text" placeholder="Nombre del evento" name="title" formControlName="title"
+        [class.is-invalid]="taskForm.get('title')?.touched && taskForm.get('title')?.invalid">
+      <textarea name="description" id="" cols="30" rows="8" placeholder="Descripción del evento"
+        formControlName="description"></textarea>
       <!-- Estado del evento -->
       <div class="estatus">
         <p>Estado del evento:</p>
@@ -32,7 +34,8 @@
       <div class="form_list">
         <form>
           <label for="opciones">Categoría</label><br>
-          <select name="opciones" id="opciones" class="form-select" aria-label="Default select example" formControlName="category">
+          <select name="opciones" id="opciones" class="form-select" aria-label="Default select example"
+            formControlName="category">
             <option selected disabled>Selecciona una categoría</option>
             <option value="hogar">Hogar</option>
             <option value="personal">Personal</option>
@@ -47,7 +50,8 @@
       <div class="form_list">
         <form>
           <label for="opciones">Prioridad del evento</label><br>
-          <select name="opciones" id="opciones" class="form-select" aria-label="Default select example" formControlName="priority">
+          <select name="opciones" id="opciones" class="form-select" aria-label="Default select example"
+            formControlName="priority">
             <option selected disabled>Selecciona una prioridad</option>
             <option value="alta">Alta</option>
             <option value="media">Media</option>
@@ -61,10 +65,12 @@
         <input type="date" name="scheduleAt" id="scheduleAt" formControlName="scheduleAt">
       </div>
       <div class="btns-container">
-        <button type="submit">Guardar</button>
-        <button type="button" class="delete-event-btn d-none">
-          Eliminar
-        </button>
+        <button type="submit">{{selectedTaskForEdit ? 'Guardar cambios' : 'Crear evento'}}</button>
+        @if(selectedTaskForEdit){
+          <button type="button" class="delete-event-btn" (click)="deleteEvent(selectedTaskForEdit)">
+            Eliminar
+          </button>
+        }
       </div>
     </form>
   </div>

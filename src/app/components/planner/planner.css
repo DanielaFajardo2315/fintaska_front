@@ -1,6 +1,5 @@
 .modal {
-    /* position: fixed; */
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     overflow-y: hidden;
@@ -80,6 +79,11 @@
 
 .modal-container button.delete-event-btn {
     background-color: var(--dangerColor);
+    transition: transform 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
 }
 
 @media (max-width: 991px) {
