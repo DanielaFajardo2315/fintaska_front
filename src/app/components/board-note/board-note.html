@@ -25,7 +25,7 @@
                 <p class="files_save"><i class="bi bi-folder-fill"></i>{{ (item.urlFile?.length || 0) +
                     (item.urlImage?.length || 0) }} Archivos guardados</p>
             </div>
-            @if (isVisible(item._id)) {
+            @if (isVisible(item._id || '')) {
             <div (click)="$event.stopPropagation()">
                 <!-- mostar documentos -->
                 @if (item.urlFile && item.urlFile.length > 0) {
@@ -59,7 +59,7 @@
 
             <!-- Acciones -->
             <div (click)="$event.stopPropagation()" class="actions">
-                <i class="bi bi-trash-fill" (click)="onDeleteNote(item._id)" title="Eliminar"></i>
+                <i class="bi bi-trash-fill" (click)="onDeleteNote(item)" title="Eliminar"></i>
                 <i class="bi bi-pencil-fill" (click)="updateNote(item)" title="Editar"></i>
                 <i class="bi bi-hash" title="Etiquetas"></i>
                 <div>
@@ -81,9 +81,7 @@
 </section>
 
 <!-- Edit Dialog -->
-<app-edit-note-dialog 
-    *ngIf="showEditDialog"
-    [note]="selectedNoteForEdit"
-    (noteUpdated)="handleNoteEdited($event)"
-    (closeDialog)="closeEditDialog()"
-></app-edit-note-dialog>
+ @if (showEditDialog) {
+     <app-edit-note-dialog [note]="selectedNoteForEdit" (noteUpdated)="handleNoteEdited($event)"
+         (closeDialog)="closeEditDialog()"></app-edit-note-dialog>
+ }

@@ -1,17 +1,14 @@
 <div class="filter_container">
     <!-- Entrada de texto -->
     <form [formGroup]="tagInput" class="input_tag" (ngSubmit)="showNotesByTag()">
-        <input type="text" 
-               placeholder="Filtre por etiqueta" 
-               formControlName="tagForm"  
-               class="input" 
-               [class.is-invalid]="tagInput.get('tagForm')?.touched && tagInput.get('tagForm')?.invalid">
+        <input type="text" placeholder="Filtre por etiqueta" formControlName="tagForm" class="input"
+            [class.is-invalid]="tagInput.get('tagForm')?.touched && tagInput.get('tagForm')?.invalid">
         <button type="submit" [disabled]="tagInput.invalid">
             <i class="bi bi-search"></i>
         </button>
     </form>
     <!-- Cantidad de notas -->
-    <p class="count_notes">Notas creadas ({{notes.length}})</p>
+    <p class="count_notes">Notas creadas ({{allNotes.length}})</p>
     <!-- Cantidad de notas por etiquetas -->
     <h6>Etiquetas</h6>
     <div class="etiquetas">
@@ -25,12 +22,9 @@
     <app-more-button (buttonClick)="onCreateNote()"></app-more-button>
 
 </div>
-<!-- Dialog para crear nota -->
+
+<!-- Edit Dialog -->
  @if (showEditDialog) {
-     <app-edit-note-dialog 
-         
-         [note]="undefined"
-         (noteUpdated)="handleNoteCreated($event)"
-         (closeDialog)="closeEditDialog()"
-     ></app-edit-note-dialog>
+     <app-edit-note-dialog
+         (closeDialog)="closeEditDialog()"></app-edit-note-dialog>
  }

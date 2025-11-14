@@ -1,3 +1,5 @@
+import { Board } from "./board";
+import { Finance } from "./finance.interface";
 import { Task } from "./task.interface";
 
 export interface User {
@@ -16,8 +18,8 @@ export interface User {
     planner?: {
         notifications?: string[];
         tasks?: Array<Task | string>;
-        board?: string[];
-        finances?: string[];
+        board?: Array<Board | string>;
+        finances?: Array<Finance | string>;
     }
 }
 

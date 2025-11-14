@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Board } from '../../interfaces/board';
 import { BoardService } from '../../services/board';
+import { User } from '../../interfaces/user';
+import { UserService } from '../../services/user';
+import { LoginService } from '../../services/login';
 import { environment } from '../../../environments/environment';
 import { EditNoteDialog } from '../edit-note-dialog/edit-note-dialog';
 import Swal from 'sweetalert2';
@@ -21,8 +24,12 @@ export class BoardNote implements OnInit {
   @Output() editNote = new EventEmitter<Board>();
   @Output() deleteNote = new EventEmitter<Board>();
 
-  private boardService = inject(BoardService);
-  _boardService = inject(BoardService);
+  private _boardService = inject(BoardService);
+  private _userService = inject(UserService);
+  private _loginService = inject(LoginService);
+
+  showNewNote: boolean = false;
+  idUser = this._loginService.infoUser();
   allNotes: Board[] = [];
   environment = environment;
   visibleNotes: Set<string> = new Set();
@@ -31,6 +38,30 @@ export class BoardNote implements OnInit {
   selectedImage: File | null = null;
   showEditDialog = false;
   selectedNoteForEdit?: Board;
+
+  // Información del formulario
+  noteForm = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+    tag: new FormControl<string | undefined>(undefined),
+    urlFile: new FormControl<string | undefined>(undefined),
+    urlImage: new FormControl<string | undefined>(undefined),
+    description: new FormControl<string | undefined>(undefined),
+  });
+
+  // Información del usuario registrado
+  infoUser: User = {
+    planner: {
+      notifications: [],
+      tasks: [],
+      board: [],
+      finances: [],
+    },
+    _id: '',
+    fullName: '',
+    username: '',
+    email: '',
+    rol: 'usuario',
+  };
 
   // Limitar el largo del titulo
   titleNote(title: string): string {
@@ -68,41 +99,23 @@ export class BoardNote implements OnInit {
   }
 
   ngOnInit() {
-    this.loadBoards();
+    this.refreshUserDataAndBoards();
   }
 
   // Cargar las notas
-  loadBoards() {
-    console.log('Cargando notas...');
-    try {
-      const stored = localStorage.getItem('userProfile');
-      const userProfile = stored ? JSON.parse(stored) : null;
-
-      if (userProfile && userProfile.planner && Array.isArray(userProfile.planner.board)) {
-        this.allNotes = userProfile.planner.board;
-      } else {
-        this.allNotes = [];
-      }
-    } catch (err) {
-      console.error('Error parsing userProfile from localStorage', err);
-      this.allNotes = [];
-    }
-
-    console.log('Notas cargadas desde localStorage:', this.allNotes);
-    // this.boardService.getBoards().subscribe({
-    //   next: (response: any) => {
-    //     console.log('Respuesta de la API:', response);
-    //     this.allNotes = response.data || response || [];
-    //     console.log('Notas cargadas:', this.allNotes);
-    //   },
-    //   error: (error) => {
-    //     console.error('Error al cargar las notas:', error);
-    //     console.error('Detalles del error:', error.message);
-    //     this.allNotes = [];
-    //   },
-    // });
+  loadBoards(notes: Board[]): void {
+    console.log(`Cargando ${notes.length} notas`);
+    this.allNotes = notes.map((note) => ({
+      _id: note._id,
+      title: note.title,
+      tag: note.tag,
+      urlFile: note.urlFile,
+      urlImage: note.urlImage,
+      description: note.description,
+    }));
   }
 
+  // Visibilidad de la carpeta con archivos en cada nota
   toggleVisibilidad(noteId: string) {
     if (this.visibleNotes.has(noteId)) {
       this.visibleNotes.delete(noteId);
@@ -111,6 +124,7 @@ export class BoardNote implements OnInit {
     }
   }
 
+  // Mostrar archivos en miniatura
   isVisible(noteId: string): boolean {
     return this.visibleNotes.has(noteId);
   }
@@ -118,6 +132,31 @@ export class BoardNote implements OnInit {
   // Abrir el detalle de la nota
   onOpenDetail(note: Board) {
     this.openDetail.emit(note);
+    console.log('ABRIENDO EL DETALLE DE LA NOTA');
+  }
+
+  // traer datos de usuario y notas
+  refreshUserDataAndBoards(): void {
+    if (!this.idUser) {
+      console.log('ID de usuario no disponible. No se pueden cargar los datos');
+      return;
+    }
+    this._userService.getUserById(this.idUser).subscribe({
+      next: (res: any) => {
+        const { password, ...rest } = res.data;
+        this.infoUser = { ...rest };
+
+        if (this.infoUser.planner && this.infoUser.planner.board) {
+          const populatedTask = Array.isArray(this.infoUser.planner.board)
+            ? (this.infoUser.planner.board as Board[])
+            : [];
+          this.loadBoards(populatedTask);
+        }
+      },
+      error(err: any) {
+        console.error('Error al cargar datos de usuario en tablero: ', err);
+      },
+    });
   }
 
   // Subir archivos
@@ -127,6 +166,7 @@ export class BoardNote implements OnInit {
       this.selectedFile = file;
       console.log(this.selectedFile);
       this.onEditNote();
+      this.createNote();
     }
   }
 
@@ -136,26 +176,139 @@ export class BoardNote implements OnInit {
       this.selectedImage = file;
       console.log(this.selectedImage);
       this.onEditNote();
+      this.createNote();
     }
   }
 
+  closeModal() {
+    this.showNewNote = false; //PENDIENTE
+  }
+
+  // Crear nota
+  createNote() {
+    if (this.noteForm.invalid) {
+      this.noteForm.markAllAsTouched();
+      return;
+    }
+
+    // Datos del formulario
+    const noteData: Board = {
+      _id: '',
+      title: this.noteForm.value.title || '',
+      tag: this.noteForm.value.tag
+        ? this.noteForm.value.tag.split(',').map((s) => s.trim())
+        : undefined,
+      urlFile: this.noteForm.value.urlFile
+        ? this.noteForm.value.urlFile.split(',').map((s) => s.trim())
+        : undefined,
+      urlImage: this.noteForm.value.urlImage
+        ? this.noteForm.value.urlImage.split(',').map((s) => s.trim())
+        : undefined,
+      description: this.noteForm.value.description || '',
+    };
+
+    this._boardService.postBoard(noteData).subscribe({
+      next: (res: any) => {
+        if (!this.infoUser.planner) {
+          this.infoUser.planner = {
+            notifications: [],
+            tasks: [],
+            board: [],
+            finances: [],
+          };
+        }
+
+        // Obtener el ID de la nota creada
+        let noteId: string | undefined;
+        if (typeof res === 'object' && res !== null) {
+          noteId = res._id || res.data?._id;
+        }
+
+        if (!noteId) {
+          console.error('No se pudo obtener el ID de la nota creada. Respuesta:', res);
+          return;
+        }
+
+        // Añadir el ID de la nota al array de boards del usuario
+        this.infoUser.planner.board = [...(this.infoUser.planner.board || []), noteId];
+
+        // Actualizar el usuario con la nueva nota
+        this._userService.putUser(this.infoUser, this.idUser).subscribe({
+          next: (updateRes: any) => {
+            this.closeModal();
+            // Limpiar el formulario después de crear
+            this.noteForm.reset();
+            // TODO: Actualizar calendario con la nueva nota
+            this.refreshUserDataAndBoards();
+          },
+          error: (err: any) => {
+            console.error(err.error.message);
+          },
+        });
+      },
+      error: (err:any) => {
+        console.error(err.error.mensaje);
+      }
+    });
+  }
+
+  // Cargar información a editar en el formulario
+  loadNoteToEdit(noteEdit: Board) {
+    this.selectedNoteForEdit = noteEdit;
+
+    this.noteForm.patchValue({
+      title: noteEdit.title,
+      tag: noteEdit.tag ? noteEdit.tag.join(', ') : undefined,
+      urlFile: noteEdit.urlFile && noteEdit.urlFile.length > 0 ? noteEdit.urlFile[0] : undefined,
+      urlImage:
+        noteEdit.urlImage && noteEdit.urlImage.length > 0 ? noteEdit.urlImage[0] : undefined,
+      description: noteEdit.description,
+    });
+  }
+
   onEditNote() {
-    const boardToUpdate = new FormData();
-    if (this.selectedImage) {
-      boardToUpdate.append('urlImage', this.selectedImage);
+    if (this.noteForm.invalid || !this.selectedNoteForEdit) {
+      this.noteForm.markAllAsTouched();
+      return;
     }
-    if (this.selectedFile) {
-      boardToUpdate.append('urlFile', this.selectedFile);
+
+    const idToUpdate = this.selectedNoteForEdit._id;
+
+    if (!idToUpdate) {
+      console.error('No se pudo obtener el ID de la nota seleccionada para la actualización.');
+      return;
     }
-    console.log('BoardToUpdate', boardToUpdate);
-    console.log('id: ', this.note?._id);
-    this._boardService.putBoard(boardToUpdate, this.note?._id || '').subscribe({
+
+    const noteData: Board = {
+      _id: idToUpdate,
+      title: this.noteForm.value.title || '',
+      tag: this.noteForm.value.tag
+        ? this.noteForm.value.tag.split(',').map((s) => s.trim())
+        : undefined,
+      urlFile: this.noteForm.value.urlFile
+        ? this.noteForm.value.urlFile.split(',').map((s) => s.trim())
+        : undefined,
+      urlImage: this.noteForm.value.urlImage
+        ? this.noteForm.value.urlImage.split(',').map((s) => s.trim())
+        : undefined,
+      description: this.noteForm.value.description || '',
+    };
+    // Control de las imagenes y archivos
+    // if (this.selectedImage) {
+    //   let updateImage = noteData.urlImage;
+    //   return;
+    // }
+    // if (this.selectedFile) {
+    //   let updateFile = noteData.urlFile;
+    //   return;
+    // }
+    this._boardService.putBoard(noteData, idToUpdate).subscribe({
       next: (response: any) => {
         console.log(response.mensaje);
-        this.loadBoards();
+        this.refreshUserDataAndBoards();
       },
-      error: (error: any) => {
-        console.error(error);
+      error: (err: any) => {
+        console.error(err.error.mensaje);
       },
     });
   }
@@ -164,6 +317,7 @@ export class BoardNote implements OnInit {
   updateNote(note: Board) {
     this.selectedNoteForEdit = note;
     this.showEditDialog = true;
+    this.onEditNote();
   }
 
   closeEditDialog() {
@@ -174,23 +328,30 @@ export class BoardNote implements OnInit {
   handleNoteEdited(editedNote: Board) {
     this.showEditDialog = false;
     this.selectedNoteForEdit = undefined;
-    this.loadBoards();
+    this.refreshUserDataAndBoards();
+    // this.loadBoards();
   }
 
   // Eliminar la nota
-  onDeleteNote(id: string) {
-    this.boardService.deleteBoard(id).subscribe({
+  onDeleteNote(noteDelete: Board) {
+    const IdForDelete = noteDelete._id;
+    if (!IdForDelete) {
+      console.error('No se obtiene ID  de la nota a eliminar');
+      return;
+    }
+    this._boardService.deleteBoard(IdForDelete).subscribe({
       next: (response: any) => {
-        console.log(response);
-        this.loadBoards();
+        console.log(response.mensaje);
+        this.refreshUserDataAndBoards();
         Swal.fire({
           title: '¿Deseas eliminar esta nota?',
           showCancelButton: true,
           confirmButtonText: 'Eliminar',
-          cancelButtonAriaLabel: 'Cancelar'
+          cancelButtonAriaLabel: 'Cancelar',
         }).then((result) => {
           if (result.isConfirmed) {
             Swal.fire('Nota eliminada', '', 'success');
+            this.refreshUserDataAndBoards();
           }
         });
       },

@@ -4,7 +4,7 @@
 
     <!-- Lista de notas -->
     <div class="notes_list">
-      <app-board-note (openDetail)="onOpenDetail($event)" (editNote)="onEditNote($event)"
+      <app-board-note (openDetail)="onOpenDetail($event)"
         (deleteNote)="onDeleteNote($event)">
       </app-board-note>
     </div>
@@ -13,8 +13,8 @@
   <!-- Vista detallada -->
   @if (showDetail) {
   <div class="detail_view">
-    <app-board-note-detail [note]="selectedNote" (closeDetail)="onCloseDetail()" (editNote)="onEditNote($event)"
-      (deleteNote)="onDeleteNote($event)">
+    <app-board-note-detail [note]="selectedNote" (closeDetail)="onCloseDetail()"
+      (deleteNote)="onDeleteNote($event)" (noteUpdated)="onNoteUpdated($event)">
     </app-board-note-detail>
   </div>
   }

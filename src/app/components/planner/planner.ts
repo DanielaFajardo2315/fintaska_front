@@ -239,7 +239,7 @@ export class PlannerComponent implements OnInit {
             this.refreshUserDataAndEvents();
           },
           error: (updateErr: any) => {
-            console.error('Error al actualizar usuario:', updateErr);
+            console.error(updateErr.error.message);
           },
         });
         console.log('Tarea creada: ', res);
@@ -275,14 +275,18 @@ export class PlannerComponent implements OnInit {
 
   // Manejar click en el formulario para editar o crear
   handleEventClick(clickInfo: any) {
-    const taskId = clickInfo.event.id;
-    const taskToEdit = this.infoUser.planner?.tasks?.find((task: any) => task._id === taskId);
-
-    if (taskToEdit) {
-      this.loadTaskToEdit(taskToEdit as Task);
-      this.showNewTask = true;
+    if (this._router.url === '/') {
+      this.showNewTask = false;
     } else {
-      console.error('Tarea no encontrada para ID ', taskId);
+      const taskId = clickInfo.event.id;
+      const taskToEdit = this.infoUser.planner?.tasks?.find((task: any) => task._id === taskId);
+  
+      if (taskToEdit) {
+        this.loadTaskToEdit(taskToEdit as Task);
+        this.showNewTask = true;
+      } else {
+        console.error('Tarea no encontrada para ID ', taskId);
+      }
     }
   }
 
@@ -296,7 +300,7 @@ export class PlannerComponent implements OnInit {
     const idToUpdate = this.selectedTaskForEdit._id;
 
     if (!idToUpdate) {
-      console.error('No se pudo obtener el ID del empleado seleccionado para la actualización.');
+      console.error('No se pudo obtener el ID de la tarea seleccionada para la actualización.');
       return;
     }
 

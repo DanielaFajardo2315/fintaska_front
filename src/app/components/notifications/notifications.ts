@@ -1,10 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Notifications } from '../../interfaces/notifications';
 import { NotificationsService } from '../../services/notifications';
+import { ClickOutside } from "../../click-outside";
 
 @Component({
   selector: 'app-notifications',
-  imports: [],
+  imports: [ClickOutside],
   templateUrl: './notifications.html',
   styleUrl: './notifications.css',
 })
@@ -14,6 +15,15 @@ export class NotificationsComponent implements OnInit {
   message: string = '';
   isLoading: boolean = false;
 
+  // cierre del componente si hay click en otro lado
+  isDialogOpen : boolean = true;
+
+  closeDialog(): void {
+    console.log('Se cerró el dialogó por CLICK fuera');
+    this.isDialogOpen = false;
+  }
+
+  // Obtener las notificaciones no leidas
   getUnredNotifications() {
     this.isLoading = true;
     this._notificationsService.getUnreadNotification().subscribe({
@@ -37,17 +47,15 @@ export class NotificationsComponent implements OnInit {
     });
   }
 
+  // Marcar una notificación como leida
   readNotification(id: string | undefined, notification: Notifications) {
     console.log(notification);
     this._notificationsService.markAsRead(id).subscribe({
       next: (resp: any) => {
         console.log(resp);
-        // this.readStyle = true;
-        // notification.readStyle = true;
       },
       error: (err: any) => {
         console.error(err);
-        // this.readStyle = false;
       },
     });
   }

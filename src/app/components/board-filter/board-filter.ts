@@ -11,6 +11,9 @@ import { BoardService } from '../../services/board';
 import { BoardNote } from '../board-note/board-note';
 import { MoreButton } from '../more-button/more-button';
 import { EditNoteDialog } from '../edit-note-dialog/edit-note-dialog';
+import { User } from '../../interfaces/user';
+import { UserService } from '../../services/user';
+import { LoginService } from '../../services/login';
 
 interface TagCount {
   name: string;
@@ -27,14 +30,84 @@ export class BoardFilter {
   @Input() note: BoardNote | null = null;
 
   private _boardService = inject(BoardService);
+  private _userService = inject(UserService);
+  private _loginService = inject(LoginService);
+
+  idUser = this._loginService.infoUser();
+  showNewNote: boolean = false;
   tagsWithCount: TagCount[] = [];
-  notes: Board[] = [];
+  allNotes: Board[] = [];
   showEditDialog = false;
 
   tagInput = new FormGroup({
-    tagForm: new FormControl('', [Validators.required])
-  })
-  
+    tagForm: new FormControl('', [Validators.required]),
+  });
+
+  // Información del formulario
+  noteForm = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+    tag: new FormControl<string | undefined>(undefined),
+    urlFile: new FormControl<string | undefined>(undefined),
+    urlImage: new FormControl<string | undefined>(undefined),
+    description: new FormControl<string | undefined>(undefined),
+  });
+
+  // Información del usuario registrado
+  infoUser: User = {
+    planner: {
+      notifications: [],
+      tasks: [],
+      board: [],
+      finances: [],
+    },
+    _id: '',
+    fullName: '',
+    username: '',
+    email: '',
+    rol: 'usuario',
+  };
+
+  closeModal() {
+    this.showNewNote = false; //PENDIENTE
+  }
+
+  // Cargar las notas
+  loadBoards(notes: Board[]): void {
+    console.log(`Cargando ${notes.length} notas`);
+    this.allNotes = notes.map((note) => ({
+      _id: note._id,
+      title: note.title,
+      tag: note.tag,
+      urlFile: note.urlFile,
+      urlImage: note.urlImage,
+      description: note.description,
+    }));
+  }
+
+  // traer datos de usuario y notas
+  refreshUserDataAndBoards(): void {
+    if (!this.idUser) {
+      console.log('ID de usuario no disponible. No se pueden cargar los datos');
+      return;
+    }
+    this._userService.getUserById(this.idUser).subscribe({
+      next: (res: any) => {
+        const { password, ...rest } = res.data;
+        this.infoUser = { ...rest };
+
+        if (this.infoUser.planner && this.infoUser.planner.board) {
+          const populatedTask = Array.isArray(this.infoUser.planner.board)
+            ? (this.infoUser.planner.board as Board[])
+            : [];
+          this.loadBoards(populatedTask);
+        }
+      },
+      error(err: any) {
+        console.error('Error al cargar datos de usuario en tablero: ', err);
+      },
+    });
+  }
+
   // Métodos para el diálogo de creación de nota
   onCreateNote() {
     this.showEditDialog = true;
@@ -46,14 +119,14 @@ export class BoardFilter {
 
   handleNoteCreated(newNote: Board) {
     this.closeEditDialog();
-    this.loadAllBoards(); // Recargar la lista después de crear
+    this.refreshUserDataAndBoards();
   }
 
   showNotes() {
     this._boardService.getBoards().subscribe({
       next: (response: any) => {
-        this.notes = response.data;
-        console.log(this.notes);
+        this.allNotes = response.data;
+        console.log(this.allNotes);
       },
 
       error: (error: any) => {
@@ -72,17 +145,16 @@ export class BoardFilter {
   loadAllBoards(): void {
     this._boardService.getBoards().subscribe({
       next: (response: any) => {
-        this.notes = response.data;
-        this.tagsWithCount = this.getTagsWithCount(this.notes);
+        this.allNotes = response.data;
+        this.tagsWithCount = this.getTagsWithCount(this.allNotes);
         console.log('Conteo de Etiquetas:', this.tagsWithCount);
       },
       error: (error: any) => {
         console.error(error);
-        
-      }
+      },
     });
   }
-  
+
   getTagsWithCount(notes: Board[]): TagCount[] {
     const tagMap = new Map<string, number>();
     notes.forEach((noteTag) => {
@@ -104,9 +176,8 @@ export class BoardFilter {
   }
 
   showNotesByTag(tag?: string): void {
-    const tagValue = (tag && tag.length > 0)
-      ? tag
-      : (this.tagInput?.value?.tagForm || '').toString().trim();
+    const tagValue =
+      tag && tag.length > 0 ? tag : (this.tagInput?.value?.tagForm || '').toString().trim();
 
     if (!tagValue) {
       console.warn('No se proporcionó una etiqueta para filtrar');
@@ -116,8 +187,8 @@ export class BoardFilter {
     console.log('Tag para filtrar:', tagValue);
     this._boardService.getBoardsByTag(tagValue).subscribe({
       next: (response: any) => {
-        this.notes = response.data;
-        console.log(this.notes);
+        this.allNotes = response.data;
+        console.log(this.allNotes);
       },
 
       error: (error: any) => {

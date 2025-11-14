@@ -1,12 +1,14 @@
-<div class="contenedor">
-    <h2 class="mensaje">{{message}}</h2>
-    @for (notification of notifications; track $index) {
-    <ul>
-        <li class="notification">
-        → {{notification.mesage}}
-        <input type="checkbox" id="horns" name="Read" (click)="readNotification(notification._id, notification)" />
-        </li>
-    </ul>
+@if (isDialogOpen) {
+    <div class="contenedor" appClickOutside (clickOutside)="closeDialog()">
+        <h2 class="mensaje">{{message}}</h2>
+        @for (notification of notifications; track $index) {
+        <ul>
+            <li class="notification">
+            → {{notification.mesage}}
+            <input type="checkbox" id="horns" name="Read" (click)="readNotification(notification._id, notification)" />
+            </li>
+        </ul>
+    }
+    </div>
 }
-</div>
 <!-- [class.read]="notification.readStyle" -->

@@ -40,7 +40,7 @@
     </div>
     <!-- Acciones -->
     <div (click)="$event.stopPropagation()" class="actions">
-        <i class="bi bi-trash-fill" (click)="onDeleteNote(note!._id)" title="Eliminar"></i>
+        <i class="bi bi-trash-fill" (click)="onDeleteNote(note!)" title="Eliminar"></i>
         <i class="bi bi-pencil-fill" (click)="updateNote(note!)" title="Editar"></i>
         <i class="bi bi-hash" title="Etiquetas"><input type="text" name="inputTag" placeholder="Ingresa tu etiqueta"
                 id="tagInput"></i>
@@ -60,9 +60,10 @@
 </section>
 
 <!-- Edit Dialog -->
+@if(showEditDialog){
 <app-edit-note-dialog 
-    *ngIf="showEditDialog"
     [note]="selectedNoteForEdit"
     (noteUpdated)="handleNoteEdited($event)"
     (closeDialog)="closeEditDialog()"
-></app-edit-note-dialog>
+    ></app-edit-note-dialog>
+}

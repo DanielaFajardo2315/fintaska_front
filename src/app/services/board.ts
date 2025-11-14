@@ -11,7 +11,7 @@ export class BoardService {
   private apiUrl = environment.appUrl;
 
   //Peticion POST
-  postBoard(boardToCreate: FormData) {
+  postBoard(boardToCreate: Board) {
     return this._httpClient.post(this.apiUrl + '/boards', boardToCreate);
   }
 
@@ -27,7 +27,7 @@ export class BoardService {
   }
 
   //Peticion Put
-  putBoard(boardToUpdate: FormData, id: string) {
+  putBoard(boardToUpdate: Board, id: string) {
     return this._httpClient.put(`${this.apiUrl}/boards/${id}`, boardToUpdate);
   }
 
