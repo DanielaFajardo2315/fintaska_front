@@ -66,13 +66,13 @@
                     <label for="archivo" class="label_files">
                         <i class="bi bi-file-earmark-text-fill" title="Archivos"></i>
                     </label>
-                    <input type="file" id="archivo" class="d-none" multiple (change)="onFileSelected($event)">
+                    <input type="file" id="archivo" class="d-none" multiple (change)="onEditFiles($event, 'file', item)">
                 </div>
                 <div>
                     <label for="imagen" class="label_files">
                         <i class="bi bi-file-image" title="Imágenes"></i>
                     </label>
-                    <input type="file" id="imagen" class="d-none" accept="image/*" (change)="onImageSelected($event)">
+                    <input type="file" id="imagen" class="d-none" accept="image/*" (change)="onEditFiles($event, 'image', item)">
                 </div>
             </div>
         </div>

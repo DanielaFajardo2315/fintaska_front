@@ -34,8 +34,8 @@ export class BoardNote implements OnInit {
   environment = environment;
   visibleNotes: Set<string> = new Set();
   baseURL: string = environment.appUrl;
-  selectedFile: File | null = null;
-  selectedImage: File | null = null;
+  selectedFile: File | string = '';
+  selectedImage: File | string = '';
   showEditDialog = false;
   selectedNoteForEdit?: Board;
 
@@ -174,6 +174,47 @@ export class BoardNote implements OnInit {
       this.selectedImage = file;
       console.log(this.selectedImage);
     }
+  }
+
+  // Cargar archivos en la nota
+  onEditFiles(event: any, type: string, nota: Board) {
+    if (type === 'image') {
+      this.onImageSelected(event);
+    } else {
+      this.onFileSelected(event);
+    }
+    Swal.fire({
+      title: `¿Deseas guardar ${type === 'image' ? 'esta imagen' : 'este archivo'}?`,
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Swal.fire('Saved!', '', 'success');
+        this.updateFiles(nota._id, type)
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info');
+      }
+    });
+  }
+
+  // Subir los archivos en la base de datos
+  updateFiles(id: string | undefined, type: string) {
+    const key = type === 'image' ? 'urlImage' : 'urlFile';
+    const value = type === 'image' ? this.selectedImage : this.selectedFile
+    const fileToEdit = new FormData();
+    fileToEdit.append(key, value);
+    console.log('Este es nuesto archivo para PUT', Object.fromEntries(fileToEdit as any));
+    this._boardService.putBoard(fileToEdit, id).subscribe({
+      next: (res: any) => {
+        console.log('Respuesta de actualización de archivos', res);
+      },
+      error: (err: any) => {
+        console.error(err.error.mensaje);
+        
+      }
+    });
   }
 
   // Cargar información a editar en el formulario
