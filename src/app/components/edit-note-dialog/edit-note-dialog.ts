@@ -27,6 +27,7 @@ export class EditNoteDialog {
   @Input() note?: Board;
   @Output() closeDialog = new EventEmitter<void>();
   @Output() noteUpdated = new EventEmitter<Board>();
+  @Output() dataReloaded = new EventEmitter<void>();
 
   private _boardService = inject(BoardService);
   private _userService = inject(UserService);
@@ -191,7 +192,6 @@ export class EditNoteDialog {
       description: this.noteForm.value.description || '',
     };
 
-    // const {_id, ...createData } = noteData;
     return this.createNote(noteDataCreate as Board);
   }
 
@@ -235,11 +235,13 @@ export class EditNoteDialog {
         // Actualizar el usuario con la nueva nota
         this._userService.putUser(this.infoUser, this.idUser).subscribe({
           next: (updateRes: any) => {
+            // TODO: Actualizar calendario con la nueva nota
+            this.refreshUserDataAndBoards();
+            // Emitir señal para actualizar las notas en board_note
+            this.dataReloaded.emit();
             this.closeDialog.emit();
             // Limpiar el formulario después de crear
             this.noteForm.reset();
-            // TODO: Actualizar calendario con la nueva nota
-            this.refreshUserDataAndBoards();
           },
           error: (err: any) => {
             console.error(err.error.message);
@@ -260,7 +262,6 @@ export class EditNoteDialog {
 
     // Estado actual (creación o edición)
     const isCreating = !this.editedNote._id;
-    console.log('Nota NUEVA: ', isCreating);
 
     // Llamar el método dependiendo si es una creación o actualización
     const request = this.saveBoardOperation();
@@ -268,16 +269,10 @@ export class EditNoteDialog {
     request.subscribe({
       next: (response: any) => {
         console.log('Nota guardada:', response.data);
-        Swal.fire({
-          title: response.mensaje,
-          icon: 'success',
-          draggable: true,
-        });
-
+        
         if (isCreating === true){
           console.log('dato de la nota al entrar en el condicional', response);
           this.handleNewNoteCreation(response.data);
-          console.log('ENTRÓ!');
         } else {
           // Emitir la respuesta (ya sea de crear o actualizar)
           this.noteUpdated.emit(response.data || response);
@@ -285,6 +280,11 @@ export class EditNoteDialog {
           this.refreshUserDataAndBoards();
         }
 
+        Swal.fire({
+          title: response.mensaje,
+          icon: 'success',
+          draggable: true,
+        });
       },
       error: (error) => {
         console.error('Error al guardar la nota:', error);

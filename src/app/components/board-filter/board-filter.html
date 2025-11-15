@@ -12,12 +12,21 @@
     <!-- Cantidad de notas por etiquetas -->
     <h6>Etiquetas</h6>
     <div class="etiquetas">
-        @for (tag of tagsWithCount; track tag.name) {
-        <span>{{ tag.name }}</span><span>({{tag.count}})</span>
-        } @empty {
+    @if (tagsWithCount.length > 0) {
+        <table class="tags-table">
+            <tbody>
+                @for (tag of tagsWithCount; track $index) {
+                    <tr class="tag-row">
+                        <td class="tag-name">{{ tag.name }}</td>
+                        <td class="tag-count">({{ tag.count }})</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    } @else {
         <p>Aún no tienes etiquetas registradas</p>
-        }
-    </div>
+    }
+</div>
     <!-- Botón -->
     <app-more-button (buttonClick)="onCreateNote()"></app-more-button>
 
@@ -26,5 +35,6 @@
 <!-- Edit Dialog -->
  @if (showEditDialog) {
      <app-edit-note-dialog
-         (closeDialog)="closeEditDialog()"></app-edit-note-dialog>
+         (closeDialog)="closeEditDialog()"
+         (dataReloaded)="refreshUserDataAndBoards()"></app-edit-note-dialog>
  }

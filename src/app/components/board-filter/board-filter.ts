@@ -100,6 +100,9 @@ export class BoardFilter {
             ? (this.infoUser.planner.board as Board[])
             : [];
           this.loadBoards(populatedTask);
+
+          this.tagsWithCount = this.getTagsWithCount(this.allNotes);
+          console.log('Conteo de etiquetas en este usuario: ', this.tagsWithCount);
         }
       },
       error(err: any) {
@@ -111,6 +114,7 @@ export class BoardFilter {
   // Métodos para el diálogo de creación de nota
   onCreateNote() {
     this.showEditDialog = true;
+    this.refreshUserDataAndBoards();
   }
 
   closeEditDialog() {
@@ -122,20 +126,8 @@ export class BoardFilter {
     this.refreshUserDataAndBoards();
   }
 
-  showNotes() {
-    this._boardService.getBoards().subscribe({
-      next: (response: any) => {
-        this.allNotes = response.data;
-        console.log(this.allNotes);
-      },
-
-      error: (error: any) => {
-        console.error(error);
-      },
-    });
-  }
   ngOnInit(): void {
-    this.showNotes();
+    this.refreshUserDataAndBoards();
   }
 
   ngOnInitTag(): void {
@@ -166,6 +158,7 @@ export class BoardFilter {
         });
       }
     });
+    console.log('arreglo de tags: ', tagMap);
 
     return Array.from(tagMap.entries())
       .map(([name, count]) => ({
@@ -174,6 +167,13 @@ export class BoardFilter {
       }))
       .sort((a, b) => b.count - a.count);
   }
+
+  getUserNoteIds(): string[] {
+    if (this.infoUser.planner && Array.isArray(this.infoUser.planner.board)) {
+        return this.infoUser.planner.board.map(note => note).filter((id): id is string => !!id);
+    }
+    return [];
+}
 
   showNotesByTag(tag?: string): void {
     const tagValue =
@@ -187,7 +187,10 @@ export class BoardFilter {
     console.log('Tag para filtrar:', tagValue);
     this._boardService.getBoardsByTag(tagValue).subscribe({
       next: (response: any) => {
-        this.allNotes = response.data;
+        const allFilteredNotes = response.data || [];
+        const userNoteIds = this.getUserNoteIds();
+
+        this.allNotes = allFilteredNotes.filter((note: Board) => userNoteIds.includes(note._id || ''));
         console.log(this.allNotes);
       },
 

@@ -81,7 +81,8 @@
 </section>
 
 <!-- Edit Dialog -->
- @if (showEditDialog) {
-     <app-edit-note-dialog [note]="selectedNoteForEdit" (noteUpdated)="handleNoteEdited($event)"
-         (closeDialog)="closeEditDialog()"></app-edit-note-dialog>
- }
+@if (showEditDialog) {
+<app-edit-note-dialog [note]="selectedNoteForEdit" (noteUpdated)="handleNoteEdited($event)"
+    (closeDialog)="closeEditDialog()" 
+    (dataReloaded)="refreshUserDataAndBoards()"></app-edit-note-dialog>
+}

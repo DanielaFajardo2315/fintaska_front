@@ -52,6 +52,15 @@ button {
 
 h6 {
     font-weight: bold;
+    margin-bottom: 0;
+}
+
+.tags-table {
+    width: 90%;
+}
+
+.tag-count {
+    text-align: right;
 }
 
 app-more-button {

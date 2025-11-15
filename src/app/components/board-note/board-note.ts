@@ -165,8 +165,6 @@ export class BoardNote implements OnInit {
     if (file) {
       this.selectedFile = file;
       console.log(this.selectedFile);
-      this.onEditNote();
-      this.createNote();
     }
   }
 
@@ -175,81 +173,7 @@ export class BoardNote implements OnInit {
     if (file) {
       this.selectedImage = file;
       console.log(this.selectedImage);
-      this.onEditNote();
-      this.createNote();
     }
-  }
-
-  closeModal() {
-    this.showNewNote = false; //PENDIENTE
-  }
-
-  // Crear nota
-  createNote() {
-    if (this.noteForm.invalid) {
-      this.noteForm.markAllAsTouched();
-      return;
-    }
-
-    // Datos del formulario
-    const noteData: Board = {
-      _id: '',
-      title: this.noteForm.value.title || '',
-      tag: this.noteForm.value.tag
-        ? this.noteForm.value.tag.split(',').map((s) => s.trim())
-        : undefined,
-      urlFile: this.noteForm.value.urlFile
-        ? this.noteForm.value.urlFile.split(',').map((s) => s.trim())
-        : undefined,
-      urlImage: this.noteForm.value.urlImage
-        ? this.noteForm.value.urlImage.split(',').map((s) => s.trim())
-        : undefined,
-      description: this.noteForm.value.description || '',
-    };
-
-    this._boardService.postBoard(noteData).subscribe({
-      next: (res: any) => {
-        if (!this.infoUser.planner) {
-          this.infoUser.planner = {
-            notifications: [],
-            tasks: [],
-            board: [],
-            finances: [],
-          };
-        }
-
-        // Obtener el ID de la nota creada
-        let noteId: string | undefined;
-        if (typeof res === 'object' && res !== null) {
-          noteId = res._id || res.data?._id;
-        }
-
-        if (!noteId) {
-          console.error('No se pudo obtener el ID de la nota creada. Respuesta:', res);
-          return;
-        }
-
-        // Añadir el ID de la nota al array de boards del usuario
-        this.infoUser.planner.board = [...(this.infoUser.planner.board || []), noteId];
-
-        // Actualizar el usuario con la nueva nota
-        this._userService.putUser(this.infoUser, this.idUser).subscribe({
-          next: (updateRes: any) => {
-            this.closeModal();
-            // Limpiar el formulario después de crear
-            this.noteForm.reset();
-            // TODO: Actualizar calendario con la nueva nota
-            this.refreshUserDataAndBoards();
-          },
-          error: (err: any) => {
-            console.error(err.error.message);
-          },
-        });
-      },
-      error: (err:any) => {
-        console.error(err.error.mensaje);
-      }
-    });
   }
 
   // Cargar información a editar en el formulario
@@ -266,58 +190,10 @@ export class BoardNote implements OnInit {
     });
   }
 
-  onEditNote() {
-    if (this.noteForm.invalid || !this.selectedNoteForEdit) {
-      this.noteForm.markAllAsTouched();
-      return;
-    }
-
-    const idToUpdate = this.selectedNoteForEdit._id;
-
-    if (!idToUpdate) {
-      console.error('No se pudo obtener el ID de la nota seleccionada para la actualización.');
-      return;
-    }
-
-    const noteData: Board = {
-      _id: idToUpdate,
-      title: this.noteForm.value.title || '',
-      tag: this.noteForm.value.tag
-        ? this.noteForm.value.tag.split(',').map((s) => s.trim())
-        : undefined,
-      urlFile: this.noteForm.value.urlFile
-        ? this.noteForm.value.urlFile.split(',').map((s) => s.trim())
-        : undefined,
-      urlImage: this.noteForm.value.urlImage
-        ? this.noteForm.value.urlImage.split(',').map((s) => s.trim())
-        : undefined,
-      description: this.noteForm.value.description || '',
-    };
-    // Control de las imagenes y archivos
-    // if (this.selectedImage) {
-    //   let updateImage = noteData.urlImage;
-    //   return;
-    // }
-    // if (this.selectedFile) {
-    //   let updateFile = noteData.urlFile;
-    //   return;
-    // }
-    this._boardService.putBoard(noteData, idToUpdate).subscribe({
-      next: (response: any) => {
-        console.log(response.mensaje);
-        this.refreshUserDataAndBoards();
-      },
-      error: (err: any) => {
-        console.error(err.error.mensaje);
-      },
-    });
-  }
-
   // Actualizar la nota
   updateNote(note: Board) {
     this.selectedNoteForEdit = note;
     this.showEditDialog = true;
-    this.onEditNote();
   }
 
   closeEditDialog() {
@@ -329,7 +205,6 @@ export class BoardNote implements OnInit {
     this.showEditDialog = false;
     this.selectedNoteForEdit = undefined;
     this.refreshUserDataAndBoards();
-    // this.loadBoards();
   }
 
   // Eliminar la nota
