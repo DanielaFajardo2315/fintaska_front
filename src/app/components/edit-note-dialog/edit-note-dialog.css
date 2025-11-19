@@ -101,6 +101,10 @@ h3 {
     font-size: 0.8rem;
 }
 
+.text-success {
+    max-width: 300px;
+}
+
 .etiquetas {
     display: flex;
     gap: 5px;
@@ -152,4 +156,8 @@ h3 {
         width: 90vw;
         height: 80vh;
     }
+
+    .text-success {
+    max-width: 150px;
+}
 }

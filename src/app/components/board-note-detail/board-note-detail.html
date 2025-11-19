@@ -45,26 +45,24 @@
         <i class="bi bi-hash" title="Etiquetas"><input type="text" name="inputTag" placeholder="Ingresa tu etiqueta"
                 id="tagInput"></i>
         <div>
-            <label for="archivo" class="label_files">
+            <label [for]="'file-' + note?._id" class="label_files">
                 <i class="bi bi-file-earmark-text-fill" title="Archivos"></i>
             </label>
-            <input type="file" id="archivo" class="d-none" multiple (change)="onFileSelected($event)">
+            <input type="file" [id]="'file-' + note?._id" class="d-none" multiple
+                (change)="onEditFiles($event, 'file', note!)">
         </div>
         <div>
-            <label for="imagen" class="label_files">
+            <label [for]="'image-' + note?._id" class="label_files">
                 <i class="bi bi-file-image" title="Imágenes"></i>
             </label>
-            <input type="file" id="imagen" class="d-none" accept="image/*" (change)="onImageSelected($event)">
+            <input type="file" [id]="'image-' + note?._id" class="d-none" accept="image/*"
+                (change)="onEditFiles($event, 'image', note!)">
         </div>
     </div>
 </section>
 
 <!-- Edit Dialog -->
 @if(showEditDialog){
-<app-edit-note-dialog 
-    [note]="selectedNoteForEdit"
-    (noteUpdated)="handleNoteEdited($event)"
-    (closeDialog)="closeEditDialog()"
-    (dataReloaded)="refreshUserDataAndBoards()"
-    ></app-edit-note-dialog>
+<app-edit-note-dialog [note]="selectedNoteForEdit" (noteUpdated)="handleNoteEdited($event)"
+    (closeDialog)="closeEditDialog()" (dataReloaded)="refreshUserDataAndBoards()"></app-edit-note-dialog>
 }

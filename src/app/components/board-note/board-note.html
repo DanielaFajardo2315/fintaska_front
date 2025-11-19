@@ -49,11 +49,6 @@
                 @if (!item.urlImage || item.urlImage.length === 0) {
                 <p class="no_adjunto">No hay imagenes adjuntas</p>
                 }
-                <!-- @if (((item.urlFile?.length||0) + (item.urlImage?.length||0)) > 4) {
-                    <p *ngIf="item.urlFile && item.urlFile.length > 4" class="more-files">
-                        ... y {{ ((item.urlFile.length||0) + (item.urlImage?.length||0)) - 4 }} archivo(s) más.
-                    </p>
-                    } -->
             </div>
             }
 
@@ -63,16 +58,16 @@
                 <i class="bi bi-pencil-fill" (click)="updateNote(item)" title="Editar"></i>
                 <i class="bi bi-hash" title="Etiquetas"></i>
                 <div>
-                    <label for="archivo" class="label_files">
+                    <label [for]="'file-' + item._id" class="label_files">
                         <i class="bi bi-file-earmark-text-fill" title="Archivos"></i>
                     </label>
-                    <input type="file" id="archivo" class="d-none" multiple (change)="onEditFiles($event, 'file', item)">
+                    <input type="file" [id]="'file-' + item._id" class="d-none" multiple (change)="onEditFiles($event, 'file', item)">
                 </div>
                 <div>
-                    <label for="imagen" class="label_files">
+                    <label [for]="'image-' + item._id" class="label_files">
                         <i class="bi bi-file-image" title="Imágenes"></i>
                     </label>
-                    <input type="file" id="imagen" class="d-none" accept="image/*" (change)="onEditFiles($event, 'image', item)">
+                    <input type="file" [id]="'image-' + item._id" class="d-none" accept="image/*" (change)="onEditFiles($event, 'image', item)">
                 </div>
             </div>
         </div>

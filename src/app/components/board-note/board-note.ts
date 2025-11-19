@@ -209,6 +209,7 @@ export class BoardNote implements OnInit {
     this._boardService.putBoard(fileToEdit, id).subscribe({
       next: (res: any) => {
         console.log('Respuesta de actualización de archivos', res);
+        this.refreshUserDataAndBoards();
       },
       error: (err: any) => {
         console.error(err.error.mensaje);
@@ -255,25 +256,25 @@ export class BoardNote implements OnInit {
       console.error('No se obtiene ID  de la nota a eliminar');
       return;
     }
+    Swal.fire({
+      title: '¿Deseas eliminar esta nota?',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonAriaLabel: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
     this._boardService.deleteBoard(IdForDelete).subscribe({
       next: (response: any) => {
         console.log(response.mensaje);
         this.refreshUserDataAndBoards();
-        Swal.fire({
-          title: '¿Deseas eliminar esta nota?',
-          showCancelButton: true,
-          confirmButtonText: 'Eliminar',
-          cancelButtonAriaLabel: 'Cancelar',
-        }).then((result) => {
-          if (result.isConfirmed) {
             Swal.fire('Nota eliminada', '', 'success');
-            this.refreshUserDataAndBoards();
-          }
+          },
+          error: (error) => {
+            console.error(error.error.mensaje);
+            Swal.fire('Error', 'No se pudo eliminar la nota.', 'error');
+          },
         });
-      },
-      error: (error) => {
-        console.error(error.error.mensaje);
-      },
+      }
     });
   }
 }

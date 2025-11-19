@@ -14,6 +14,7 @@ import { User } from '../../interfaces/user';
 import { UserService } from '../../services/user';
 import { LoginService } from '../../services/login';
 import { environment } from '../../../environments/environment';
+import { switchMap, forkJoin, of, map } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -37,6 +38,7 @@ export class EditNoteDialog {
   showNewNote: boolean = false;
   idUser = this._loginService.infoUser();
   allNotes: Board[] = [];
+  tags: string[] = [];
   environment = environment;
   visibleNotes: Set<string> = new Set();
   selectedFile: File | null = null;
@@ -82,6 +84,8 @@ export class EditNoteDialog {
     if (this.note) {
       this.editedNote = { ...this.note };
       console.log('Se ingresaron datos a editar en la recarga: ', this.note);
+
+      this.tags = this.note.tag ? [...this.note.tag] : [];
 
       this.noteForm.patchValue({
         title: this.editedNote.title,
@@ -157,42 +161,102 @@ export class EditNoteDialog {
     return lastSlashIndex > -1 ? url.substring(lastSlashIndex + 1) : url;
   }
 
+  updateFile(id: string | undefined, type: string) {
+    const key = type === 'image' ? 'urlImage' : 'urlFile';
+    const value = type === 'image' ? this.selectedImage : this.selectedFile;
+
+    if(!value) return null;
+
+    const fileToEdit = new FormData();
+    fileToEdit.append(key, value);
+
+    return this._boardService.putBoard(fileToEdit, id);
+  }
+
+  addTag(event: any) {
+    event.preventDefault(); // Evita que el formulario se envíe al dar Enter
+    const input = event.target as HTMLInputElement;
+    const value = input.value.trim();
+
+    // Validamos: que no esté vacío y que no esté repetido
+    if (value && !this.tags.includes(value)) {
+      this.tags.push(value);
+      input.value = ''; // Limpiamos el input
+      
+      // Opcional: Limpiar el control del formulario si lo tienes vinculado
+      this.noteForm.get('tag')?.setValue('');
+    }
+  }
+
+  removeTag(index: number) {
+    this.tags.splice(index, 1);
+  }
+
   saveBoardOperation() {
     // Crear FormData con los campos
     const noteData: Board = {
       _id: this.editedNote._id || '',
       title: this.noteForm.value.title || '',
-      tag: this.noteForm.value.tag
-        ? this.noteForm.value.tag.split(',').map((s) => s.trim())
-        : undefined,
-      urlFile: this.noteForm.value.urlFile
-        ? this.noteForm.value.urlFile.split(',').map((s) => s.trim())
-        : undefined,
-      urlImage: this.noteForm.value.urlImage
-        ? this.noteForm.value.urlImage.split(',').map((s) => s.trim())
-        : undefined,
+      tag: this.tags,
       description: this.noteForm.value.description || '',
     };
-    
+
+    let saveObservable$;
     if (this.editedNote._id) {
-      return this.editNote(noteData);
+      saveObservable$ = this.editNote(noteData);
+    } else {
+      const {_id, ...newNoteData} = noteData;
+      saveObservable$ = this.createNote(newNoteData as Board);
     }
 
-    const noteDataCreate: Board = {
-      title: this.noteForm.value.title || '',
-      tag: this.noteForm.value.tag
-        ? this.noteForm.value.tag.split(',').map((s) => s.trim())
-        : undefined,
-      urlFile: this.noteForm.value.urlFile
-        ? this.noteForm.value.urlFile.split(',').map((s) => s.trim())
-        : undefined,
-      urlImage: this.noteForm.value.urlImage
-        ? this.noteForm.value.urlImage.split(',').map((s) => s.trim())
-        : undefined,
-      description: this.noteForm.value.description || '',
-    };
+    let finalNoteBase: Board;
 
-    return this.createNote(noteDataCreate as Board);
+    return saveObservable$.pipe(
+      switchMap((res:any) => {
+        console.log('Paso 1: nota actualizada/creada', res);
+
+        finalNoteBase = res.data || res;
+
+        const boardId = res._id || (res.data && res.data._id) || this.editedNote._id;
+
+        if (!boardId) {
+          console.error('¡ALERTA! No se pudo detectar el ID en la respuesta:', res);
+          return of(res);
+        }
+
+        const uploadNotes = [];
+        if (this.selectedImage) {
+          const noteFile = this.updateFile(boardId, 'image');
+          if (noteFile) uploadNotes.push(noteFile);
+        }
+
+        if (this.selectedFile) {
+          const noteFile = this.updateFile(boardId, 'file');
+          if (noteFile) uploadNotes.push(noteFile);
+        }
+
+        if (uploadNotes.length> 0) {
+          return forkJoin(uploadNotes).pipe(
+            // map(() => res)
+          )
+        } else {
+          return of(res);
+        }
+      }),
+      // Cargar la información actualizada
+      map((uploadResults: any[] | Board) => {
+            if (!Array.isArray(uploadResults)) {
+                return uploadResults;
+            }
+            let currentNote = finalNoteBase;
+            uploadResults.forEach(fileRes => {
+                if (fileRes && fileRes.data) {
+                    currentNote = fileRes.data; 
+                }
+            });
+            return currentNote;
+        })
+    )
   }
 
   createNote(data: Board) {
@@ -235,9 +299,7 @@ export class EditNoteDialog {
         // Actualizar el usuario con la nueva nota
         this._userService.putUser(this.infoUser, this.idUser).subscribe({
           next: (updateRes: any) => {
-            // TODO: Actualizar calendario con la nueva nota
             this.refreshUserDataAndBoards();
-            // Emitir señal para actualizar las notas en board_note
             this.dataReloaded.emit();
             this.closeDialog.emit();
             // Limpiar el formulario después de crear
@@ -263,7 +325,6 @@ export class EditNoteDialog {
     // Estado actual (creación o edición)
     const isCreating = !this.editedNote._id;
 
-    // Llamar el método dependiendo si es una creación o actualización
     const request = this.saveBoardOperation();
 
     request.subscribe({
@@ -274,7 +335,6 @@ export class EditNoteDialog {
           console.log('dato de la nota al entrar en el condicional', response);
           this.handleNewNoteCreation(response.data);
         } else {
-          // Emitir la respuesta (ya sea de crear o actualizar)
           this.noteUpdated.emit(response.data || response);
           this.closeDialog.emit();
           this.refreshUserDataAndBoards();

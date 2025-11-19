@@ -1,4 +1,12 @@
-import { Component, Input, Output, EventEmitter, OnInit, inject, OutputEmitterRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  inject,
+  OutputEmitterRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Board } from '../../interfaces/board';
@@ -34,8 +42,8 @@ export class BoardNoteDetail {
   environment = environment;
   visibleNotes: Set<string> = new Set();
   baseURL: string = environment.appUrl;
-  selectedFile: File | null = null;
-  selectedImage: File | null = null;
+  selectedFile: File | string = '';
+  selectedImage: File | string = '';
   showEditDialog = false;
   selectedNoteForEdit?: Board;
   visible: boolean = false;
@@ -123,7 +131,6 @@ export class BoardNoteDetail {
     if (file) {
       this.selectedFile = file;
       console.log(this.selectedFile);
-      this.onEditNote();
     }
   }
 
@@ -132,8 +139,51 @@ export class BoardNoteDetail {
     if (file) {
       this.selectedImage = file;
       console.log(this.selectedImage);
-      this.onEditNote();
     }
+  }
+
+  // Cargar archivos en la nota
+  onEditFiles(event: any, type: string, nota: Board) {
+    if (type === 'image') {
+      this.onImageSelected(event);
+    } else {
+      this.onFileSelected(event);
+    }
+    Swal.fire({
+      title: `¿Deseas guardar ${type === 'image' ? 'esta imagen' : 'este archivo'}?`,
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Swal.fire('Saved!', '', 'success');
+        this.updateFiles(nota._id, type);
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info');
+      }
+    });
+  }
+
+  // Subir los archivos en la base de datos
+  updateFiles(id: string | undefined, type: string) {
+    const key = type === 'image' ? 'urlImage' : 'urlFile';
+    const value = type === 'image' ? this.selectedImage : this.selectedFile;
+    const fileToEdit = new FormData();
+    fileToEdit.append(key, value);
+    console.log('Este es nuesto archivo para PUT', Object.fromEntries(fileToEdit as any));
+    this._boardService.putBoard(fileToEdit, id).subscribe({
+      next: (res: any) => {
+        console.log('Respuesta de actualización de archivos', res);
+        this.note = res.data;
+        this.noteUpdated.emit(res.data);
+        Swal.fire('¡Guardado!', `El ${type === 'image' ? 'archivo de imagen' : 'archivo de documento'} ha sido guardado.`, 'success')
+      },
+      error: (err: any) => {
+        console.error(err.error.mensaje);
+        Swal.fire('Error', 'No se pudieron actualizar los archivos.', 'error');
+      },
+    });
   }
 
   onCloseDetail() {
@@ -172,77 +222,34 @@ export class BoardNoteDetail {
     this.note = editedNote;
   }
 
-  onEditNote() {
-    if (this.noteForm.invalid || !this.selectedNoteForEdit) {
-      this.noteForm.markAllAsTouched();
-      return;
-    }
-
-    const idToUpdate = this.selectedNoteForEdit._id;
-
-    if (!idToUpdate) {
-      console.error('No se pudo obtener el ID de la nota seleccionada para la actualización.');
-      return;
-    }
-
-    const noteData: Board = {
-      _id: idToUpdate,
-      title: this.noteForm.value.title || '',
-      tag: this.noteForm.value.tag
-        ? this.noteForm.value.tag.split(',').map((s) => s.trim())
-        : undefined,
-      urlFile: this.noteForm.value.urlFile
-        ? this.noteForm.value.urlFile.split(',').map((s) => s.trim())
-        : undefined,
-      urlImage: this.noteForm.value.urlImage
-        ? this.noteForm.value.urlImage.split(',').map((s) => s.trim())
-        : undefined,
-      description: this.noteForm.value.description || '',
-    };
-    // Control de las imagenes y archivos
-    // if (this.selectedImage) {
-    //   let updateImage = noteData.urlImage;
-    //   return;
-    // }
-    // if (this.selectedFile) {
-    //   let updateFile = noteData.urlFile;
-    //   return;
-    // }
-    this._boardService.putBoard(noteData, idToUpdate).subscribe({
-      next: (response: any) => {
-        console.log(response.mensaje);
-        this.refreshUserDataAndBoards();
-      },
-      error: (err: any) => {
-        console.error(err.error.mensaje);
-      },
-    });
-  }
-
   onDeleteNote(noteDelete: Board) {
     const IdForDelete = noteDelete._id;
     if (!IdForDelete) {
       console.error('No se obtiene ID  de la nota a eliminar');
       return;
     }
+    Swal.fire({
+      title: '¿Deseas eliminar esta nota?',
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      cancelButtonAriaLabel: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
     this._boardService.deleteBoard(IdForDelete).subscribe({
       next: (response: any) => {
         console.log(response.mensaje);
         this.refreshUserDataAndBoards();
-        Swal.fire({
-          title: '¿Deseas eliminar esta nota?',
-          showCancelButton: true,
-          confirmButtonText: 'Eliminar',
-          cancelButtonAriaLabel: 'Cancelar',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire('Nota eliminada', '', 'success');
-          }
+            Swal.fire('Nota eliminada', '', 'success').then(() => {
+              this.deleteNote.emit(noteDelete);
+              this.onCloseDetail();
+            });
+          },
+          error: (error) => {
+            console.error(error.error.mensaje);
+            Swal.fire('Error', 'No se pudo eliminar la nota.', 'error');
+          },
         });
-      },
-      error: (error) => {
-        console.error(error.error.mensaje);
-      },
+      }
     });
   }
 }

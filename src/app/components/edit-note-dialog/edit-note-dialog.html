@@ -6,44 +6,94 @@
                     <i class="bi bi-x-lg"></i>
                 </button>
                 <div class="form-group">
-                    <input type="text" class="form-control" formControlName="title" placeholder="Título de la nota" [class.is-invalid]="noteForm.get('title')?.touched && noteForm.get('title')?.invalid">
+                    <input type="text" class="form-control" formControlName="title" placeholder="Título de la nota"
+                        [class.is-invalid]="noteForm.get('title')?.touched && noteForm.get('title')?.invalid">
                 </div>
             </div>
             <!-- Contenido de la nota -->
             <div class="contenido">
                 <div class="form-group description">
                     <textarea class="form-control description" formControlName="description"
-                              placeholder="Descripción de la nota"></textarea>
+                        placeholder="Descripción de la nota"></textarea>
                 </div>
-        
-                <!-- Imagenes -->
-                <div class="images">
-                    @if (editedNote.urlImage && editedNote.urlImage.length > 0) {
-                    @for (imageURL of editedNote.urlImage; track $index) {
-                    <a [href]="baseURL + imageURL" target="_blank" rel="noopener noreferrer">
-                        <img [src]="baseURL + imageURL" alt="Imagen {{ $index + 1 }}" class="image">
-                    </a>
-                    }
-                    } @else {
-                    <p>No hay imagenes guardadas</p>
-                    }
+
+                <div class="images-section mt-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <h6 class="mb-0 me-2">Imágenes</h6>
+                        <label class="btn btn-sm btn-outline-primary" style="cursor: pointer;">
+                            <i class="bi bi-camera-fill"></i> Agregar
+                            <input type="file" class="d-none" accept="image/*" (change)="onImageSelected($event)">
+                        </label>
+                        @if (selectedImage) {
+                        <span class="ms-2 small text-success d-inline-block text-truncate">
+                            <i class="bi bi-check-circle"></i> {{selectedImage.name}}
+                        </span>
+                        }
+                    </div>
+
+                    <div class="images-gallery d-flex flex-wrap gap-2">
+                        @if (editedNote.urlImage && editedNote.urlImage.length > 0) {
+                        @for (imageURL of editedNote.urlImage; track $index) {
+                        <a [href]="baseURL + imageURL" target="_blank" class="border rounded p-1">
+                            <img [src]="baseURL + imageURL" alt="Img" style="height: 50px; width: auto;">
+                        </a>
+                        }
+                        } @else if (!selectedImage) {
+                        <p class="text-muted small">No hay imágenes guardadas</p>
+                        }
+                    </div>
                 </div>
-                <!-- Documentos -->
-                <div class="files">
-                    @if (editedNote.urlFile && editedNote.urlFile.length > 0) {
-                    <ul>
+
+                <hr>
+
+                <div class="files-section">
+                    <div class="d-flex align-items-center mb-2">
+                        <h6 class="mb-0 me-2">Archivos</h6>
+                        <label class="btn btn-sm btn-outline-primary" style="cursor: pointer;">
+                            <i class="bi bi-paperclip"></i> Adjuntar
+                            <input type="file" class="d-none" (change)="onFileSelected($event)">
+                        </label>
+                        @if (selectedFile) {
+                        <span class="ms-2 small text-success d-inline-block text-truncate">
+                            <i class="bi bi-check-circle"></i> {{selectedFile.name}}
+                        </span>
+                        }
+                    </div>
+
+                    <ul class="list-unstyled small">
+                        @if (editedNote.urlFile && editedNote.urlFile.length > 0) {
                         @for (file of editedNote.urlFile; track $index) {
-                        <li><a [href]="baseURL + file" target="_blank">{{getFileName(file)}}</a></li>
+                        <li>
+                            <a [href]="baseURL + file" target="_blank" class="text-decoration-none">
+                                <i class="bi bi-file-earmark"></i> {{getFileName(file)}}
+                            </a>
+                        </li>
+                        }
+                        } @else if (!selectedFile) {
+                        <p class="text-muted small">No hay archivos guardados</p>
                         }
                     </ul>
-                    } @else {
-                    <p>No hay archivos guardados</p>
-                    }
                 </div>
-                <div class="etiquetas">
-                    @for (tag of editedNote.tag || []; track $index) {
-                    <span>#{{tag}} </span>
-                    }
+                <div class="tags-section mt-3">
+                    <div class="form-group">
+                        <label class="small text-muted mb-1"><i class="bi bi-hash"></i> Etiquetas</label>
+
+                        <input type="text" class="form-control form-control-sm"
+                            placeholder="Escribe una etiqueta y presiona Enter..." (keydown.enter)="addTag($event)">
+                    </div>
+
+                    <div class="tags-container d-flex flex-wrap gap-2 mt-2">
+                        @for (tag of tags; track $index) {
+                        <span class="badge rounded-pill bg-light text-dark border d-flex align-items-center">
+                            #{{ tag }}
+                            <i class="bi bi-x ms-2" style="cursor: pointer; color: red;" (click)="removeTag($index)"
+                                title="Eliminar etiqueta"></i>
+                        </span>
+                        }
+                        @empty {
+                        <small class="text-muted fst-italic">Sin etiquetas</small>
+                        }
+                    </div>
                 </div>
             </div>
             <!-- Acciones -->
