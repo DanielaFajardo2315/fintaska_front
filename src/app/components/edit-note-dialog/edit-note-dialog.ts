@@ -45,6 +45,7 @@ export class EditNoteDialog {
   selectedImage: File | null = null;
   showEditDialog = false;
   selectedNoteForEdit?: Board;
+  mensajeCreacionEdicion: string = '';
 
   // Información del formulario
   noteForm = new FormGroup({
@@ -209,20 +210,23 @@ export class EditNoteDialog {
       saveObservable$ = this.createNote(newNoteData as Board);
     }
 
-    let finalNoteBase: Board;
+    let finalNoteBase: Board | any;
 
     return saveObservable$.pipe(
       switchMap((res:any) => {
         console.log('Paso 1: nota actualizada/creada', res);
+        this.mensajeCreacionEdicion = res.mensaje;
 
         finalNoteBase = res.data || res;
 
-        const boardId = res._id || (res.data && res.data._id) || this.editedNote._id;
+        const boardId = finalNoteBase._id || (finalNoteBase.data && finalNoteBase.data._id) || this.editedNote._id;
 
         if (!boardId) {
           console.error('¡ALERTA! No se pudo detectar el ID en la respuesta:', res);
-          return of(res);
+          return of(finalNoteBase);
         }
+
+        this.editedNote._id = boardId;
 
         const uploadNotes = [];
         if (this.selectedImage) {
@@ -240,7 +244,7 @@ export class EditNoteDialog {
             // map(() => res)
           )
         } else {
-          return of(res);
+          return of(finalNoteBase);
         }
       }),
       // Cargar la información actualizada
@@ -252,6 +256,8 @@ export class EditNoteDialog {
             uploadResults.forEach(fileRes => {
                 if (fileRes && fileRes.data) {
                     currentNote = fileRes.data; 
+                } else if (fileRes && fileRes._id) {
+                     currentNote = fileRes;
                 }
             });
             return currentNote;
@@ -271,14 +277,14 @@ export class EditNoteDialog {
     return this._boardService.putBoard(data, this.editedNote._id);
   }
 
-  handleNewNoteCreation(res:any){
-    let noteId: string | undefined;
-        if (typeof res === 'object' && res !== null) {
-          noteId = res._id || res.data?._id;
-        }
+  handleNewNoteCreation(finalNote:Board){
+    let noteId: string | undefined = finalNote._id;
+        // if (typeof res === 'object' && res !== null) {
+        //   noteId = res._id || res.data?._id;
+        // }
 
         if (!noteId) {
-          console.error('No se pudo obtener el ID de la nota creada. Respuesta:', res);
+          console.error('No se pudo obtener el ID de la nota creada. Respuesta:', finalNote);
           return;
         }
 
@@ -301,6 +307,7 @@ export class EditNoteDialog {
           next: (updateRes: any) => {
             this.refreshUserDataAndBoards();
             this.dataReloaded.emit();
+            this.noteUpdated.emit(finalNote);
             this.closeDialog.emit();
             // Limpiar el formulario después de crear
             this.noteForm.reset();
@@ -323,25 +330,25 @@ export class EditNoteDialog {
     }
 
     // Estado actual (creación o edición)
-    const isCreating = !this.editedNote._id;
+    const isCreating = !this.note?._id;
 
     const request = this.saveBoardOperation();
 
     request.subscribe({
-      next: (response: any) => {
-        console.log('Nota guardada:', response.data);
+      next: (finalNote: any) => {
+        console.log('Nota guardada:', finalNote);
         
-        if (isCreating === true){
-          console.log('dato de la nota al entrar en el condicional', response);
-          this.handleNewNoteCreation(response.data);
+        if (isCreating){
+          console.log('dato de la nota al entrar en el condicional', finalNote);
+          this.handleNewNoteCreation(finalNote);
         } else {
-          this.noteUpdated.emit(response.data || response);
+          this.noteUpdated.emit(finalNote.data || finalNote);
           this.closeDialog.emit();
           this.refreshUserDataAndBoards();
         }
 
         Swal.fire({
-          title: response.mensaje,
+          title: this.mensajeCreacionEdicion,
           icon: 'success',
           draggable: true,
         });

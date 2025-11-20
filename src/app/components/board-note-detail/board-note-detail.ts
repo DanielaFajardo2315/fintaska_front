@@ -239,7 +239,7 @@ export class BoardNoteDetail {
       next: (response: any) => {
         console.log(response.mensaje);
         this.refreshUserDataAndBoards();
-            Swal.fire('Nota eliminada', '', 'success').then(() => {
+            Swal.fire(response.mensaje, '', 'success').then(() => {
               this.deleteNote.emit(noteDelete);
               this.onCloseDetail();
             });

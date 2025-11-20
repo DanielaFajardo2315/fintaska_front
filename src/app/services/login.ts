@@ -57,7 +57,7 @@ export class LoginService {
 
   logout() {
     localStorage.removeItem('token');
-    alert('Cierre de sesión exitoso, vuleve pronto');
+    // alert('Cierre de sesión exitoso, vuleve pronto');
     this._router.navigate(['/login']);
   }
 

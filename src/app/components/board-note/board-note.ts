@@ -267,7 +267,7 @@ export class BoardNote implements OnInit {
       next: (response: any) => {
         console.log(response.mensaje);
         this.refreshUserDataAndBoards();
-            Swal.fire('Nota eliminada', '', 'success');
+            Swal.fire(response.mensaje, '', 'success');
           },
           error: (error) => {
             console.error(error.error.mensaje);

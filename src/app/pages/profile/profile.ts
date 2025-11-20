@@ -30,21 +30,7 @@ export class Profile implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     theme: new FormControl('claro'),
   });
-
-  toggleFormulario() {
-    this.mostrarFormulario = !this.mostrarFormulario;
-
-    // Cargar datos actuales cuando se abre el formulario
-    if (this.mostrarFormulario) {
-      this.editForm.patchValue({
-        fullName: this.infoUser.fullName,
-        username: this.infoUser.username,
-        email: this.infoUser.email,
-        theme: this.infoUser.settings?.theme || 'claro',
-      });
-    }
-  }
-
+  
   infoUser: User = {
     settings: {
       theme: 'light',
@@ -64,6 +50,20 @@ export class Profile implements OnInit {
     rol: 'usuario',
     registerDate: new Date(),
   };
+  toggleFormulario() {
+    this.mostrarFormulario = !this.mostrarFormulario;
+
+    // Cargar datos actuales cuando se abre el formulario
+    if (this.mostrarFormulario) {
+      this.editForm.patchValue({
+        fullName: this.infoUser.fullName,
+        username: this.infoUser.username,
+        email: this.infoUser.email,
+        theme: this.infoUser.settings?.theme || 'claro',
+      });
+    }
+  }
+
 
   idUser = this._loginService.infoUser();
 
