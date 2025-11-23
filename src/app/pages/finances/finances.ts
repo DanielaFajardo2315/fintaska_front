@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { FinanceService } from '../../services/finance.service';
 import { LoginService } from '../../services/login';
 import { Finance } from '../../interfaces/finance.interface';
-import { jwtDecode } from 'jwt-decode';
+
 
 interface FinanceSummary {
   ingresos: number;
@@ -13,11 +13,11 @@ interface FinanceSummary {
   ahorros: number;
 }
 
-interface DecodedToken {
-  id: string;
-  email: string;
-  admin: boolean;
-}
+// interface DecodedToken {
+//   id: string;
+//   email: string;
+//   admin: boolean;
+// }
 
 @Component({
   selector: 'app-finances',
@@ -52,7 +52,7 @@ export class Finances implements OnInit {
   showNewFinanceForm = signal<boolean>(false);
   showFullTable = signal<boolean>(false);
   showSearchModal = signal<boolean>(false);
-  showCategoriesModal = signal<boolean>(false);
+  // showCategoriesModal = signal<boolean>(false);
   errorMessage = signal<string>('');
   successMessage = signal<string>('');
 
@@ -61,7 +61,7 @@ export class Finances implements OnInit {
   filterCategory = signal<string>('todos');
   searchText = signal<string>('');
 
-  // FORMULARIO (No es signal porque usa ngModel)
+  // FORMULARIO
  
   newFinance: Finance = {
     type: 'ingreso',
@@ -86,8 +86,12 @@ export class Finances implements OnInit {
  
   ngOnInit(): void {
     this.getUserIdFromToken();
-    this.loadFinances();
-    this.loadSummary();
+    // this.loadFinances();
+    // this.loadSummary();
+    //Solo carga si hay userId
+    if (this.userId()) {
+      this.loadFinances();
+    }
   }
 
   // ==========================================
@@ -112,13 +116,23 @@ export class Finances implements OnInit {
   
   loadFinances(): void {
     this.isLoading.set(true);
-    
-    this._financeService.getFinances().subscribe({
+    const userId = this.userId();
+    console.log('🔄 Cargando finanzas del usuario:', userId);
+
+    this._financeService.getFinancesByUser(userId).subscribe({
       next: (response: any) => {
         console.log('📊 Movimientos recibidos:', response);
+
+        //Guardar movimientos
         const movements = response.financialMove || [];
         this.finances.set(movements);
         this.filteredFinances.set([...movements]);
+
+        //Cargar resumen del back
+        if (response.summary) {
+          this.summary.set(response.summary);
+          console.log('📊 Resumen actualizado:', response.summary);
+        }
         this.isLoading.set(false);
     }, 
       error: (error:any) => {
@@ -130,43 +144,43 @@ export class Finances implements OnInit {
     });
   }
 
-  loadSummary(): void {
-    // Intentar obtener resumen del backend
-    this._financeService.getFinancialSummary().subscribe({
-      next: (response: any) => {
-        this.calculateSummaryFromLocal();
-      },
-      error: (error) => {
-        console.error('⚠️ Error al cargar resumen, calculando localmente:', error);
-        this.calculateSummaryFromLocal();
-      }
-    });
-  }
+  // loadSummary(): void {
+  //   // Intentar obtener resumen del backend
+  //   this._financeService.getFinancialSummary().subscribe({
+  //     next: (response: any) => {
+  //       this.calculateSummaryFromLocal();
+  //     },
+  //     error: (error) => {
+  //       console.error('⚠️ Error al cargar resumen, calculando localmente:', error);
+  //       this.calculateSummaryFromLocal();
+  //     }
+  //   });
+  // }
 
-  calculateSummaryFromLocal(): void {
-    const allFinances = this.finances();
+  // calculateSummaryFromLocal(): void {
+  //   const allFinances = this.finances();
     
-    const summary = {
-      ingresos: allFinances
-        .filter(f => f.type === 'ingreso')
-        .reduce((sum, f) => sum + f.amount, 0),
+  //   const summary = {
+  //     ingresos: allFinances
+  //       .filter(f => f.type === 'ingreso')
+  //       .reduce((sum, f) => sum + f.amount, 0),
       
-      gastos: allFinances
-        .filter(f => f.type === 'gasto')
-        .reduce((sum, f) => sum + f.amount, 0),
+  //     gastos: allFinances
+  //       .filter(f => f.type === 'gasto')
+  //       .reduce((sum, f) => sum + f.amount, 0),
       
-      deudas: allFinances
-        .filter(f => f.type === 'deuda')
-        .reduce((sum, f) => sum + f.amount, 0),
+  //     deudas: allFinances
+  //       .filter(f => f.type === 'deuda')
+  //       .reduce((sum, f) => sum + f.amount, 0),
       
-      ahorros: allFinances
-        .filter(f => f.type === 'ahorro')
-        .reduce((sum, f) => sum + f.amount, 0)
-    };
+  //     ahorros: allFinances
+  //       .filter(f => f.type === 'ahorro')
+  //       .reduce((sum, f) => sum + f.amount, 0)
+  //   };
 
-    this.summary.set(summary);
-    console.log('💰 Resumen calculado:', summary);
-  }
+  //   this.summary.set(summary);
+  //   console.log('💰 Resumen calculado:', summary);
+  // }
 
   // ==========================================
   // CRUD - CREAR
@@ -186,7 +200,7 @@ export class Finances implements OnInit {
         
         // Recargar datos
         this.loadFinances();
-        this.loadSummary();
+        // this.loadSummary();
         
         // Limpiar y cerrar formulario
         this.resetForm();
@@ -222,7 +236,7 @@ export class Finances implements OnInit {
         
         // Recargar datos
         this.loadFinances();
-        this.loadSummary();
+        // this.loadSummary();
         
         setTimeout(() => this.successMessage.set(''), 3000);
       },
@@ -278,10 +292,9 @@ export class Finances implements OnInit {
     this.applyFilters();
   }
 
-  // ==========================================
+  
   // VALIDACIÓN
-  // ==========================================
-  validateForm(): boolean {
+    validateForm(): boolean {
     // Validar monto
     if (this.newFinance.amount <= 0) {
       this.errorMessage.set('El monto debe ser mayor a 0');
@@ -341,9 +354,9 @@ export class Finances implements OnInit {
     this.showSearchModal.update(val => !val);
   }
 
-  toggleCategoriesModal(): void {
-    this.showCategoriesModal.update(val => !val);
-  }
+  // toggleCategoriesModal(): void {
+  //   this.showCategoriesModal.update(val => !val);
+  // }
 
   // ==========================================
   // UTILIDADES

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Finance } from '../interfaces/finance.interface';
 import { environment } from '../../environments/environment';
@@ -30,15 +30,15 @@ export class FinanceService {
     return this._httpClient.put(`${this.apiUrl}/finances/${idFinanceUpdate}`,financeToUpdate)
   }
 
-    
-
+  
   //peticion DELETE
   deleteFinance(idFinanceDelete:string){
     return this._httpClient.delete(`${this.apiUrl}/finances/${idFinanceDelete}`)
   }
-  //Obtener Resumen financiero - GET
-  getFinancialSummary(): Observable<any> {
-    return this._httpClient.get(`${this.apiUrl}/finances/summary`);
-  }
   
+  //Obtener movimientos de un usuario - GET
+  getFinancesByUser(userId: string): Observable<any> {
+    const params = new HttpParams().set('userId', userId);
+    return this._httpClient.get(`${this.apiUrl}/finances`, { params });
+  }
 }
