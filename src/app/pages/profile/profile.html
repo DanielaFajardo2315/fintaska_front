@@ -1,8 +1,10 @@
-<main class="container-profile">
+<section class="container-profile">
 
     <section class="profile-card">
         <div class="header">
-            <img src="assets/avatar-perfil.png" alt="avatar" class="avatar">
+            <img [src]="infoUser.profile 
+            ? (baseURL + infoUser.profile) 
+            : 'assets/avatar-perfil.png'" alt="avatar" class="avatar">
             <div>
                 <h2 class="username">{{infoUser.fullName}}</h2>
                 <p class="user-handle">@{{infoUser.username}}</p>
@@ -14,7 +16,8 @@
             <p><strong> Fecha de Registro</strong> {{ infoUser.registerDate ? (infoUser.registerDate |
                 date:'dd/MM/yyyy':'') : 'Sin registro' }}</p>
             <p><strong> Tema de la Aplicación </strong> Claro </p>
-            <p><strong> Contraseña:</strong> *********** <i class="fa fa-pencil edit-icon"></i></p>
+            <p><strong> Contraseña:</strong> *********** <button class="icon_password"><i
+                        class="bi bi-pencil-fill"></i></button></p>
 
             <app-button class="boton" text="{{ mostrarFormulario ? 'Cerrar' : 'Editar Perfil' }}" color="primary"
                 [disabled]="false" (buttonClick)="toggleFormulario()">
@@ -34,14 +37,17 @@
                 <form class="edit-form" [formGroup]="editForm" (ngSubmit)="onSubmit()">
                     <div class="img-profile">
                         <label>Subir Imagen de Perfil</label>
-                        <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*"
+                        <input type="file" #fileInput (change)="handleFileChange($event)" accept="image/*"
                             style="display: none;">
                         <button type="button" class="upload-btn" (click)="fileInput.click()">Subir Imagen</button>
                     </div>
 
-                    <input type="text" placeholder="Nombre de usuario">
-                    <input type="text" placeholder="username">
-                    <input type="email" placeholder="tucorreo@gmail.com">
+                    <label>Nombre:</label>
+                    <input type="text" placeholder="Nombre de usuario" formControlName="fullName">
+                    <label>Nombre de usuario (@):</label>
+                    <input type="text" placeholder="username" formControlName="username">
+                    <label>Correo eléctronico:</label>
+                    <input type="email" placeholder="tucorreo@gmail.com" formControlName="email">
 
                     <div class="container-tema">
                         <label for="tema">Tema</label>
@@ -58,4 +64,4 @@
     </div>
     }
 
-</main>
+</section>

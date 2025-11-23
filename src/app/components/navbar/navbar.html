@@ -4,7 +4,9 @@
 
     <!-- Ícono de perfil -->
     <a class="btn btn-link text-black d-flex align-items-center p-0" routerLink="/profile" title="Perfil">
-      <i class="bi bi-person-circle fs-2"></i>
+      <img [src]="infoUser.profile 
+            ? (baseURL + infoUser.profile) 
+            : 'assets/avatar-perfil.png'" alt="avatar" class="avatar">
     </a>
 
     <!-- LOGO centrado -->

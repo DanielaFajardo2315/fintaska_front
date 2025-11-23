@@ -54,6 +54,12 @@
   margin: 0.4rem 0;
 }
 
+.icon_password {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
 
 .boton {
   margin-top: 30px;

@@ -26,7 +26,7 @@ export class UserService {
   }
 
   //Peticion Put
-  putUser(userToUpdate: User, id: string) {
+  putUser(userToUpdate: FormData | User, id: string) {
     return this._httpClient.put(`${this.apiUrl}/users/${id}`, userToUpdate);
   }
 
@@ -34,9 +34,4 @@ export class UserService {
   deleteUser(id: string) {
     return this._httpClient.delete(`${this.apiUrl}/users/${id}`);
   }
-
-  
-updateUser(userId: string, userData: any) {
-  return this._httpClient.put(`${this.apiUrl}/users/${userId}`, userData);
-}
 }

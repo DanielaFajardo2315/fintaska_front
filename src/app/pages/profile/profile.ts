@@ -6,6 +6,7 @@ import { User } from '../../interfaces/user';
 import { LoginService } from '../../services/login';
 import { DatePipe } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,6 +21,7 @@ export class Profile implements OnInit {
   private _userService = inject(UserService);
   private _loginService = inject(LoginService);
 
+  baseURL: string = environment.appUrl;
   mostrarFormulario = false;
   selectedFile: File | null = null;
 
@@ -30,25 +32,15 @@ export class Profile implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     theme: new FormControl('claro'),
   });
-  
+
   infoUser: User = {
-    settings: {
-      theme: 'light',
-      notifications: true,
-    },
-    planner: {
-      notifications: [],
-      tasks: [],
-      board: [],
-      finances: [],
-    },
     _id: '',
+    profile: '',
     fullName: '',
     username: '',
     email: '',
     password: '',
     rol: 'usuario',
-    registerDate: new Date(),
   };
   toggleFormulario() {
     this.mostrarFormulario = !this.mostrarFormulario;
@@ -64,7 +56,6 @@ export class Profile implements OnInit {
     }
   }
 
-
   idUser = this._loginService.infoUser();
 
   showInfo(idUser: string) {
@@ -79,12 +70,67 @@ export class Profile implements OnInit {
     });
   }
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
+  handleFileChange(event: any) {
+    const file: File = event.target.files[0];
     if (file) {
       this.selectedFile = file;
       console.log('Archivo seleccionado:', file.name);
+
+      Swal.fire({
+        title: `¿Deseas subir ${file.name} como tu imagen de perfil?`,
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: 'Guardar',
+        denyButtonText: `Cancelar`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Si confirma, llamar a la subida.
+          this.updateFiles(this.idUser);
+        } else {
+          Swal.fire('Imágen de perfil no guardada', '', 'info');
+          this.selectedFile = null; // Limpiar si cancela
+          event.target.value = null; // Limpiar el input file
+        }
+      });
+    } else {
+      this.selectedFile = null;
     }
+  }
+
+  // Subir los archivos en la base de datos
+  updateFiles(id: string | undefined) {
+    if (!this.selectedFile || !id) {
+      console.error('Error de Lógica: El archivo o ID debería estar disponible aquí.');
+      // Este error ya no debería ocurrir con la nueva lógica, pero lo mantenemos como seguridad.
+      if (!id) {
+        Swal.fire(
+          'Error de Sesión',
+          'No se detectó un ID de usuario. Intenta recargar la página.',
+          'error'
+        );
+      }
+      return;
+    }
+
+    const key = 'profile';
+    const value = this.selectedFile;
+    const userToEdit = new FormData();
+    userToEdit.append(key, value, value.name);
+    console.log('Preparando PUT de imagen de perfil...'); 
+    this._userService.putUser(userToEdit, this.idUser).subscribe({
+      next: (res: any) => {
+        console.log('Respuesta de actualización de archivos', res);
+        this.showInfo(this.idUser);
+
+        Swal.fire('Imágen de perfil actualizada', '', 'success');
+
+        this.selectedFile = null;
+      },
+      error: (err: any) => {
+        console.error(err.error.mensaje);
+        this.selectedFile = null;
+      },
+    });
   }
 
   onSubmit() {
@@ -97,19 +143,16 @@ export class Profile implements OnInit {
       return;
     }
 
-    const updatedData = {
-      fullName: this.editForm.value.fullName!,
-      username: this.editForm.value.username!,
-      email: this.editForm.value.email!,
-      settings: {
-        theme: this.editForm.value.theme!,
-        notifications: this.infoUser.settings?.notifications || true,
-      },
+    const updatedData: User = {
+      fullName: this.editForm.value.fullName || '',
+      username: this.editForm.value.username || '',
+      email: this.editForm.value.email || '',
+      rol: 'usuario',
     };
 
     console.log('Datos a actualizar:', updatedData);
 
-    this._userService.updateUser(this.idUser, updatedData).subscribe({
+    this._userService.putUser(updatedData, this.idUser).subscribe({
       next: (resp: any) => {
         Swal.fire({
           icon: 'success',
