@@ -26,6 +26,14 @@ export class NotificationsComponent implements OnInit {
   // Obtener las notificaciones no leidas
   getUnredNotifications() {
     this.isLoading = true;
+    this._notificationsService.pendingNotifications().subscribe({
+      next: (resp: any) => {
+        console.log('Notificaciones pendientes: ', resp);
+      },
+      error: (err: any) => {
+        console.error(err.error.message);
+      }
+    });
     this._notificationsService.getUnreadNotification().subscribe({
       next: (resp: any) => {
         console.log(resp);

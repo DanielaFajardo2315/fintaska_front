@@ -78,7 +78,7 @@ export class PlannerComponent implements OnInit {
     // Idioma
     locale: esLocale,
     // Vista inicial en mes
-    initialView: 'dayGridMonth',
+    initialView: 'timeGridWeek',
     // Cabecera
     headerToolbar: {
       left: 'prev,next today',
