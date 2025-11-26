@@ -2,7 +2,7 @@
     <form [formGroup]="noteForm" (ngSubmit)="onSave()">
         <section class="note_detail">
             <div>
-                <button class="btn_cerrar" (click)="onClose()">
+                <button class="btn_cerrar" type="button" (click)="onClose()">
                     <i class="bi bi-x-lg"></i>
                 </button>
                 <div class="form-group">
@@ -98,10 +98,10 @@
             </div>
             <!-- Acciones -->
             <div class="actions">
-                <button class="save">
+                <button class="save" type="submit">
                     <i class="bi bi-check-lg"></i> Guardar
                 </button>
-                <button class="cancel" (click)="onClose()">
+                <button class="cancel" type="button" (click)="onClose()">
                     <i class="bi bi-x"></i> Cancelar
                 </button>
             </div>

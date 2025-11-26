@@ -1,36 +1,49 @@
 @import url('https://fonts.cdnfonts.com/css/poppins');
+
 :root {
-    --color-lila: #DCD0FF;
-    --color-lila-enca: #BBA4FF;
-    --color-azul: #A2CFFE;
-    --color-azul-enca: #65B0FF;
-    --color-verde: #AAF0D1;
-    --color-verde-enca: #51FFB2;
-    --color-rosa: #FFD1DC;
-    --color-rosa-enca: #FF95AE;
-    --color-lavanda: #E3E4FA;
-    --color-lavanda-enca: #B7BBFF;
-    --color-amarillo: #FFFACD;
-    --color-amarillo-enca: #FFF493;
-    --color-durazno: #FFDAB9;
-    --color-durazno-enca: #FFBB7E;
-    --color-celeste: #B0E0E6;
-    --color-celeste-enca: #7FD8E3;
-    --planner-color:#95B8D1;
-    --home-color:#809BCE;
-    --finance-color:#EAC4D5;
-    --light-background:#FAFAFA;
-    --text-dark:#2B2B2B;
-    --text-white: white;
-    --font: 'Poppins', sans-serif;
-    --tablero-color: #D6EADF;
-    --enfasis-tablero: #B8E0D2;
-    --borde-radio: 20px;
-    --card-background: white;
-    --text-secondary: #666666;
-    --text-muted: #999999;
-    --dangerColor: #d53b3b;
+  --color-lila: #DCD0FF;
+  --color-lila-enca: #BBA4FF;
+  --color-azul: #A2CFFE;
+  --color-azul-enca: #65B0FF;
+  --color-verde: #AAF0D1;
+  --color-verde-enca: #51FFB2;
+  --color-rosa: #FFD1DC;
+  --color-rosa-enca: #FF95AE;
+  --color-lavanda: #E3E4FA;
+  --color-lavanda-enca: #B7BBFF;
+  --color-amarillo: #FFFACD;
+  --color-amarillo-enca: #FFF493;
+  --color-durazno: #FFDAB9;
+  --color-durazno-enca: #FFBB7E;
+  --color-celeste: #B0E0E6;
+  --color-celeste-enca: #7FD8E3;
+  --planner-color: #95B8D1;
+  --home-color: #809BCE;
+  --finance-color: #EAC4D5;
+  --light-background: #FAFAFA;
+  --text-dark: #2B2B2B;
+  --text-white: white;
+  --font: 'Poppins', sans-serif;
+  --tablero-color: #D6EADF;
+  --enfasis-tablero: #B8E0D2;
+  --borde-radio: 20px;
+  --card-background: white;
+  --text-secondary: #666666;
+  --text-change: #2B2B2B;
+  --text-muted: #999999;
+  --dangerColor: #d53b3b;
 }
+
+.dark_mode {
+  --light-background: #414141;
+  --card-background: #a5a5a5;
+  --text-dark: #2B2B2B;
+  --text-white: white;
+  --text-secondary: #efefef;
+  --text-muted: #d9d9d9;
+  --text-change: white;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -38,11 +51,11 @@
 }
 
 body {
-    background-color: var(--light-background);
-    font-family: var(--font);
-    color: var(--text-dark);
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  background-color: var(--light-background);
+  font-family: var(--font);
+  color: var(--text-dark);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }

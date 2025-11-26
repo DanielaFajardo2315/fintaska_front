@@ -7,7 +7,7 @@
 
 /* ========== TARJETAS PRINCIPALES ========== */
 .fintask-card {
-  background: white;
+  background: var(--card-background);
   border-radius: var(--borde-radio);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -44,7 +44,7 @@
 .card-header-custom {
   padding: 1.5rem;
   text-align: center;
-  background: white;
+  background: var(--card-background);
   border-bottom: 2px solid #f0f0f0;
 }
 
@@ -67,7 +67,7 @@
 .card-footer-custom {
   padding: 1.5rem;
   text-align: center;
-  background: white;
+  background: var(--card-background);
   border-top: 2px solid #f0f0f0;
 }
 
@@ -105,7 +105,17 @@
 
 /* ========== SECCIÓN FINANZAS - TARJETAS DE RESUMEN ========== */
 .finance-summary-cards {
-  margin-bottom: 1rem;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.content-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .summary-card {

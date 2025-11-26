@@ -10,18 +10,17 @@ import { Board } from './pages/board/board';
 import { Planner } from './pages/planner/planner';
 import { Tree } from './pages/tree/tree';
 import { authGuard } from './guards/auth-guard';
-
+import { userGuard } from './guards/user-guard';
 
 export const routes: Routes = [
     { path: "login", component: Login, title: "Inicio Sesión" },
-    { path: '', component: Home, title: 'Inicio'},
-    { path: 'profile', component: Profile, title: 'Perfil de usuario'},
-    {path: 'finances', component:Finances, title: 'Finanzas'},
+    { path: '', component: Home, title: 'Inicio', canActivate: [userGuard]},
+    { path: 'profile', component: Profile, title: 'Perfil de usuario', canActivate: [userGuard]},
+    {path: 'finances', component:Finances, title: 'Finanzas', canActivate: [userGuard]},
     {path: 'register', component:Register, title: 'Registro'},
-    {path: 'login', component:Login, title: 'Login'},
     {path: 'admin', component:Admin, title: 'Administrador', canActivate: [authGuard]},
-    {path:'board', component: Board, title:'Tablero'},
-    {path: 'planner', component: Planner, title: 'Planeador'},
-    {path: 'tree', component: Tree, title: 'Arbol'},
+    {path:'board', component: Board, title:'Tablero', canActivate: [userGuard]},
+    {path: 'planner', component: Planner, title: 'Planeador', canActivate: [userGuard]},
+    {path: 'tree', component: Tree, title: 'Arbol', canActivate: [userGuard]},
     { path: '**', component: NotFound, title: '404'}
 ];

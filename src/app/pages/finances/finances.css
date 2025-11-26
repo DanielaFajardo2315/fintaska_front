@@ -357,7 +357,7 @@
   text-align: left;
   font-weight: 600;
   font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--text-dark);
   border-bottom: 2px solid #E0E0E0;
   text-transform: uppercase;
   letter-spacing: 0.5px;

@@ -12,11 +12,12 @@
         </div>
 
         <div class="profile-info">
-            <p><strong> Correo</strong> {{infoUser.email}}</p>
-            <p><strong> Fecha de Registro</strong> {{ infoUser.registerDate ? (infoUser.registerDate |
+            <p><strong>Correo: </strong> {{infoUser.email}}</p>
+            <p><strong>Fecha de Registro: </strong> {{ infoUser.registerDate ? (infoUser.registerDate |
                 date:'dd/MM/yyyy':'') : 'Sin registro' }}</p>
-            <p><strong> Tema de la Aplicación </strong> Claro </p>
-            <p><strong> Contraseña:</strong> *********** <button class="icon_password"><i
+            <p><strong>Tema de la Aplicación: </strong> {{_themeService.getCurrentTheme() === 'oscuro' ? 'Oscuro' :
+                'Claro'}} </p>
+            <p><strong>Contraseña: </strong> *********** <button class="icon_password" (click)="togglePasswordForm()"><i
                         class="bi bi-pencil-fill"></i></button></p>
 
             <app-button class="boton" text="{{ mostrarFormulario ? 'Cerrar' : 'Editar Perfil' }}" color="primary"
@@ -64,4 +65,55 @@
     </div>
     }
 
+    <!-- Formulario editar contraseña -->
+    @if (formularioContrasena) {
+    <div class="modal-overlay" (click)="togglePasswordForm()">
+        <section class="edit-profile-section" (click)="$event.stopPropagation()">
+            <div class="edit-container">
+
+                <!-- boton Cerrar -->
+                <button class="close-btn" (click)="togglePasswordForm()">&times;</button>
+
+                <form class="edit-form" [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+                    <div class="mb-1">
+                        <label for="password">Contraseña actual:</label>
+                        <div class="password-wrapper position-relative">
+                            <input id="password" placeholder="Tu contraseña actual" autocomplete="current-password"
+                                formControlName="currentPassword" [type]="currentPasswordVisible ? 'text' : 'password'">
+                            <i class="bi" [ngClass]="currentPasswordVisible ? 'bi-eye' : 'bi-eye-slash'"
+                                (click)="toggleCurrentPasswordVisible()"
+                                style="cursor: pointer; position: absolute; right: 15px; top: 50%; transform: translateY(-50%);">
+                            </i>
+                        </div>
+                    </div>
+                    <div class="mb-1">
+                        <label for="newPassword">Nueva contraseña:</label>
+                        <div class="password-wrapper position-relative">
+                            <input id="newPassword" placeholder="Tu nueva contraseña" autocomplete="new-password"
+                                formControlName="newPassword" [type]="passwordVisible ? 'text' : 'password'">
+                            <i class="bi" [ngClass]="passwordVisible ? 'bi-eye' : 'bi-eye-slash'"
+                                (click)="togglePasswordVisible()"
+                                style="cursor: pointer; position: absolute; right: 15px; top: 50%; transform: translateY(-50%);">
+                            </i>
+                        </div>
+                    </div>
+                    <div class="mb-1">
+                        <label for="confirmPassword">Confirmación nueva contraseña:</label>
+                        <div class="password-wrapper position-relative">
+                            <input id="confirmPassword" placeholder="Confirma tu nueva contraseña"
+                                autocomplete="new-password" formControlName="confirmNewPassword"
+                                [type]="confirmPasswordVisible ? 'text' : 'password'">
+                            <i class="bi" [ngClass]="confirmPasswordVisible ? 'bi-eye' : 'bi-eye-slash'"
+                                (click)="toggleConfirmPasswordVisible()"
+                                style="cursor: pointer; position: absolute; right: 15px; top: 50%; transform: translateY(-50%);">
+                            </i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="guardar-btn">Cambiar contraseña</button>
+                </form>
+            </div>
+        </section>
+    </div>
+    }
 </section>

@@ -6,9 +6,7 @@ import { Navbar } from './components/navbar/navbar';
 import { Footer } from './components/footer/footer';
 import { MoreButton } from './components/more-button/more-button';
 import { Button } from './components/button/button';
-// import { Login } from './pages/login/login';
-// import { Register } from './pages/register/register';}
-// import { NotificationsComponent } from './components/notifications/notifications';
+import { ThemeService } from './services/theme-service';
 
 
 @Component({
@@ -19,6 +17,7 @@ import { Button } from './components/button/button';
 })
 export class App {
   protected readonly title = signal('fintaska_front');
+  private _themeService = inject(ThemeService);
 
   hideNavbar = signal(false);
   currentNavbarTheme = signal('theme-default');

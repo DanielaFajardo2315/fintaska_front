@@ -30,6 +30,11 @@ export class UserService {
     return this._httpClient.put(`${this.apiUrl}/users/${id}`, userToUpdate);
   }
 
+  // Peticion actualizar contraseña
+  changePassword(data: { currentPassword: string; newPassword: string }, id: string) {
+    return this._httpClient.put(`${this.apiUrl}/users/password/${id}`, data);
+  }
+
   //Peticion Delete
   deleteUser(id: string) {
     return this._httpClient.delete(`${this.apiUrl}/users/${id}`);
