@@ -1,16 +1,18 @@
 <div class="admin_container">
+    <h2 class="titulo">PANEL ADMINISTRADOR</h2>
     <div class="data_usuarios">
         <div class="datos">
             <p>Usuarios totales: {{allUsers.length}}</p>
-            <!-- <p>Usuarios activos:</p> -->
+            <p>Usuarios: {{users.length}}</p>
+            <p>Administradores: {{admins.length}}</p>
         </div>
-        <img src="assets/grafico_ejemplo.png" alt="">
+        <img class="imagen" src="assets/FINTASKA_logo_c.png" alt="">
     </div>
-    <h2 class="titulo">PANEL ADMINISTRADOR</h2>
     <div class="tabla_usuarios">
         <table>
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Nombre</th>
                     <th>Nombre de usuario</th>
                     <th>Email</th>
@@ -23,15 +25,52 @@
             <tbody>
                 @for (user of allUsers; track $index) {
                 <tr>
+                    <td>{{$index + 1}}</td>
                     <td>{{user.fullName}}</td>
                     <td>@{{user.username}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.registerDate}}</td>
                     <td>{{user.rol}}</td>
-                    <td><i class="bi bi-check-lg"></i>/<i class="bi bi-x"></i></td>
+                    <td>
+                        <div class="acciones">
+                            <i class="bi bi-eye-fill btn_ver" (click)="toggleModal(user)"></i><i
+                                class="bi bi-trash3-fill btn_eliminar" (click)="deleteUser(user)"></i>
+                        </div>
+                    </td>
                 </tr>
                 }
             </tbody>
         </table>
     </div>
 </div>
+
+@if (mostrarModal) {
+<div class="modal-overlay" (click)="toggleModal()">
+    <section class="edit-profile-section" (click)="$event.stopPropagation()">
+        <div class="edit-container">
+
+            <!-- boton Cerrar -->
+            <button class="close-btn" (click)="toggleModal()">&times;</button>
+
+            <div class="edit-form">
+                <h2>Detalles del Usuario</h2>
+                <div class="profile-image-section">
+                    <h4>Imagen de perfil</h4>
+                    <img [src]="selectedUser?.profile 
+                                ? (baseURL + selectedUser?.profile) 
+                                : 'assets/avatar-perfil.png'" alt="avatar" class="avatar">
+                </div>
+                <p><strong>ID:</strong> {{selectedUser?._id}}</p>
+                <p><strong>Nombre Completo:</strong> {{selectedUser?.fullName}}</p>
+                <p><strong>Nombre de Usuario:</strong> @{{selectedUser?.username}}</p>
+                <p><strong>Email:</strong> {{selectedUser?.email}}</p>
+                <p><strong>Rol:</strong> {{selectedUser?.rol}}</p>
+                <p><strong>Fecha de Registro:</strong> {{selectedUser?.registerDate}}</p>
+                <p><strong>Cantidad de notas:</strong> {{selectedUser?.planner?.board?.length}}</p>
+                <p><strong>Cantidad de tareas:</strong> {{selectedUser?.planner?.tasks?.length}}</p>
+                <p><strong>Cantidad de finanzas:</strong> {{selectedUser?.planner?.finances?.length}}</p>
+            </div>
+        </div>
+    </section>
+</div>
+}

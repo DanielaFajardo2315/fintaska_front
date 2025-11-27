@@ -202,7 +202,6 @@ export class Profile implements OnInit {
       fullName: this.editForm.value.fullName || '',
       username: this.editForm.value.username || '',
       email: this.editForm.value.email || '',
-      rol: 'usuario',
       settings: {
         theme: themeValue,
       },

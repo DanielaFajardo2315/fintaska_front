@@ -28,6 +28,7 @@
   --enfasis-tablero: #B8E0D2;
   --borde-radio: 20px;
   --card-background: white;
+  --row-background: #809bce70;
   --text-secondary: #666666;
   --text-change: #2B2B2B;
   --text-muted: #999999;
@@ -42,6 +43,7 @@
   --text-secondary: #efefef;
   --text-muted: #d9d9d9;
   --text-change: white;
+  --row-background: #747474;
 }
 
 * {

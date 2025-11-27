@@ -6,7 +6,7 @@
   margin: 10px;                 /* margen superior y laterales */
   border-radius: var(--borde-radio);               /* bordes redondeados */
   padding: 0.5rem 1rem;              /* aire interno */
-  width: calc(100% - 20px);                   /* para que no ocupe todo el ancho */
+  width: calc(100% - 40px);                   /* para que no ocupe todo el ancho */
   transform: none;       /* centrar en la pantalla */
   transition: background-color 0.3s ease;  /* Transición suave */
 }

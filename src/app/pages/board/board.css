@@ -60,7 +60,7 @@ h2 {
         flex-direction: column;
         width: 100%;
         background-color: var(--light-background);
-        top: 65px;
+        top: 75px;
     }
 
     .imagen_tablero {

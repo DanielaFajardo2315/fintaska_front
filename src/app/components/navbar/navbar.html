@@ -1,5 +1,5 @@
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm barra-nav" [ngClass]="theme" >
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm barra-nav" [ngClass]="theme">
   <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
 
     <!-- Ícono de perfil -->
@@ -10,19 +10,18 @@
     </a>
 
     <!-- LOGO centrado -->
+    @if (!isVisible) {
     <a class="navbar-brand position-absolute top-50 start-50 translate-middle" routerLink="/">
-      <img 
-        src="assets/FINTASKA_logo_c.png" 
-        alt="Logo Fintaska" 
-        class="logo-barra-nav">
+      <img src="assets/FINTASKA_logo_c.png" alt="Logo Fintaska" class="logo-barra-nav">
     </a>
+    } @else {
+    <a class="navbar-brand position-absolute top-50 start-50 translate-middle" routerLink="/admin">
+      <img src="assets/FINTASKA_logo_c.png" alt="Logo Fintaska" class="logo-barra-nav">
+    </a>
+    }
 
     <!-- Botón toggle -->
-    <button 
-      class="navbar-toggler" 
-      type="button" 
-      (click)="toggleMenu()"
-      [attr.aria-expanded]="!isMenuCollapsed"
+    <button class="navbar-toggler" type="button" (click)="toggleMenu()" [attr.aria-expanded]="!isMenuCollapsed"
       aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -33,54 +32,49 @@
 
         <!-- Notificaciones -->
         <li class="nav-item">
-          <button 
-            class="btn btn-link p-2 w-100 text-start text-lg-center"
-            (click)="onNotificationsClick()"
+          <button class="btn btn-link p-2 w-100 text-start text-lg-center" (click)="onNotificationsClick()"
             title="Notificaciones">
             <i class="bi bi-bell-fill fs-4 me-2 me-lg-0"></i>
             <span class="d-lg-none">Notificaciones</span>
           </button>
         </li>
         @if (!isVisible) {
-          <!-- Arbol -->
-          <!-- <li class="nav-item">
+        <!-- Arbol -->
+        <!-- <li class="nav-item">
             <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/tree" title="Arbol">
               <i class="bi bi-tree-fill fs-4 me-2 me-lg-0"></i>
               <span class="d-lg-none">Arbol</span>
             </a>
           </li> -->
-  
-          <!-- Finanzas -->
-          <li class="nav-item">
-            <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/finances" title="Finanzas">
-              <i class="bi bi-pie-chart-fill fs-4 me-2 me-lg-0"></i>
-              <span class="d-lg-none">Finanzas</span>
-            </a>
-          </li>
-  
-          <!-- Planner -->
-          <li class="nav-item">
-            <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/planner" title="Planeador">
-              <i class="bi bi-calendar-week-fill fs-4 me-2 me-lg-0"></i>
-              <span class="d-lg-none">Planeador</span>
-            </a>
-          </li>
-  
-          <!-- Tablero -->
-          <li class="nav-item">
-            <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/board" title="Tablero de Notas">
-              <i class="bi bi-sticky-fill fs-4 me-2 me-lg-0"></i>
-              <span class="d-lg-none">Tablero de Notas</span>
-            </a>
-          </li>
+
+        <!-- Finanzas -->
+        <li class="nav-item">
+          <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/finances" title="Finanzas">
+            <i class="bi bi-pie-chart-fill fs-4 me-2 me-lg-0"></i>
+            <span class="d-lg-none">Finanzas</span>
+          </a>
+        </li>
+
+        <!-- Planner -->
+        <li class="nav-item">
+          <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/planner" title="Planeador">
+            <i class="bi bi-calendar-week-fill fs-4 me-2 me-lg-0"></i>
+            <span class="d-lg-none">Planeador</span>
+          </a>
+        </li>
+
+        <!-- Tablero -->
+        <li class="nav-item">
+          <a class="btn btn-link p-2 w-100 text-start text-lg-center" routerLink="/board" title="Tablero de Notas">
+            <i class="bi bi-sticky-fill fs-4 me-2 me-lg-0"></i>
+            <span class="d-lg-none">Tablero de Notas</span>
+          </a>
+        </li>
         }
 
         <!-- Logout -->
         <li class="nav-item">
-          <button 
-            class="btn btn-link p-2 w-100 text-start text-lg-center"
-            (click)="logout()"
-            title="Cerrar sesión">
+          <button class="btn btn-link p-2 w-100 text-start text-lg-center" (click)="logout()" title="Cerrar sesión">
             <i class="bi bi-box-arrow-right fs-3 me-2 me-lg-0"></i>
             <span class="d-lg-none">Cerrar sesión</span>
           </button>
@@ -89,6 +83,6 @@
     </div>
   </div>
   @if (showNotifications){
-    <app-notifications></app-notifications>
+  <app-notifications></app-notifications>
   }
 </nav>

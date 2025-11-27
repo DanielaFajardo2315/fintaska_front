@@ -9,7 +9,7 @@ export interface User {
     username?: string;
     email: string;
     password?: string;
-    rol: "usuario" | "admin";
+    rol?: "usuario" | "admin";
     registerDate?: Date;
     settings?: {
         theme: string;

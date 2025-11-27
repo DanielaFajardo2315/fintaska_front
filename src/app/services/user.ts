@@ -36,7 +36,7 @@ export class UserService {
   }
 
   //Peticion Delete
-  deleteUser(id: string) {
+  deleteUser(id: string | undefined) {
     return this._httpClient.delete(`${this.apiUrl}/users/${id}`);
   }
 }
