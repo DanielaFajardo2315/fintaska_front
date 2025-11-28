@@ -198,7 +198,7 @@ export class PlannerComponent implements OnInit {
       scheduleAt: this.taskForm.value.scheduleAt || undefined,
       creationDate: this.selectedDate?.start || new Date(),
     };
-
+    console.log('Fecha guardada del input: ', this.taskForm.value.scheduleAt);
     this._taskService.postTask(taskData).subscribe({
       next: (res: any) => {
         // Asegurarse de que existe el objeto planner y el array de tasks
@@ -260,8 +260,12 @@ export class PlannerComponent implements OnInit {
   loadTaskToEdit(taskEdit: Task) {
     this.selectedTaskForEdit = taskEdit;
 
-    const datePipe = new DatePipe('en-US');
-    const formattedDate = datePipe.transform(taskEdit.scheduleAt, 'yyyy-MM-dd');
+    const datePipe = new DatePipe('es-CO');
+    const utcDate = new Date(taskEdit.scheduleAt || '');
+    const local = new Date(
+      utcDate.getTime() + utcDate.getTimezoneOffset() * 60000
+    );
+    const formattedDate = datePipe.transform(local, 'yyyy-MM-dd');
 
     this.taskForm.patchValue({
       title: taskEdit.title,
