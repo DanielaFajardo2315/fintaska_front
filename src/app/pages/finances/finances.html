@@ -91,7 +91,13 @@
       <!-- SECCIÓN DE GRÁFICOS CON CHART.JS          -->
       <!-- ========================================== -->
       <section class="charts-section">
-         <!-- Gráfico 1: Ingresos vs Gastos -->
+        <app-finance-graph 
+          [summary]="summary()" 
+          [categoryDistribution]="categoryDistribution()"
+          [size]="'medium'"
+          [showTitle]="true">
+        </app-finance-graph> 
+<!--         Gráfico 1: Ingresos vs Gastos
         <div class="chart-card">
           <h3 class="chart-title">Ingresos vs Gastos</h3>
           <div class="chart-placeholder">
@@ -111,7 +117,7 @@
           </div>
         </div>
 
-        <!-- Gráfico 2: Distribución de Gastos -->
+        Gráfico 2: Distribución de Gastos 
         <div class="chart-card">
           <h3 class="chart-title">Distribución de Gastos</h3>
           <div class="chart-placeholder">
@@ -146,7 +152,7 @@
             </div>
           </div>
         </div>
-
+ -->
       
     
         <!-- GRÁFICO 1: Ingresos vs Gastos -->

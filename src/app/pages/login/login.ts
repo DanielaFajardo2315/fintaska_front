@@ -46,6 +46,8 @@ export class Login {
       next: (res: any) => {
         if (res){
           localStorage.setItem('token', res.token);
+          this.infoProfile();
+          
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -54,7 +56,7 @@ export class Login {
             timer: 1500,
           });
           this._loginService.redirectTo();
-          this.infoProfile();
+          
         }
       },
       error: (err: any) => {

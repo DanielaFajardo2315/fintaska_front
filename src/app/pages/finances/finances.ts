@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { FinanceService } from '../../services/finance.service';
 import { LoginService } from '../../services/login';
 import { Finance } from '../../interfaces/finance.interface';
-
+import { FinanceGraph } from '../../components/finance-graph/finance-graph';
 
 interface FinanceSummary {
   ingresos: number;
@@ -22,7 +22,7 @@ interface FinanceSummary {
 @Component({
   selector: 'app-finances',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, FinanceGraph],
   templateUrl: './finances.html',
   styleUrl: './finances.css'
 })
@@ -61,6 +61,20 @@ export class Finances implements OnInit {
   filterCategory = signal<string>('todos');
   searchText = signal<string>('');
 
+  // Computed para distribución de categorías (para gráficos)
+  categoryDistribution = computed(() => {
+    const gastos = this.finances().filter(f => f.type === 'gasto');
+    
+    const distribution = gastos.reduce((acc, finance) => {
+      acc[finance.category] = (acc[finance.category] || 0) + finance.amount;
+      return acc;
+    }, {} as Record<string, number>);
+
+    return Object.entries(distribution)
+      .map(([category, amount]) => ({ category, amount }))
+      .sort((a, b) => b.amount - a.amount); // Ordenar de mayor a menor
+  });
+
   // FORMULARIO
  
   newFinance: Finance = {
@@ -86,8 +100,7 @@ export class Finances implements OnInit {
  
   ngOnInit(): void {
     this.getUserIdFromToken();
-    // this.loadFinances();
-    // this.loadSummary();
+  
     //Solo carga si hay userId
     if (this.userId()) {
       this.loadFinances();
@@ -355,14 +368,10 @@ export class Finances implements OnInit {
     this.showSearchModal.update(val => !val);
   }
 
-  // toggleCategoriesModal(): void {
-  //   this.showCategoriesModal.update(val => !val);
-  // }
-
+  
   // ==========================================
   // UTILIDADES
-  // ==========================================
-  
+   
   // Obtener últimos 3 movimientos para la tabla pequeña
   getRecentMovements(): Finance[] {
     return this.finances().slice(0, 3);
