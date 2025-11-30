@@ -4,6 +4,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './interceptors/auth-interceptor';
 import { LOCALE_ID } from '@angular/core';
 
+// import {provideCharts, withDefaultRegisterables} from 'ng2-charts';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {

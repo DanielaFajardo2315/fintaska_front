@@ -1,1 +1,47 @@
-<p>finance-graph works!</p>
+<!-- Componenete Graficas Finanzas -->
+
+<div [class]="getContainerClass()">
+  
+  <!-- Gráfico 1: Ingresos vs Gastos -->
+  <div class="chart-card">
+    @if (showTitle) {
+      <h3 class="chart-title">Ingresos vs Gastos</h3>
+    }
+    <div class="chart-wrapper">
+      @if (summary.ingresos > 0 || summary.gastos > 0) {
+        <canvas baseChart
+                [type]="'pie'"
+                [data]="pieChartData()"
+                [options]="pieChartOptions">
+        </canvas>
+      } @else {
+        <div class="no-data">
+          <i class="bi bi-pie-chart fs-1 text-muted"></i>
+          <p class="text-muted">Sin datos de ingresos/gastos</p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Gráfico 2: Distribución de Gastos -->
+  <div class="chart-card">
+    @if (showTitle) {
+      <h3 class="chart-title">Distribución de Gastos</h3>
+    }
+    <div class="chart-wrapper">
+      @if (categoryDistribution.length > 0) {
+        <canvas baseChart
+                [type]="'doughnut'"
+                [data]="doughnutChartData()"
+                [options]="doughnutChartOptions">
+        </canvas>
+      } @else {
+        <div class="no-data">
+          <i class="bi bi-graph-up fs-1 text-muted"></i>
+          <p class="text-muted">Sin gastos por categoría</p>
+        </div>
+      }
+    </div>
+  </div>
+
+</div>

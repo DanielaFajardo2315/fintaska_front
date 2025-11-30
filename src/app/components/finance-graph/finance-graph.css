@@ -1,0 +1,78 @@
+/* finance-charts.css */
+
+.chart-container-small {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.chart-container-medium {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.chart-container-large {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.chart-card {
+  background: var(--card-background);
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chart-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+}
+
+.chart-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
+.chart-wrapper {
+  position: relative;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.no-data p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .chart-container-medium,
+  .chart-container-large {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-wrapper {
+    height: 220px;
+  }
+  
+  .chart-card {
+    padding: 1rem;
+  }
+}
